@@ -1,5 +1,6 @@
 package com.example.labgame;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -21,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
     Button btnStart;
     Button btnReset;
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,11 +34,16 @@ public class MainActivity extends AppCompatActivity {
         btnStart = findViewById(R.id.btnStart);
         btnReset = findViewById(R.id.btnReset);
 
+        //set seekBar max progress and disable modify manually
         sbRacer1.setMax(finish);
+        sbRacer1.setOnTouchListener((v, event) -> true);
         sbRacer2.setMax(finish);
+        sbRacer2.setOnTouchListener((v, event) -> true);
         sbRacer3.setMax(finish);
+        sbRacer3.setOnTouchListener((v, event) -> true);
     }
 
+    @SuppressLint("NonConstantResourceId")
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btnStart:
@@ -49,9 +56,6 @@ public class MainActivity extends AppCompatActivity {
                 sbRacer2.setProgress(0);
                 sbRacer3.setProgress(0);
                 break;
-            default:
-                return;
-
         }
     }
 
@@ -79,19 +83,16 @@ public class MainActivity extends AppCompatActivity {
             }
 
             int upperbound = 15;
-            Random rand1 = new Random();
-            int int_random1 = rand1.nextInt(upperbound);
+            Random rand = new Random();
 
-            Random rand2 = new Random();
-            int int_random2 = rand1.nextInt(upperbound);
-
-            Random rand3 = new Random();
-            int int_random3 = rand1.nextInt(upperbound);
+            int racer1_speed = rand.nextInt(upperbound);
+            int racer2_speed = rand.nextInt(upperbound);
+            int racer3_speed = rand.nextInt(upperbound);
 
             // Updating progress bar
-            sbRacer1.setProgress(sbRacer1.getProgress() + int_random1);
-            sbRacer2.setProgress(sbRacer2.getProgress() + int_random2);
-            sbRacer3.setProgress(sbRacer3.getProgress() + int_random3);
+            sbRacer1.setProgress(sbRacer1.getProgress() + racer1_speed);
+            sbRacer2.setProgress(sbRacer2.getProgress() + racer2_speed);
+            sbRacer3.setProgress(sbRacer3.getProgress() + racer3_speed);
 
             // Running this thread after 100
             // milliseconds

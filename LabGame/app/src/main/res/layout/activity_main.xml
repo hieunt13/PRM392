@@ -20,18 +20,19 @@
             android:id="@+id/tvLabelMoney"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
             android:text="@string/money"
             android:textColor="#170D0D"
             android:textSize="20sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/tvMoney"
             android:layout_width="222dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="0dp"
-            android:layout_marginTop="24dp"
             android:paddingStart="5dp"
             android:text="@string/default_money"
             android:textSize="20sp"
@@ -39,50 +40,59 @@
             tools:ignore="RtlSymmetry" />
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/lnBet"
+
+    <TextView
+        android:id="@+id/tvLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="0dp"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.853"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/lnMoney">
+        android:layout_marginTop="24dp"
+        android:text="@string/label_race"
+        android:textColor="#170D0D"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/lnMoney" />
 
-        <TextView
-            android:id="@+id/tvLabelBet"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:text="@string/labelBet"
-            android:textColor="#170D0D"
-            android:textSize="20sp"
-            android:textStyle="bold" />
-
-        <EditText
-            android:id="@+id/tvMoneyBet"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="0dp"
-            android:layout_marginTop="24dp"
-            android:paddingStart="5dp"
-            android:text="@string/default_money_bet"
-            android:textSize="20sp"
-            tools:ignore="LabelFor,RtlSymmetry"
-            android:autofillHints="money"
-            android:inputType="number" />
-    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/lnRace"
-        android:layout_width="343dp"
+        android:layout_width="match_parent"
         android:layout_height="250dp"
+        android:baselineAligned="false"
         android:orientation="horizontal"
+        android:paddingStart="5dp"
+        android:paddingEnd="5dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lnBet"
-        android:baselineAligned="false">
+        app:layout_constraintTop_toBottomOf="@+id/tvLabel"
+        tools:ignore="RtlSymmetry">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="7"
+            android:orientation="vertical">
+
+            <SeekBar
+                android:id="@+id/sbRacer1"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="3"
+                tools:ignore="NestedWeights" />
+
+            <SeekBar
+                android:id="@+id/sbRacer2"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="3" />
+
+            <SeekBar
+                android:id="@+id/sbRacer3"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="3" />
+        </LinearLayout>
 
         <LinearLayout
             android:id="@+id/checkbox"
@@ -109,57 +119,93 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="3" />
+
         </LinearLayout>
 
-        <LinearLayout
 
+        <LinearLayout
+            android:id="@+id/lnBetMoney"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="9"
+            android:layout_weight="2"
             android:orientation="vertical">
 
-            <SeekBar
-                android:id="@+id/sbRacer1"
+            <EditText
+                android:id="@+id/tvMoneyBet1"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="3"
-                tools:ignore="NestedWeights" />
+                android:autofillHints="money"
+                android:backgroundTint="@color/white"
+                android:hint="@string/bet"
+                android:inputType="number"
+                android:paddingStart="5dp"
+                android:textSize="15sp"
+                tools:ignore="LabelFor,NestedWeights,RtlSymmetry" />
 
-            <SeekBar
-                android:id="@+id/sbRacer2"
+            <EditText
+                android:id="@+id/tvMoneyBet2"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="3" />
+                android:layout_weight="3"
+                android:autofillHints="money"
+                android:backgroundTint="@color/white"
+                android:hint="@string/bet"
+                android:inputType="number"
+                android:paddingStart="5dp"
+                android:textSize="15sp"
+                tools:ignore="LabelFor,RtlSymmetry" />
 
-            <SeekBar
-                android:id="@+id/sbRacer3"
+            <EditText
+                android:id="@+id/tvMoneyBet3"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="3" />
+                android:layout_weight="3"
+                android:autofillHints="money"
+                android:backgroundTint="@color/white"
+                android:hint="@string/bet"
+                android:inputType="number"
+                android:paddingStart="5dp"
+                android:textSize="15sp"
+                tools:ignore="LabelFor,RtlSymmetry" />
+
         </LinearLayout>
+
     </LinearLayout>
 
     <Button
         android:id="@+id/btnStart"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:onClick="onClick"
         android:text="@string/start"
         app:layout_constraintEnd_toStartOf="@+id/btnReset"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/lnRace"
-        android:onClick="onClick"
         tools:ignore="UsingOnClickInXml" />
 
     <Button
         android:id="@+id/btnReset"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:onClick="onClick"
         android:text="@string/reset"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/btnStart"
         app:layout_constraintTop_toBottomOf="@+id/lnRace"
-        android:onClick="onClick"
         tools:ignore="UsingOnClickInXml" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="341dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="24dp"
+        android:text="@string/game_rules"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnReset" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

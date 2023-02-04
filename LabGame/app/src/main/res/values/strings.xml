@@ -6,4 +6,7 @@
     <string name="default_money_bet">10</string>
     <string name="start">Start</string>
     <string name="reset">Reset</string>
+    <string name="game_rules">Rule: bet at least 10$</string>
+    <string name="label_race">Race game</string>
+    <string name="bet">Bet</string>
 </resources>

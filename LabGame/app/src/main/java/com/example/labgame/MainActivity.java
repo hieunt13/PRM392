@@ -61,6 +61,9 @@ public class MainActivity extends AppCompatActivity {
             //finished race and show message
             if(sbRacer1.getProgress() == finish || sbRacer2.getProgress() == finish || sbRacer2.getProgress() == finish ){
                 handler.removeCallbacks(startRace);
+                btnStart.setClickable(true);
+                btnReset.setClickable(true);
+                
                 String message = null;
                 if(sbRacer1.getProgress() == finish){
                     message = "Racer 1 win!";
@@ -72,8 +75,6 @@ public class MainActivity extends AppCompatActivity {
                     message = "Racer 3 win!";
                 }
                 Toast.makeText(MainActivity.this,message,Toast.LENGTH_SHORT).show();
-                btnStart.setClickable(true);
-                btnReset.setClickable(true);
                 return;
             }
 
@@ -86,11 +87,12 @@ public class MainActivity extends AppCompatActivity {
 
             Random rand3 = new Random();
             int int_random3 = rand1.nextInt(upperbound);
+
             // Updating progress bar
-            // Log.d("Progress", ""+progress);
             sbRacer1.setProgress(sbRacer1.getProgress() + int_random1);
             sbRacer2.setProgress(sbRacer2.getProgress() + int_random2);
             sbRacer3.setProgress(sbRacer3.getProgress() + int_random3);
+
             // Running this thread after 100
             // milliseconds
             handler.postDelayed(this, 100);

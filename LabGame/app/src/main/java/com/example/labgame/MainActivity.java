@@ -59,22 +59,22 @@ public class MainActivity extends AppCompatActivity {
         public void run() {
 
             //finished race and show message
-            if(sbRacer1.getProgress() == finish || sbRacer2.getProgress() == finish || sbRacer2.getProgress() == finish ){
+            if (sbRacer1.getProgress() == finish || sbRacer2.getProgress() == finish || sbRacer2.getProgress() == finish) {
                 handler.removeCallbacks(startRace);
                 btnStart.setClickable(true);
                 btnReset.setClickable(true);
-                
+
                 String message = null;
-                if(sbRacer1.getProgress() == finish){
+                if (sbRacer1.getProgress() == finish) {
                     message = "Racer 1 win!";
                 }
-                if(sbRacer2.getProgress() == finish){
+                if (sbRacer2.getProgress() == finish) {
                     message = "Racer 2 win!";
                 }
-                if(sbRacer3.getProgress() == finish){
+                if (sbRacer3.getProgress() == finish) {
                     message = "Racer 3 win!";
                 }
-                Toast.makeText(MainActivity.this,message,Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, message, Toast.LENGTH_SHORT).show();
                 return;
             }
 

@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Lab Game</string>
+    <string name="money">Money:</string>
+    <string name="default_money">100</string>
+    <string name="labelBet">Bet:</string>
+    <string name="default_money_bet">10</string>
+    <string name="start">Start</string>
+    <string name="reset">Reset</string>
+</resources>

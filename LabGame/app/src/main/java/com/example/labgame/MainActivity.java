@@ -64,6 +64,7 @@ public class MainActivity extends AppCompatActivity {
                 disableEditText(tvMoneyBet1);
                 tvMoneyBet1.setError(null);
             } else {
+                tvMoneyBet1.setText("");
                 enableEditText(tvMoneyBet1);
             }
         });
@@ -74,6 +75,7 @@ public class MainActivity extends AppCompatActivity {
                 disableEditText(tvMoneyBet2);
                 tvMoneyBet2.setError(null);
             } else {
+                tvMoneyBet2.setText("");
                 enableEditText(tvMoneyBet2);
             }
         });
@@ -84,6 +86,7 @@ public class MainActivity extends AppCompatActivity {
                 disableEditText(tvMoneyBet3);
                 tvMoneyBet3.setError(null);
             } else {
+                tvMoneyBet3.setText("");
                 enableEditText(tvMoneyBet3);
             }
         });

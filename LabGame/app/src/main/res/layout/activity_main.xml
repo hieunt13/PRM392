@@ -80,21 +80,28 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="3"
-                tools:ignore="NestedWeights" />
+                tools:ignore="NestedWeights"
+                android:background="@drawable/road"
+                android:progressTint="#00000000"/>
 
             <SeekBar
                 android:id="@+id/sbRacer2"
                 android:thumb="@drawable/rua"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="3" />
+                android:layout_weight="3"
+                android:background="@drawable/road"
+                android:progressTint="#00000000"
+                />
 
             <SeekBar
                 android:id="@+id/sbRacer3"
                 android:thumb="@drawable/tho"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="3" />
+                android:layout_weight="3"
+                android:background="@drawable/road"
+                android:progressTint="#00000000"/>
         </LinearLayout>
 
         <LinearLayout

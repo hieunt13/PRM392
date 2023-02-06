@@ -75,6 +75,7 @@
             android:orientation="vertical">
 
             <SeekBar
+                android:thumb="@drawable/ngua"
                 android:id="@+id/sbRacer1"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
@@ -83,12 +84,14 @@
 
             <SeekBar
                 android:id="@+id/sbRacer2"
+                android:thumb="@drawable/rua"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="3" />
 
             <SeekBar
                 android:id="@+id/sbRacer3"
+                android:thumb="@drawable/tho"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="3" />

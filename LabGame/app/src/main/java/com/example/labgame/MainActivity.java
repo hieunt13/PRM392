@@ -220,15 +220,15 @@ public class MainActivity extends AppCompatActivity {
                 String message = "";
                 if (sbRacer1.getProgress() == finish) {
                     profit += moneyBet1 * 2;
-                    message += createMessage(message, 1);
+                    message += createMessage(message, "Horse");
                 }
                 if (sbRacer2.getProgress() == finish) {
                     profit += moneyBet2 * 2;
-                    message += createMessage(message, 2);
+                    message += createMessage(message, "Turtle");
                 }
                 if (sbRacer3.getProgress() == finish) {
                     profit += moneyBet3 * 2;
-                    message += createMessage(message, 3);
+                    message += createMessage(message, "Rabbit");
                 }
                 tvMoney.setText("" + (availableMoney + profit));
                 Toast.makeText(MainActivity.this, message + " win!", Toast.LENGTH_SHORT).show();
@@ -253,8 +253,8 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
-    private String createMessage(String message, int racer) {
-        if (message.isEmpty()) return "Racer " + racer;
-        else return ", " + "Racer " + racer;
+    private String createMessage(String message, String racer) {
+        if (message.isEmpty()) return racer;
+        else return ", "  + racer;
     }
 }

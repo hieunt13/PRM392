@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
     CheckBox cbRacer2;
     CheckBox cbRacer3;
 
-    @SuppressLint("ClickableViewAccessibility")
+    @SuppressLint({"ClickableViewAccessibility", "SetTextI18n"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,7 +52,6 @@ public class MainActivity extends AppCompatActivity {
         cbRacer1 = findViewById(R.id.cbRacer1);
         cbRacer2 = findViewById(R.id.cbRacer2);
         cbRacer3 = findViewById(R.id.cbRacer3);
-
         availableMoney = Integer.parseInt(tvMoney.getText().toString());
         disableEditText(tvMoneyBet1);
         disableEditText(tvMoneyBet2);
@@ -92,33 +91,24 @@ public class MainActivity extends AppCompatActivity {
         });
 
         //change the available money when bet
-        tvMoneyBet1.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (!hasFocus) {
-                    availableMoney -= Integer.parseInt(tvMoneyBet1.getText().toString().isEmpty() ? "0" : tvMoneyBet1.getText().toString());
-                    tvMoney.setText(availableMoney + "");
-                }
+        tvMoneyBet1.setOnFocusChangeListener((v, hasFocus) -> {
+            if (!hasFocus) {
+                availableMoney -= Integer.parseInt(tvMoneyBet1.getText().toString().isEmpty() ? "0" : tvMoneyBet1.getText().toString());
+                tvMoney.setText(availableMoney + "");
             }
         });
 
-        tvMoneyBet2.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (!hasFocus) {
-                    availableMoney -= Integer.parseInt(tvMoneyBet2.getText().toString().isEmpty() ? "0" : tvMoneyBet2.getText().toString());
-                    tvMoney.setText(availableMoney + "");
-                }
+        tvMoneyBet2.setOnFocusChangeListener((v, hasFocus) -> {
+            if (!hasFocus) {
+                availableMoney -= Integer.parseInt(tvMoneyBet2.getText().toString().isEmpty() ? "0" : tvMoneyBet2.getText().toString());
+                tvMoney.setText(availableMoney + "");
             }
         });
 
-        tvMoneyBet3.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (!hasFocus) {
-                    availableMoney -= Integer.parseInt(tvMoneyBet3.getText().toString().isEmpty() ? "0" : tvMoneyBet3.getText().toString());
-                    tvMoney.setText(availableMoney + "");
-                }
+        tvMoneyBet3.setOnFocusChangeListener((v, hasFocus) -> {
+            if (!hasFocus) {
+                availableMoney -= Integer.parseInt(tvMoneyBet3.getText().toString().isEmpty() ? "0" : tvMoneyBet3.getText().toString());
+                tvMoney.setText(availableMoney + "");
             }
         });
 
@@ -148,7 +138,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //validate empty,min bet
-    public boolean minBetValidate(CheckBox cbRacer1, CheckBox cbRacer2, CheckBox cbRacer3) {
+    private boolean minBetValidate(CheckBox cbRacer1, CheckBox cbRacer2, CheckBox cbRacer3) {
         boolean isValidAll = true;
         boolean cbRacsda = tvMoneyBet1.getText().toString().trim().isEmpty();
         boolean cbRacsd2a = cbRacer1.isChecked();
@@ -168,7 +158,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //validate max bet
-    public boolean maxBetValidate(CheckBox cbRacer1, CheckBox cbRacer2, CheckBox cbRacer3) {
+    private boolean maxBetValidate(CheckBox cbRacer1, CheckBox cbRacer2, CheckBox cbRacer3) {
         boolean isValid = true;
         int moneyBet1 = !cbRacer1.isChecked() || tvMoneyBet1.getText().toString().isEmpty() ? 0 : Integer.parseInt(tvMoneyBet1.getText().toString());
         int moneyBet2 = !cbRacer2.isChecked() || tvMoneyBet2.getText().toString().isEmpty() ? 0 : Integer.parseInt(tvMoneyBet2.getText().toString());
@@ -185,7 +175,6 @@ public class MainActivity extends AppCompatActivity {
         }
         return isValid;
     }
-
 
     @SuppressLint("NonConstantResourceId")
     public void onClick(View view) {

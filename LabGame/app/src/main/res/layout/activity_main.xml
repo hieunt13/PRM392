@@ -47,7 +47,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:text="@string/label_race"
-        android:textColor="#170D0D"
+        android:textColor="#1B1E2C"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintLeft_toLeftOf="parent"

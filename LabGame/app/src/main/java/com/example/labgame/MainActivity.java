@@ -4,8 +4,6 @@ import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -22,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
 
     private final Handler handler = new Handler();
     private final int finish = 200;
+    int availableMoney = 0;
     SeekBar sbRacer1;
     SeekBar sbRacer2;
     SeekBar sbRacer3;
@@ -54,37 +53,69 @@ public class MainActivity extends AppCompatActivity {
         cbRacer2 = findViewById(R.id.cbRacer2);
         cbRacer3 = findViewById(R.id.cbRacer3);
 
+        availableMoney = Integer.parseInt(tvMoney.getText().toString());
         disableEditText(tvMoneyBet1);
         disableEditText(tvMoneyBet2);
         disableEditText(tvMoneyBet3);
 
-        cbRacer1.setOnCheckedChangeListener((compoundButton, isChecked) ->  {
-            if(!isChecked){
+        cbRacer1.setOnCheckedChangeListener((compoundButton, isChecked) -> {
+            if (!isChecked) {
                 tvMoneyBet1.setText("");
                 disableEditText(tvMoneyBet1);
                 tvMoneyBet1.setError(null);
-            }else{
+            } else {
                 enableEditText(tvMoneyBet1);
             }
         });
 
-        cbRacer2.setOnCheckedChangeListener((compoundButton, isChecked) ->  {
-            if(!isChecked){
+        cbRacer2.setOnCheckedChangeListener((compoundButton, isChecked) -> {
+            if (!isChecked) {
                 tvMoneyBet2.setText("");
                 disableEditText(tvMoneyBet2);
                 tvMoneyBet2.setError(null);
-            }else{
+            } else {
                 enableEditText(tvMoneyBet2);
             }
         });
 
-        cbRacer3.setOnCheckedChangeListener((compoundButton, isChecked) ->  {
-            if(!isChecked){
+        cbRacer3.setOnCheckedChangeListener((compoundButton, isChecked) -> {
+            if (!isChecked) {
                 tvMoneyBet3.setText("");
                 disableEditText(tvMoneyBet3);
                 tvMoneyBet3.setError(null);
-            }else{
+            } else {
                 enableEditText(tvMoneyBet3);
+            }
+        });
+
+        //change the available money when bet
+        tvMoneyBet1.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                    availableMoney -= Integer.parseInt(tvMoneyBet1.getText().toString().isEmpty() ? "0" : tvMoneyBet1.getText().toString());
+                    tvMoney.setText(availableMoney + "");
+                }
+            }
+        });
+
+        tvMoneyBet2.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                    availableMoney -= Integer.parseInt(tvMoneyBet2.getText().toString().isEmpty() ? "0" : tvMoneyBet2.getText().toString());
+                    tvMoney.setText(availableMoney + "");
+                }
+            }
+        });
+
+        tvMoneyBet3.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                    availableMoney -= Integer.parseInt(tvMoneyBet3.getText().toString().isEmpty() ? "0" : tvMoneyBet3.getText().toString());
+                    tvMoney.setText(availableMoney + "");
+                }
             }
         });
 
@@ -114,19 +145,19 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //validate empty,min bet
-    public boolean minBetValidate(CheckBox cbRacer1, CheckBox cbRacer2, CheckBox cbRacer3){
+    public boolean minBetValidate(CheckBox cbRacer1, CheckBox cbRacer2, CheckBox cbRacer3) {
         boolean isValidAll = true;
         boolean cbRacsda = tvMoneyBet1.getText().toString().trim().isEmpty();
         boolean cbRacsd2a = cbRacer1.isChecked();
-        if(cbRacer1.isChecked() && ( tvMoneyBet1.getText().toString().trim().isEmpty() || Integer.parseInt(tvMoneyBet1.getText().toString()) < 10)){
+        if (cbRacer1.isChecked() && (tvMoneyBet1.getText().toString().trim().isEmpty() || Integer.parseInt(tvMoneyBet1.getText().toString()) < 10)) {
             tvMoneyBet1.setError("Min bet is 10");
             isValidAll = false;
         }
-        if(cbRacer2.isChecked() &&  (tvMoneyBet2.getText().toString().trim().isEmpty() || Integer.parseInt(tvMoneyBet2.getText().toString()) < 10)){
+        if (cbRacer2.isChecked() && (tvMoneyBet2.getText().toString().trim().isEmpty() || Integer.parseInt(tvMoneyBet2.getText().toString()) < 10)) {
             tvMoneyBet2.setError("Min bet is 10");
             isValidAll = false;
         }
-        if(cbRacer3.isChecked() &&  (tvMoneyBet3.getText().toString().trim().isEmpty() || Integer.parseInt(tvMoneyBet3.getText().toString()) < 10)){
+        if (cbRacer3.isChecked() && (tvMoneyBet3.getText().toString().trim().isEmpty() || Integer.parseInt(tvMoneyBet3.getText().toString()) < 10)) {
             tvMoneyBet3.setError("Min bet is 10");
             isValidAll = false;
         }
@@ -134,18 +165,18 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //validate max bet
-    public boolean maxBetValidate(CheckBox cbRacer1, CheckBox cbRacer2, CheckBox cbRacer3){
+    public boolean maxBetValidate(CheckBox cbRacer1, CheckBox cbRacer2, CheckBox cbRacer3) {
         boolean isValid = true;
         int moneyBet1 = !cbRacer1.isChecked() || tvMoneyBet1.getText().toString().isEmpty() ? 0 : Integer.parseInt(tvMoneyBet1.getText().toString());
-        int moneyBet2 = !cbRacer2.isChecked() || tvMoneyBet2.getText().toString().isEmpty() ? 0 :Integer.parseInt(tvMoneyBet2.getText().toString());
-        int moneyBet3 = !cbRacer3.isChecked() || tvMoneyBet3.getText().toString().isEmpty() ? 0 :Integer.parseInt(tvMoneyBet3.getText().toString());
+        int moneyBet2 = !cbRacer2.isChecked() || tvMoneyBet2.getText().toString().isEmpty() ? 0 : Integer.parseInt(tvMoneyBet2.getText().toString());
+        int moneyBet3 = !cbRacer3.isChecked() || tvMoneyBet3.getText().toString().isEmpty() ? 0 : Integer.parseInt(tvMoneyBet3.getText().toString());
         int availableMoney = Integer.parseInt(tvMoney.getText().toString());
         int total = 0;
-        int[] betArray = {moneyBet1,moneyBet2,moneyBet3};
-        for (int i= 0 ; i < 3 ; i++){
+        int[] betArray = {moneyBet1, moneyBet2, moneyBet3};
+        for (int i = 0; i < 3; i++) {
             total += (betArray[i] == -1 ? 0 : betArray[i]);
         }
-        if(total > availableMoney){
+        if (total > availableMoney) {
             Toast.makeText(getApplicationContext(), "Not enough money to bet. Please adjust your bet ", Toast.LENGTH_SHORT).show();
             isValid = false;
         }
@@ -157,7 +188,7 @@ public class MainActivity extends AppCompatActivity {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btnStart:
-                if(minBetValidate(cbRacer1, cbRacer2, cbRacer3) && maxBetValidate(cbRacer1,cbRacer2,cbRacer3)){
+                if (minBetValidate(cbRacer1, cbRacer2, cbRacer3) && maxBetValidate(cbRacer1, cbRacer2, cbRacer3)) {
                     btnStart.setClickable(false);
                     btnReset.setClickable(false);
                     cbRacer1.setClickable(false);
@@ -185,58 +216,53 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private final Runnable startRace = new Runnable() {
+        @SuppressLint("SetTextI18n")
         public void run() {
             int profit = 0;
-            int availableMoney = Integer.parseInt(tvMoney.getText().toString());
             int moneyBet1 = !cbRacer1.isChecked() || tvMoneyBet1.getText().toString().isEmpty() ? 0 : Integer.parseInt(tvMoneyBet1.getText().toString());
-            int moneyBet2 = !cbRacer2.isChecked() || tvMoneyBet2.getText().toString().isEmpty() ? 0 :Integer.parseInt(tvMoneyBet2.getText().toString());
-            int moneyBet3 = !cbRacer3.isChecked() || tvMoneyBet3.getText().toString().isEmpty() ? 0 :Integer.parseInt(tvMoneyBet3.getText().toString());
+            int moneyBet2 = !cbRacer2.isChecked() || tvMoneyBet2.getText().toString().isEmpty() ? 0 : Integer.parseInt(tvMoneyBet2.getText().toString());
+            int moneyBet3 = !cbRacer3.isChecked() || tvMoneyBet3.getText().toString().isEmpty() ? 0 : Integer.parseInt(tvMoneyBet3.getText().toString());
             //finished race and show message
-            if (sbRacer1.getProgress() == finish || sbRacer2.getProgress() == finish || sbRacer2.getProgress() == finish) {
-                handler.removeCallbacks(startRace);
+            if (sbRacer1.getProgress() == finish || sbRacer2.getProgress() == finish || sbRacer3.getProgress() == finish) {
                 btnReset.setClickable(true);
-
-                String message = null;
+                String message = "";
                 if (sbRacer1.getProgress() == finish) {
-                    profit += moneyBet1*2;
-                    profit -= moneyBet2;
-                    profit -= moneyBet3;
-                    message = "Racer 1 win!";
+                    profit += moneyBet1 * 2;
+                    message += createMessage(message, 1);
                 }
                 if (sbRacer2.getProgress() == finish) {
-                    profit -= moneyBet1;
-                    profit += moneyBet2*2;
-                    profit -= moneyBet3;
-                    message = "Racer 2 win!";
+                    profit += moneyBet2 * 2;
+                    message += createMessage(message, 2);
                 }
                 if (sbRacer3.getProgress() == finish) {
-                    profit -= moneyBet1;
-                    profit -= moneyBet2;
-                    profit += moneyBet3*2;
-                    message = "Racer 3 win!";
+                    profit += moneyBet3 * 2;
+                    message += createMessage(message, 3);
                 }
                 tvMoney.setText("" + (availableMoney + profit));
-                Toast.makeText(MainActivity.this, message, Toast.LENGTH_SHORT).show();
-                return;
+                Toast.makeText(MainActivity.this, message + " win!", Toast.LENGTH_SHORT).show();
+                handler.removeCallbacks(this);
+            } else {
+                int upperbound = 15;
+                Random rand = new Random();
+
+                int racer1_speed = rand.nextInt(upperbound);
+                int racer2_speed = rand.nextInt(upperbound);
+                int racer3_speed = rand.nextInt(upperbound);
+
+                // Updating progress bar
+                sbRacer1.setProgress(sbRacer1.getProgress() + racer1_speed);
+                sbRacer2.setProgress(sbRacer2.getProgress() + racer2_speed);
+                sbRacer3.setProgress(sbRacer3.getProgress() + racer3_speed);
+
+                // Running this thread after 100
+                // milliseconds
+                handler.postDelayed(this, 100);
             }
-
-            int upperbound = 15;
-            Random rand = new Random();
-
-            int racer1_speed = rand.nextInt(upperbound);
-            int racer2_speed = rand.nextInt(upperbound);
-            int racer3_speed = rand.nextInt(upperbound);
-
-            // Updating progress bar
-            sbRacer1.setProgress(sbRacer1.getProgress() + racer1_speed);
-            sbRacer2.setProgress(sbRacer2.getProgress() + racer2_speed);
-            sbRacer3.setProgress(sbRacer3.getProgress() + racer3_speed);
-
-            // Running this thread after 100
-            // milliseconds
-            handler.postDelayed(this, 100);
         }
     };
 
-
+    private String createMessage(String message, int racer) {
+        if (message.isEmpty()) return "Racer " + racer;
+        else return ", " + "Racer " + racer;
+    }
 }

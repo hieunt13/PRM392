@@ -93,6 +93,7 @@ public class MainActivity extends AppCompatActivity {
         //change the available money when bet
         tvMoneyBet1.setOnFocusChangeListener((v, hasFocus) -> {
             if (!hasFocus) {
+                availableMoney = Integer.parseInt(tvMoney.getText().toString());
                 availableMoney -= Integer.parseInt(tvMoneyBet1.getText().toString().isEmpty() ? "0" : tvMoneyBet1.getText().toString());
                 tvMoney.setText(availableMoney + "");
             }
@@ -100,6 +101,7 @@ public class MainActivity extends AppCompatActivity {
 
         tvMoneyBet2.setOnFocusChangeListener((v, hasFocus) -> {
             if (!hasFocus) {
+                availableMoney = Integer.parseInt(tvMoney.getText().toString());
                 availableMoney -= Integer.parseInt(tvMoneyBet2.getText().toString().isEmpty() ? "0" : tvMoneyBet2.getText().toString());
                 tvMoney.setText(availableMoney + "");
             }
@@ -107,6 +109,7 @@ public class MainActivity extends AppCompatActivity {
 
         tvMoneyBet3.setOnFocusChangeListener((v, hasFocus) -> {
             if (!hasFocus) {
+                availableMoney = Integer.parseInt(tvMoney.getText().toString());
                 availableMoney -= Integer.parseInt(tvMoneyBet3.getText().toString().isEmpty() ? "0" : tvMoneyBet3.getText().toString());
                 tvMoney.setText(availableMoney + "");
             }

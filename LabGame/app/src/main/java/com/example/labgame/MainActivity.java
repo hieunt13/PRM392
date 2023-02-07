@@ -90,28 +90,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        //change the available money when bet
-        tvMoneyBet1.setOnFocusChangeListener((v, hasFocus) -> {
-            if (!hasFocus) {
-                availableMoney -= Integer.parseInt(tvMoneyBet1.getText().toString().isEmpty() ? "0" : tvMoneyBet1.getText().toString());
-                tvMoney.setText(availableMoney + "");
-            }
-        });
-
-        tvMoneyBet2.setOnFocusChangeListener((v, hasFocus) -> {
-            if (!hasFocus) {
-                availableMoney -= Integer.parseInt(tvMoneyBet2.getText().toString().isEmpty() ? "0" : tvMoneyBet2.getText().toString());
-                tvMoney.setText(availableMoney + "");
-            }
-        });
-
-        tvMoneyBet3.setOnFocusChangeListener((v, hasFocus) -> {
-            if (!hasFocus) {
-                availableMoney -= Integer.parseInt(tvMoneyBet3.getText().toString().isEmpty() ? "0" : tvMoneyBet3.getText().toString());
-                tvMoney.setText(availableMoney + "");
-            }
-        });
-
         //set seekBar max progress and disable modify manually
         sbRacer1.setMax(finish);
         sbRacer1.setOnTouchListener((v, event) -> true);
@@ -184,6 +162,7 @@ public class MainActivity extends AppCompatActivity {
             int moneyBet1 = !cbRacer1.isChecked() || tvMoneyBet1.getText().toString().isEmpty() ? 0 : Integer.parseInt(tvMoneyBet1.getText().toString());
             int moneyBet2 = !cbRacer2.isChecked() || tvMoneyBet2.getText().toString().isEmpty() ? 0 : Integer.parseInt(tvMoneyBet2.getText().toString());
             int moneyBet3 = !cbRacer3.isChecked() || tvMoneyBet3.getText().toString().isEmpty() ? 0 : Integer.parseInt(tvMoneyBet3.getText().toString());
+
             //finished race and show message
             if (sbRacer1.getProgress() == finish || sbRacer2.getProgress() == finish || sbRacer3.getProgress() == finish) {
                 btnReset.setClickable(true);
@@ -229,10 +208,15 @@ public class MainActivity extends AppCompatActivity {
         else return ", "  + racer;
     }
 
-    @SuppressLint("NonConstantResourceId")
+    @SuppressLint({"NonConstantResourceId", "SetTextI18n"})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btnStart:
+                int moneyBet1 = !cbRacer1.isChecked() || tvMoneyBet1.getText().toString().isEmpty() ? 0 : Integer.parseInt(tvMoneyBet1.getText().toString());
+                int moneyBet2 = !cbRacer2.isChecked() || tvMoneyBet2.getText().toString().isEmpty() ? 0 : Integer.parseInt(tvMoneyBet2.getText().toString());
+                int moneyBet3 = !cbRacer3.isChecked() || tvMoneyBet3.getText().toString().isEmpty() ? 0 : Integer.parseInt(tvMoneyBet3.getText().toString());
+                availableMoney -= (moneyBet1+moneyBet2+moneyBet3);
+                tvMoney.setText(availableMoney+"");
                 if (minBetValidate(cbRacer1, cbRacer2, cbRacer3) && maxBetValidate(cbRacer1, cbRacer2, cbRacer3)) {
                     btnStart.setClickable(false);
                     btnReset.setClickable(false);

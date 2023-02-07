@@ -93,7 +93,6 @@ public class MainActivity extends AppCompatActivity {
         //change the available money when bet
         tvMoneyBet1.setOnFocusChangeListener((v, hasFocus) -> {
             if (!hasFocus) {
-                availableMoney = Integer.parseInt(tvMoney.getText().toString());
                 availableMoney -= Integer.parseInt(tvMoneyBet1.getText().toString().isEmpty() ? "0" : tvMoneyBet1.getText().toString());
                 tvMoney.setText(availableMoney + "");
             }
@@ -101,7 +100,6 @@ public class MainActivity extends AppCompatActivity {
 
         tvMoneyBet2.setOnFocusChangeListener((v, hasFocus) -> {
             if (!hasFocus) {
-                availableMoney = Integer.parseInt(tvMoney.getText().toString());
                 availableMoney -= Integer.parseInt(tvMoneyBet2.getText().toString().isEmpty() ? "0" : tvMoneyBet2.getText().toString());
                 tvMoney.setText(availableMoney + "");
             }
@@ -109,7 +107,6 @@ public class MainActivity extends AppCompatActivity {
 
         tvMoneyBet3.setOnFocusChangeListener((v, hasFocus) -> {
             if (!hasFocus) {
-                availableMoney = Integer.parseInt(tvMoney.getText().toString());
                 availableMoney -= Integer.parseInt(tvMoneyBet3.getText().toString().isEmpty() ? "0" : tvMoneyBet3.getText().toString());
                 tvMoney.setText(availableMoney + "");
             }
@@ -179,6 +176,59 @@ public class MainActivity extends AppCompatActivity {
         return isValid;
     }
 
+
+    private final Runnable startRace = new Runnable() {
+        @SuppressLint("SetTextI18n")
+        public void run() {
+            int profit = 0;
+            int moneyBet1 = !cbRacer1.isChecked() || tvMoneyBet1.getText().toString().isEmpty() ? 0 : Integer.parseInt(tvMoneyBet1.getText().toString());
+            int moneyBet2 = !cbRacer2.isChecked() || tvMoneyBet2.getText().toString().isEmpty() ? 0 : Integer.parseInt(tvMoneyBet2.getText().toString());
+            int moneyBet3 = !cbRacer3.isChecked() || tvMoneyBet3.getText().toString().isEmpty() ? 0 : Integer.parseInt(tvMoneyBet3.getText().toString());
+            //finished race and show message
+            if (sbRacer1.getProgress() == finish || sbRacer2.getProgress() == finish || sbRacer3.getProgress() == finish) {
+                btnReset.setClickable(true);
+                String message = "";
+                if (sbRacer1.getProgress() == finish) {
+                    profit += moneyBet1 * 2;
+                    message += createMessage(message, "Horse");
+                }
+                if (sbRacer2.getProgress() == finish) {
+                    profit += moneyBet2 * 2;
+                    message += createMessage(message, "Turtle");
+                }
+                if (sbRacer3.getProgress() == finish) {
+                    profit += moneyBet3 * 2;
+                    message += createMessage(message, "Rabbit");
+                }
+                availableMoney += profit;
+                tvMoney.setText("" + availableMoney);
+                Toast.makeText(MainActivity.this, message + " win!", Toast.LENGTH_SHORT).show();
+                handler.removeCallbacks(this);
+            } else {
+                int upperbound = 15;
+                Random rand = new Random();
+
+                int racer1_speed = rand.nextInt(upperbound);
+                int racer2_speed = rand.nextInt(upperbound);
+                int racer3_speed = rand.nextInt(upperbound);
+
+                // Updating progress bar
+                sbRacer1.setProgress(sbRacer1.getProgress() + racer1_speed);
+                sbRacer2.setProgress(sbRacer2.getProgress() + racer2_speed);
+                sbRacer3.setProgress(sbRacer3.getProgress() + racer3_speed);
+
+                // Running this thread after 100
+                // milliseconds
+                handler.postDelayed(this, 100);
+            }
+        }
+    };
+
+    private String createMessage(String message, String racer) {
+        if (message.isEmpty()) return racer;
+        else return ", "  + racer;
+    }
+
     @SuppressLint("NonConstantResourceId")
     public void onClick(View view) {
         switch (view.getId()) {
@@ -208,56 +258,5 @@ public class MainActivity extends AppCompatActivity {
                 btnStart.setClickable(true);
                 break;
         }
-    }
-
-    private final Runnable startRace = new Runnable() {
-        @SuppressLint("SetTextI18n")
-        public void run() {
-            int profit = 0;
-            int moneyBet1 = !cbRacer1.isChecked() || tvMoneyBet1.getText().toString().isEmpty() ? 0 : Integer.parseInt(tvMoneyBet1.getText().toString());
-            int moneyBet2 = !cbRacer2.isChecked() || tvMoneyBet2.getText().toString().isEmpty() ? 0 : Integer.parseInt(tvMoneyBet2.getText().toString());
-            int moneyBet3 = !cbRacer3.isChecked() || tvMoneyBet3.getText().toString().isEmpty() ? 0 : Integer.parseInt(tvMoneyBet3.getText().toString());
-            //finished race and show message
-            if (sbRacer1.getProgress() == finish || sbRacer2.getProgress() == finish || sbRacer3.getProgress() == finish) {
-                btnReset.setClickable(true);
-                String message = "";
-                if (sbRacer1.getProgress() == finish) {
-                    profit += moneyBet1 * 2;
-                    message += createMessage(message, "Horse");
-                }
-                if (sbRacer2.getProgress() == finish) {
-                    profit += moneyBet2 * 2;
-                    message += createMessage(message, "Turtle");
-                }
-                if (sbRacer3.getProgress() == finish) {
-                    profit += moneyBet3 * 2;
-                    message += createMessage(message, "Rabbit");
-                }
-                tvMoney.setText("" + (availableMoney + profit));
-                Toast.makeText(MainActivity.this, message + " win!", Toast.LENGTH_SHORT).show();
-                handler.removeCallbacks(this);
-            } else {
-                int upperbound = 15;
-                Random rand = new Random();
-
-                int racer1_speed = rand.nextInt(upperbound);
-                int racer2_speed = rand.nextInt(upperbound);
-                int racer3_speed = rand.nextInt(upperbound);
-
-                // Updating progress bar
-                sbRacer1.setProgress(sbRacer1.getProgress() + racer1_speed);
-                sbRacer2.setProgress(sbRacer2.getProgress() + racer2_speed);
-                sbRacer3.setProgress(sbRacer3.getProgress() + racer3_speed);
-
-                // Running this thread after 100
-                // milliseconds
-                handler.postDelayed(this, 100);
-            }
-        }
-    };
-
-    private String createMessage(String message, String racer) {
-        if (message.isEmpty()) return racer;
-        else return ", "  + racer;
     }
 }

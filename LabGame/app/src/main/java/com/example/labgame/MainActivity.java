@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(getWindow().FEATURE_NO_TITLE);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         this.getSupportActionBar().hide();
         setContentView(R.layout.activity_main);
 
@@ -63,6 +63,11 @@ public class MainActivity extends AppCompatActivity {
 
         cbRacer1.setOnCheckedChangeListener((compoundButton, isChecked) -> {
             if (!isChecked) {
+//                String bet1= tvMoneyBet1.getText().toString();
+//                if(!bet1.isEmpty()) {
+//                    availableMoney += Integer.parseInt(bet1);
+//                    tvMoney.setText(availableMoney);
+//                }
                 tvMoneyBet1.setText("");
                 disableEditText(tvMoneyBet1);
                 tvMoneyBet1.setError(null);
@@ -209,28 +214,33 @@ public class MainActivity extends AppCompatActivity {
 
     private String createMessage(String message, String racer) {
         if (message.isEmpty()) return racer;
-        else return ", "  + racer;
+        else return ", " + racer;
     }
 
     @SuppressLint({"NonConstantResourceId", "SetTextI18n"})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btnStart:
-                int moneyBet1 = !cbRacer1.isChecked() || tvMoneyBet1.getText().toString().isEmpty() ? 0 : Integer.parseInt(tvMoneyBet1.getText().toString());
-                int moneyBet2 = !cbRacer2.isChecked() || tvMoneyBet2.getText().toString().isEmpty() ? 0 : Integer.parseInt(tvMoneyBet2.getText().toString());
-                int moneyBet3 = !cbRacer3.isChecked() || tvMoneyBet3.getText().toString().isEmpty() ? 0 : Integer.parseInt(tvMoneyBet3.getText().toString());
-                availableMoney -= (moneyBet1+moneyBet2+moneyBet3);
-                tvMoney.setText(availableMoney+"");
                 if (minBetValidate(cbRacer1, cbRacer2, cbRacer3) && maxBetValidate(cbRacer1, cbRacer2, cbRacer3)) {
-                    btnStart.setClickable(false);
-                    btnReset.setClickable(false);
-                    cbRacer1.setClickable(false);
-                    cbRacer2.setClickable(false);
-                    cbRacer3.setClickable(false);
-                    disableEditText(tvMoneyBet1);
-                    disableEditText(tvMoneyBet2);
-                    disableEditText(tvMoneyBet3);
-                    startRace.run();
+                    int moneyBet1 = !cbRacer1.isChecked() || tvMoneyBet1.getText().toString().isEmpty() ? 0 : Integer.parseInt(tvMoneyBet1.getText().toString());
+                    int moneyBet2 = !cbRacer2.isChecked() || tvMoneyBet2.getText().toString().isEmpty() ? 0 : Integer.parseInt(tvMoneyBet2.getText().toString());
+                    int moneyBet3 = !cbRacer3.isChecked() || tvMoneyBet3.getText().toString().isEmpty() ? 0 : Integer.parseInt(tvMoneyBet3.getText().toString());
+                    if (moneyBet1 != 0 || moneyBet2 != 0 || moneyBet3 != 0) {
+                        availableMoney -= (moneyBet1 + moneyBet2 + moneyBet3);
+                        tvMoney.setText(availableMoney + "");
+                        btnStart.setClickable(false);
+                        btnReset.setClickable(false);
+                        cbRacer1.setClickable(false);
+                        cbRacer2.setClickable(false);
+                        cbRacer3.setClickable(false);
+                        disableEditText(tvMoneyBet1);
+                        disableEditText(tvMoneyBet2);
+                        disableEditText(tvMoneyBet3);
+                        startRace.run();
+                    } else {
+                        Toast.makeText(this, "Please bet before starting the race!", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
                 }
                 break;
             case R.id.btnReset:

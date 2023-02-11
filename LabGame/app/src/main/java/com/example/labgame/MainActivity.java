@@ -1,27 +1,32 @@
 package com.example.labgame;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.Gravity;
 import android.view.View;
+import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.util.Objects;
 import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
 
     private final Handler handler = new Handler();
     private final int finish = 200;
-    int availableMoney = 0;
+    private int availableMoney = 0;
     SeekBar sbRacer1;
     SeekBar sbRacer2;
     SeekBar sbRacer3;
@@ -39,9 +44,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        requestWindowFeature(getWindow().FEATURE_NO_TITLE);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        this.getSupportActionBar().hide();
+        Objects.requireNonNull(this.getSupportActionBar()).hide();
         setContentView(R.layout.activity_main);
 
         sbRacer1 = findViewById(R.id.sbRacer1);
@@ -61,13 +66,18 @@ public class MainActivity extends AppCompatActivity {
         disableEditText(tvMoneyBet2);
         disableEditText(tvMoneyBet3);
 
+        //set seekBar max progress
+        sbRacer1.setMax(finish);
+        sbRacer2.setMax(finish);
+        sbRacer3.setMax(finish);
+
+        //set seekBar disable modify manually
+        sbRacer1.setOnTouchListener((v, event) -> true);
+        sbRacer2.setOnTouchListener((v, event) -> true);
+        sbRacer3.setOnTouchListener((v, event) -> true);
+
         cbRacer1.setOnCheckedChangeListener((compoundButton, isChecked) -> {
             if (!isChecked) {
-//                String bet1= tvMoneyBet1.getText().toString();
-//                if(!bet1.isEmpty()) {
-//                    availableMoney += Integer.parseInt(bet1);
-//                    tvMoney.setText(availableMoney);
-//                }
                 tvMoneyBet1.setText("");
                 disableEditText(tvMoneyBet1);
                 tvMoneyBet1.setError(null);
@@ -98,14 +108,6 @@ public class MainActivity extends AppCompatActivity {
                 enableEditText(tvMoneyBet3);
             }
         });
-
-        //set seekBar max progress and disable modify manually
-        sbRacer1.setMax(finish);
-        sbRacer1.setOnTouchListener((v, event) -> true);
-        sbRacer2.setMax(finish);
-        sbRacer2.setOnTouchListener((v, event) -> true);
-        sbRacer3.setMax(finish);
-        sbRacer3.setOnTouchListener((v, event) -> true);
     }
 
     //disable bet when not check
@@ -163,6 +165,45 @@ public class MainActivity extends AppCompatActivity {
         return isValid;
     }
 
+    @SuppressLint("SetTextI18n")
+    private void displayGameOverAlertDialog() {
+        TextView title = new TextView(this);
+        //Customise title
+        title.setText("Game over!");
+        title.setBackgroundColor(Color.BLACK);
+        title.setPadding(10, 10, 10, 10);
+        title.setGravity(Gravity.CENTER);
+        title.setTextColor(Color.WHITE);
+        title.setTextSize(20);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+        builder.setCustomTitle(title);
+        builder.setMessage("You run out of money!");
+        builder.setPositiveButton("Play again", (dialog, which) -> {
+            availableMoney += 100;
+            tvMoney.setText(availableMoney + "");
+            resetRace();
+            dialog.dismiss();
+        });
+        builder.setNegativeButton("Cancel", (dialog, which) -> {
+            dialog.dismiss();
+        });
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+
+        //style button to center
+        Button btnPositive = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE);
+        Button btnNegative = alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE);
+        LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) btnPositive.getLayoutParams();
+        layoutParams.weight = 5;
+        btnPositive.setLayoutParams(layoutParams);
+        btnNegative.setLayoutParams(layoutParams);
+    }
+
+    private String createMessage(String message, String racer) {
+        if (message.isEmpty()) return racer;
+        else return ", " + racer;
+    }
 
     private final Runnable startRace = new Runnable() {
         @SuppressLint("SetTextI18n")
@@ -190,6 +231,9 @@ public class MainActivity extends AppCompatActivity {
                 }
                 availableMoney += profit;
                 tvMoney.setText("" + availableMoney);
+                if (availableMoney == 0) {
+                    displayGameOverAlertDialog();
+                }
                 Toast.makeText(MainActivity.this, message + " win!", Toast.LENGTH_SHORT).show();
                 handler.removeCallbacks(this);
             } else {
@@ -212,49 +256,57 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
-    private String createMessage(String message, String racer) {
-        if (message.isEmpty()) return racer;
-        else return ", " + racer;
+    @SuppressLint("SetTextI18n")
+    private void startRace() {
+        if (minBetValidate(cbRacer1, cbRacer2, cbRacer3) && maxBetValidate(cbRacer1, cbRacer2, cbRacer3)) {
+            int moneyBet1 = !cbRacer1.isChecked() || tvMoneyBet1.getText().toString().isEmpty() ? 0 : Integer.parseInt(tvMoneyBet1.getText().toString());
+            int moneyBet2 = !cbRacer2.isChecked() || tvMoneyBet2.getText().toString().isEmpty() ? 0 : Integer.parseInt(tvMoneyBet2.getText().toString());
+            int moneyBet3 = !cbRacer3.isChecked() || tvMoneyBet3.getText().toString().isEmpty() ? 0 : Integer.parseInt(tvMoneyBet3.getText().toString());
+            //check if user bet or not
+            if (moneyBet1 != 0 || moneyBet2 != 0 || moneyBet3 != 0) {
+                availableMoney -= (moneyBet1 + moneyBet2 + moneyBet3);
+                tvMoney.setText(availableMoney + "");
+                btnStart.setClickable(false);
+                btnReset.setClickable(false);
+                cbRacer1.setClickable(false);
+                cbRacer2.setClickable(false);
+                cbRacer3.setClickable(false);
+                disableEditText(tvMoneyBet1);
+                disableEditText(tvMoneyBet2);
+                disableEditText(tvMoneyBet3);
+                startRace.run();
+            } else {
+                Toast.makeText(this, "Please bet before starting the race!", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    private void resetRace() {
+        sbRacer1.setProgress(0);
+        sbRacer2.setProgress(0);
+        sbRacer3.setProgress(0);
+        cbRacer1.setClickable(true);
+        cbRacer2.setClickable(true);
+        cbRacer3.setClickable(true);
+        cbRacer1.setChecked(false);
+        cbRacer2.setChecked(false);
+        cbRacer3.setChecked(false);
+        btnStart.setClickable(true);
     }
 
     @SuppressLint({"NonConstantResourceId", "SetTextI18n"})
     public void onClick(View view) {
+        if (availableMoney == 0) {
+            displayGameOverAlertDialog();
+        }
         switch (view.getId()) {
             case R.id.btnStart:
-                if (minBetValidate(cbRacer1, cbRacer2, cbRacer3) && maxBetValidate(cbRacer1, cbRacer2, cbRacer3)) {
-                    int moneyBet1 = !cbRacer1.isChecked() || tvMoneyBet1.getText().toString().isEmpty() ? 0 : Integer.parseInt(tvMoneyBet1.getText().toString());
-                    int moneyBet2 = !cbRacer2.isChecked() || tvMoneyBet2.getText().toString().isEmpty() ? 0 : Integer.parseInt(tvMoneyBet2.getText().toString());
-                    int moneyBet3 = !cbRacer3.isChecked() || tvMoneyBet3.getText().toString().isEmpty() ? 0 : Integer.parseInt(tvMoneyBet3.getText().toString());
-                    if (moneyBet1 != 0 || moneyBet2 != 0 || moneyBet3 != 0) {
-                        availableMoney -= (moneyBet1 + moneyBet2 + moneyBet3);
-                        tvMoney.setText(availableMoney + "");
-                        btnStart.setClickable(false);
-                        btnReset.setClickable(false);
-                        cbRacer1.setClickable(false);
-                        cbRacer2.setClickable(false);
-                        cbRacer3.setClickable(false);
-                        disableEditText(tvMoneyBet1);
-                        disableEditText(tvMoneyBet2);
-                        disableEditText(tvMoneyBet3);
-                        startRace.run();
-                    } else {
-                        Toast.makeText(this, "Please bet before starting the race!", Toast.LENGTH_SHORT).show();
-                        return;
-                    }
-                }
+                startRace();
                 break;
             case R.id.btnReset:
-                sbRacer1.setProgress(0);
-                sbRacer2.setProgress(0);
-                sbRacer3.setProgress(0);
-                cbRacer1.setClickable(true);
-                cbRacer2.setClickable(true);
-                cbRacer3.setClickable(true);
-                cbRacer1.setChecked(false);
-                cbRacer2.setChecked(false);
-                cbRacer3.setChecked(false);
-                btnStart.setClickable(true);
+                resetRace();
                 break;
         }
     }
 }
+

@@ -1,5 +1,6 @@
-package com.example.hotgearvn;
+package com.example.hotgearvn.adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.hotgearvn.R;
 import com.example.hotgearvn.entities.Product;
 
 import java.util.ArrayList;
@@ -32,15 +34,16 @@ public class RecyclerViewProductAdapter extends RecyclerView.Adapter<RecyclerVie
         return viewHolder;
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull RecyclerViewProductAdapter.ViewHolder holder, int position) {
         Product product = productList.get(position);
 
-        holder.productImg.setImageResource(product.getProductImg());
-        holder.productName.setText(product.getProductName());
-        holder.productPrice.setText(product.getProductPrice());
-        if(product.getProductQuantity() != 0){
-            holder.productQuantity.setText("Còn lại:"+product.getProductQuantity());
+        holder.productImg.setImageResource(product.getImage());
+        holder.productName.setText(product.getName());
+        holder.productPrice.setText(product.getPrice()+"");
+        if(product.getQuantity() != 0){
+            holder.productQuantity.setText("Còn lại:"+product.getQuantity());
         }else{
             holder.productQuantity.setText("Hết hàng");
         }

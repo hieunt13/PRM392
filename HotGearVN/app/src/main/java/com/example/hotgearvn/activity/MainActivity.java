@@ -1,4 +1,4 @@
-package com.example.hotgearvn;
+package com.example.hotgearvn.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.room.Room;
@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
 
+import com.example.hotgearvn.R;
 import com.example.hotgearvn.dao.InvoiceDao;
 import com.example.hotgearvn.dao.UsersDao;
 import com.example.hotgearvn.database.HotGearDatabase;

@@ -1,4 +1,4 @@
-package com.example.hotgearvn;
+package com.example.hotgearvn.item;
 
 import android.graphics.Rect;
 import android.view.View;

@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".activity.CartActivity">
 
-
+    <include layout="@layout/activity_header"/>
     <TextView
         android:id="@+id/titleCart"
         android:layout_width="match_parent"

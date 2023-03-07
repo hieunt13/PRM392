@@ -1,13 +1,15 @@
 package com.example.hotgearvn.activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.room.Room;
-
-import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Window;
-import android.view.WindowManager;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.View;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.room.Room;
 
 import com.example.hotgearvn.R;
 import com.example.hotgearvn.dao.InvoiceDao;
@@ -17,6 +19,7 @@ import com.example.hotgearvn.entities.Invoice;
 import com.example.hotgearvn.entities.Users;
 import com.example.hotgearvn.executor.AppExecutors;
 import com.example.hotgearvn.model.UserWithInvoices;
+import com.example.hotgearvn.utils.HandleEvent;
 
 import java.util.List;
 
@@ -26,7 +29,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.getSupportActionBar().hide();
         setContentView(R.layout.activity_main);
         mDb = Room.databaseBuilder(getApplicationContext(),HotGearDatabase.class,"hotGear-database").build();
 
@@ -45,12 +47,20 @@ public class MainActivity extends AppCompatActivity {
 
             List<UserWithInvoices> userWithInvoicesList = usersDao.getUserWithInvoice();
             int i = 0;
-            for (UserWithInvoices o : userWithInvoicesList){
-                Log.d("AAA",o.invoiceList.get(i).toString());
-                i++;
-            }
 
         });
         Log.d("asdas","asdasdsa");
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.navigation,menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    public void showPopUp(View v){
+        HandleEvent.showPopUp(v,this);
+    }
+
 }

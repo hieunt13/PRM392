@@ -116,7 +116,7 @@
                         android:id="@+id/textProductPrice"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="#FF0000"
+                        android:textColor="@color/red_gearVn"
                         android:text="700$"
                         android:textStyle="bold"
                         android:textSize="30sp"/>
@@ -126,7 +126,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="50dp"
                     android:layout_marginTop="5dp"
-                    android:backgroundTint="#FF0000"
+                    android:backgroundTint="@color/red_gearVn"
                     android:text="Puchase"
                     android:textSize="15sp"
                     android:textStyle="bold"/>

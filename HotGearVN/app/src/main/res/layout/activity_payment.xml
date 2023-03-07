@@ -7,7 +7,7 @@
     android:layout_marginLeft="10dp"
     android:layout_marginRight="10dp"
     tools:context=".activity.PaymentActivity">
-
+    <include layout="@layout/activity_header"/>
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"

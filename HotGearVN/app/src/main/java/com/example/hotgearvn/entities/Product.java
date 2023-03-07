@@ -1,48 +1,104 @@
 package com.example.hotgearvn.entities;
 
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.ForeignKey;
+import androidx.room.PrimaryKey;
+
+@Entity(tableName = "product", foreignKeys = {
+        @ForeignKey(
+                entity = Category.class,
+                parentColumns = {"category_id"},
+                childColumns = {"category_id"},
+                onDelete = ForeignKey.CASCADE,
+                onUpdate = ForeignKey.CASCADE
+        )
+})
 public class Product {
-    private int productImg;
-    private String productName;
-    private String productPrice;
+    @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "product_id")
+    private Long productId;
 
-    private int productQuantity;
+    @ColumnInfo(name = "price")
+    private Double price;
 
-    public Product(int productImg, String productName, String productPrice, int productQuantity) {
-        this.productImg = productImg;
-        this.productName = productName;
-        this.productPrice = productPrice;
-        this.productQuantity = productQuantity;
+    @ColumnInfo(name = "details")
+    private String details;
+
+    @ColumnInfo(name = "quantity")
+    private int quantity;
+
+    @ColumnInfo(name = "image")
+    private int image;
+
+    @ColumnInfo(name = "name")
+    private String name;
+
+    @ColumnInfo(name = "category_id")
+    private Long categoryId;
+
+    public Product(Double price, String details, int quantity, int image, String name, Long categoryId) {
+        this.price = price;
+        this.details = details;
+        this.quantity = quantity;
+        this.image = image;
+        this.name = name;
+        this.categoryId = categoryId;
     }
 
-    public int getProductQuantity() {
-        return productQuantity;
+    public Long getProductId() {
+        return productId;
     }
 
-    public void setProductQuantity(int productQuantity) {
-        this.productQuantity = productQuantity;
+    public void setProductId(Long productId) {
+        this.productId = productId;
     }
 
-    public int getProductImg() {
-        return productImg;
+    public Double getPrice() {
+        return price;
     }
 
-    public void setProductImg(int productImg) {
-        this.productImg = productImg;
+    public void setPrice(Double price) {
+        this.price = price;
     }
 
-    public String getProductName() {
-        return productName;
+    public String getDetails() {
+        return details;
     }
 
-    public void setProductName(String productName) {
-        this.productName = productName;
+    public void setDetails(String details) {
+        this.details = details;
     }
 
-    public String getProductPrice() {
-        return productPrice;
+    public int getQuantity() {
+        return quantity;
     }
 
-    public void setProductPrice(String productPrice) {
-        this.productPrice = productPrice;
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
+    public int getImage() {
+        return image;
+    }
+
+    public void setImage(int image) {
+        this.image = image;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Long getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(Long categoryId) {
+        this.categoryId = categoryId;
     }
 }

@@ -1,22 +1,29 @@
 package com.example.hotgearvn.entities;
 
+import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-import java.util.UUID;
-
-@Entity
+@Entity(tableName = "users")
 public class Users {
     @PrimaryKey(autoGenerate = true)
-    private UUID id;
+    @ColumnInfo(name = "user_id")
+    private Long userId;
+    @ColumnInfo(name = "username")
     private String username;
-    private String password;
-    private String email;
-    private String fullName;
-    private int phone;
 
-    public Users(UUID id, String username, String password, String email, String fullName, int phone) {
-        this.id = id;
+    @ColumnInfo(name = "password")
+    private String password;
+
+    @ColumnInfo(name = "email")
+    private String email;
+
+    @ColumnInfo(name = "full_name")
+    private String fullName;
+
+    private String phone;
+
+    public Users(String username, String password, String email, String fullName, String phone) {
         this.username = username;
         this.password = password;
         this.email = email;
@@ -24,15 +31,12 @@ public class Users {
         this.phone = phone;
     }
 
-    public Users() {
+    public Long getUserId() {
+        return userId;
     }
 
-    public UUID getId() {
-        return id;
-    }
-
-    public void setId(UUID id) {
-        this.id = id;
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
     public String getUsername() {
@@ -59,19 +63,19 @@ public class Users {
         this.email = email;
     }
 
-    public String getFullname() {
+    public String getFullName() {
         return fullName;
     }
 
-    public void setFullname(String fullName) {
+    public void setFullName(String fullName) {
         this.fullName = fullName;
     }
 
-    public int getPhone() {
+    public String getPhone() {
         return phone;
     }
 
-    public void setPhone(int phone) {
+    public void setPhone(String phone) {
         this.phone = phone;
     }
 }

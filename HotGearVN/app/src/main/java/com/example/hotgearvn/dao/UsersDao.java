@@ -33,4 +33,8 @@ public interface UsersDao {
     @Transaction
     @Query("SELECT * FROM users")
     public List<UserWithInvoices> getUserWithInvoice();
+
+    @Transaction
+    @Insert
+    public void insertAll(Users[] usersList);
 }

@@ -18,6 +18,9 @@ public interface InvoiceProductDao {
     void addInvoiceProduct(Product_Invoice product_invoice);
 
     @Insert(onConflict = REPLACE)
+    void addAllInvoiceProduct(Product_Invoice[] product_invoices);
+
+    @Insert(onConflict = REPLACE)
     void addInvoiceProducts(Product_Invoice... product_invoice);
 
     @Query("SELECT * FROM product")

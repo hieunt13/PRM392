@@ -43,6 +43,11 @@ public class HandleEvent {
                     intent = new Intent(context, ProductListActivity.class);
                     intent.putExtra("category","keyboard");
                     break;
+
+                case id.pc:
+                    intent = new Intent(context, ProductListActivity.class);
+                    intent.putExtra("category","pc");
+                    break;
                 case id.cartPage:
                     intent = new Intent(context, CartActivity.class);
                     break;

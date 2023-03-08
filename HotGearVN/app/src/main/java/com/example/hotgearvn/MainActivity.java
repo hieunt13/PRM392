@@ -55,66 +55,13 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        mDb = Room.databaseBuilder(getApplicationContext(),HotGearDatabase.class,"hotGear-database")
-                .addCallback(new RoomDatabase.Callback() {
-                    @Override
-                    public void onCreate(@NonNull SupportSQLiteDatabase db) {
-                        super.onCreate(db);
-                        AppExecutors.getInstance().diskI0()
-                                .execute(new Runnable() {
-                                    @Override
-                                    public void run()  {
-                                        UsersDao usersDao = mDb.usersDao();
-                                        usersDao.insertAll(UsersData.populateUsersTable());
-                                        CategoryDao categoryDao = mDb.categoryDao();
-                                        categoryDao.addAll(CategoryData.populateCategoryTable());
-                                        ProductDao productDao = mDb.productDao();
-                                        productDao.addProducts(ProductData.populateProductTable());
-                                        InvoiceDao invoiceDao = mDb.invoiceDao();
-                                        invoiceDao.addAll(InvoiceData.populateInvoiceTable());
-                                        InvoiceProductDao invoiceProductDao = mDb.invoiceProductDao();
-                                        invoiceProductDao.addInvoiceProducts(ProductInvoiceData.populateProductInvoiceTable());
-                                    }
-                                });
-                    }
-                })
-                .build();
+        mDb = HotGearDatabase.getDatabase(this);
         UsersDao usersDao = mDb.usersDao();
         ProductDao productDao = mDb.productDao();
         InvoiceDao invoiceDao = mDb.invoiceDao();
         CategoryDao categoryDao = mDb.categoryDao();
         InvoiceProductDao invoiceProductDao = mDb.invoiceProductDao();
-//        AppExecutors.getInstance().diskI0().execute(()->{
-//
-//            UsersDao usersDao = mDb.usersDao();
-//            Users user = new Users("hieu","hieu","email","fullname","123123");
-//            usersDao.add(user);
-//            List<Users> users = usersDao.getAll();
-//            Users user_insert = users.get(0);
-//            Invoice invoice = new Invoice(0,user_insert.getUserId(),10000);
-//            Invoice invoice1 = new Invoice(1,user_insert.getUserId(),2000);
-//            Invoice invoice2 = new Invoice(2,user_insert.getUserId(),10100);
-//            InvoiceDao invoiceDao = mDb.invoiceDao();
-//            invoiceDao.addInvoices(invoice,invoice1,invoice2);
-//
-//            List<UserWithInvoices> userWithInvoicesList = usersDao.getUserWithInvoice();
-//            int i = 0;
-//            for (UserWithInvoices o : userWithInvoicesList){
-//                for(Invoice object : o.invoiceList){
-//                    Log.d("AAA",object.toString());
-//                }
-//            }
-//
-//        });
-        AppExecutors.getInstance().diskI0().execute(()->{
-//            List<UserWithInvoices> userWithInvoicesList = usersDao.getUserWithInvoice();
-//            int i = 0;
-//            for (UserWithInvoices o : userWithInvoicesList){
-//                for(Invoice object : o.invoiceList){
-//                    Log.d("AAA",object.toString());
-//                }
-//            }
+        HotGearDatabase.databaseWriteExecutor.execute(()->{
             List<Users> users = usersDao.getAll();
             List<Product> products = productDao.getAll();
             List<Category> categories = categoryDao.getAll();
@@ -125,11 +72,6 @@ public class MainActivity extends AppCompatActivity {
             Log.d("category",categories.toString());
             Log.d("invoice",invoices.toString());
             Log.d("productInvoice",productInvoiceDataList.toString());
-        });
-
-        mDb = HotGearDatabase.getDatabase(this);
-        AppExecutors.getInstance().diskI0().execute(()->{
-            Log.d("asdas",mDb.usersDao().getAll().toString());
         });
     }
 

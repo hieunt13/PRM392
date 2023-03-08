@@ -20,6 +20,9 @@
 
             <item android:id="@+id/keyboard"
                 android:title="Keyboard"/>
+
+            <item android:id="@+id/pc"
+                android:title="PC"/>
         </menu>
 
     </item>

@@ -11,11 +11,15 @@ import android.widget.ProgressBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.room.Room;
 
 import com.example.hotgearvn.R;
 import com.example.hotgearvn.adapter.RecyclerViewProductAdapter;
+import com.example.hotgearvn.dao.ProductDao;
+import com.example.hotgearvn.database.HotGearDatabase;
 import com.example.hotgearvn.entities.Category;
 import com.example.hotgearvn.entities.Product;
+import com.example.hotgearvn.executor.AppExecutors;
 import com.example.hotgearvn.item.GridSpacingItemDecoration;
 import com.example.hotgearvn.item.PaginationScrollListener;
 import com.example.hotgearvn.utils.HandleEvent;
@@ -57,21 +61,23 @@ public class ProductListActivity extends AppCompatActivity {
         rvProduct = findViewById(R.id.rvProduct);
 
         productList = new ArrayList<>();
-        productList.add(new Product(21690000.0, "Màn hình Philips 243V7QDSB 24\" IPS 75Hz", 100, R.drawable.laptopgaming, "Màn hình Philips 243V7QDSB 24\" IPS 75Hz", Long.valueOf("1")));
-        productList.add(new Product(21690000.0, "Chuột Logitech G Pro X Superlight Wireless Red", 100, R.drawable.laptopgaming, "Chuột Logitech G Pro X Superlight Wireless Red", Long.valueOf("2")));
-        productList.add(new Product(21690000.0, "Laptop Gaming Gigabyte G5 GE 51VN263SH", 100, R.drawable.laptopgaming, "Laptop Gaming Gigabyte G5 GE 51VN263SH", Long.valueOf("3")));
-        productList.add(new Product(21690000.0, "Màn hình Philips 243V7QDSB 24\" IPS 75Hz", 100, R.drawable.laptopgaming, "Màn hình Philips 243V7QDSB 24\" IPS 75Hz", Long.valueOf("1")));
-        productList.add(new Product(21690000.0, "Bàn phím cơ AKKO MOD007 PC Blue on White", 100, R.drawable.laptopgaming, "Bàn phím DAREU 1", Long.valueOf("4")));
-        productList.add(new Product(21690000.0, "Bàn phím DAREU EK810X Black Grey Optical", 100, R.drawable.laptopgaming, "Bàn phím DAREU 2", Long.valueOf("4")));
-        productList.add(new Product(21690000.0, "Bàn phím DAREU EK810X Black Grey Optical", 100, R.drawable.laptopgaming, "Bàn phím DAREU 3", Long.valueOf("4")));
-        productList.add(new Product(21690000.0, "Bàn phím DAREU EK810X Black Grey Optical", 100, R.drawable.laptopgaming, "Bàn phím DAREU 4", Long.valueOf("4")));
-        productList.add(new Product(21690000.0, "Bàn phím DAREU EK810X Black Grey Optical", 100, R.drawable.laptopgaming, "Bàn phím DAREU 5", Long.valueOf("4")));
-        productList.add(new Product(21690000.0, "Bàn phím DAREU EK810X Black Grey Optical", 100, R.drawable.laptopgaming, "Bàn phím DAREU 6", Long.valueOf("4")));
-        productList.add(new Product(21690000.0, "Bàn phím DAREU EK810X Black Grey Optical", 100, R.drawable.laptopgaming, "Bàn phím DAREU 7", Long.valueOf("4")));
-        productList.add(new Product(21690000.0, "Bàn phím DAREU EK810X Black Grey Optical", 100, R.drawable.laptopgaming, "Bàn phím DAREU 8", Long.valueOf("4")));
-        productList.add(new Product(21690000.0, "Bàn phím DAREU EK810X Black Grey Optical", 100, R.drawable.laptopgaming, "Bàn phím DAREU 9", Long.valueOf("4")));
-        productList.add(new Product(21690000.0, "Bàn phím DAREU EK810X Black Grey Optical", 100, R.drawable.laptopgaming, "Bàn phím DAREU 10", Long.valueOf("4")));
-
+//        productList.add(new Product(21690000.0, "Màn hình Philips 243V7QDSB 24\" IPS 75Hz", 100, R.drawable.laptopgaming, "Màn hình Philips 243V7QDSB 24\" IPS 75Hz", Long.valueOf("1")));
+//        productList.add(new Product(21690000.0, "Chuột Logitech G Pro X Superlight Wireless Red", 100, R.drawable.laptopgaming, "Chuột Logitech G Pro X Superlight Wireless Red", Long.valueOf("2")));
+//        productList.add(new Product(21690000.0, "Laptop Gaming Gigabyte G5 GE 51VN263SH", 100, R.drawable.laptopgaming, "Laptop Gaming Gigabyte G5 GE 51VN263SH", Long.valueOf("3")));
+//        productList.add(new Product(21690000.0, "Màn hình Philips 243V7QDSB 24\" IPS 75Hz", 100, R.drawable.laptopgaming, "Màn hình Philips 243V7QDSB 24\" IPS 75Hz", Long.valueOf("1")));
+//        productList.add(new Product(21690000.0, "Bàn phím cơ AKKO MOD007 PC Blue on White", 100, R.drawable.laptopgaming, "Bàn phím DAREU 1", Long.valueOf("4")));
+//        productList.add(new Product(21690000.0, "Bàn phím DAREU EK810X Black Grey Optical", 100, R.drawable.laptopgaming, "Bàn phím DAREU 2", Long.valueOf("4")));
+//        productList.add(new Product(21690000.0, "Bàn phím DAREU EK810X Black Grey Optical", 100, R.drawable.laptopgaming, "Bàn phím DAREU 3", Long.valueOf("4")));
+//        productList.add(new Product(21690000.0, "Bàn phím DAREU EK810X Black Grey Optical", 100, R.drawable.laptopgaming, "Bàn phím DAREU 4", Long.valueOf("4")));
+//        productList.add(new Product(21690000.0, "Bàn phím DAREU EK810X Black Grey Optical", 100, R.drawable.laptopgaming, "Bàn phím DAREU 5", Long.valueOf("4")));
+//        productList.add(new Product(21690000.0, "Bàn phím DAREU EK810X Black Grey Optical", 100, R.drawable.laptopgaming, "Bàn phím DAREU 6", Long.valueOf("4")));
+//        productList.add(new Product(21690000.0, "Bàn phím DAREU EK810X Black Grey Optical", 100, R.drawable.laptopgaming, "Bàn phím DAREU 7", Long.valueOf("4")));
+//        productList.add(new Product(21690000.0, "Bàn phím DAREU EK810X Black Grey Optical", 100, R.drawable.laptopgaming, "Bàn phím DAREU 8", Long.valueOf("4")));
+//        productList.add(new Product(21690000.0, "Bàn phím DAREU EK810X Black Grey Optical", 100, R.drawable.laptopgaming, "Bàn phím DAREU 9", Long.valueOf("4")));
+//        productList.add(new Product(21690000.0, "Bàn phím DAREU EK810X Black Grey Optical", 100, R.drawable.laptopgaming, "Bàn phím DAREU 10", Long.valueOf("4")));
+        HotGearDatabase mDb = HotGearDatabase.getDatabase(this);
+        ProductDao productDao = mDb.productDao();
+        productList = (ArrayList<Product>) productDao.getAll();
         Intent intent = getIntent();
         String category = intent.getStringExtra("category");
         switch (category) {

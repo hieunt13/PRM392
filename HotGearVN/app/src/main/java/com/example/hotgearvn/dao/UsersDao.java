@@ -25,4 +25,8 @@ public interface UsersDao {
     @Transaction
     @Query("SELECT * FROM users")
     public List<UserWithInvoices> getUserWithInvoice();
+
+    @Transaction
+    @Insert(onConflict = REPLACE)
+    void addAll(Users[] userList);
 }

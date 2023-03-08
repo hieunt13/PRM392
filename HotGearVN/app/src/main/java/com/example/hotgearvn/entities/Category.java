@@ -2,6 +2,7 @@ package com.example.hotgearvn.entities;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 @Entity(tableName = "category")
@@ -15,6 +16,11 @@ public class Category {
 
     public Category(Long categoryId, String name) {
         this.categoryId = categoryId;
+        this.name = name;
+    }
+
+    @Ignore
+    public Category(String name) {
         this.name = name;
     }
 

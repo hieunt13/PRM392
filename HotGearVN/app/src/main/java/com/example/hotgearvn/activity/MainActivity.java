@@ -30,26 +30,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mDb = Room.databaseBuilder(getApplicationContext(),HotGearDatabase.class,"hotGear-database").build();
-
+        mDb = HotGearDatabase.getDatabase(this);
         AppExecutors.getInstance().diskI0().execute(()->{
-
-            UsersDao usersDao = mDb.usersDao();
-            Users user = new Users("hieu","hieu","email","fullname","123123");
-            usersDao.add(user);
-            List<Users> users = usersDao.getAll();
-            Users user_insert = users.get(0);
-            Invoice invoice = new Invoice(0,user_insert.getUserId(),10000);
-            Invoice invoice1 = new Invoice(1,user_insert.getUserId(),2000);
-            Invoice invoice2 = new Invoice(2,user_insert.getUserId(),10100);
-            InvoiceDao invoiceDao = mDb.invoiceDao();
-            invoiceDao.addInvoices(invoice,invoice1,invoice2);
-
-            List<UserWithInvoices> userWithInvoicesList = usersDao.getUserWithInvoice();
-            int i = 0;
-
+            Log.d("asdas",mDb.usersDao().getAll().toString());
         });
-        Log.d("asdas","asdasdsa");
     }
 
     @Override

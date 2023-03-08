@@ -19,14 +19,18 @@ public interface UsersDao {
     @Insert(onConflict = REPLACE)
     public void add(Users user);
 
+    @Transaction
+    @Insert(onConflict = REPLACE)
+    public void addUsers(Users...user);
+
+    @Transaction
+    @Insert(onConflict = REPLACE)
+    public void addAll(Users[] userList);
+
     @Query("SELECT * FROM users")
     public List<Users> getAll();
 
     @Transaction
     @Query("SELECT * FROM users")
     public List<UserWithInvoices> getUserWithInvoice();
-
-    @Transaction
-    @Insert(onConflict = REPLACE)
-    void addAll(Users[] userList);
 }

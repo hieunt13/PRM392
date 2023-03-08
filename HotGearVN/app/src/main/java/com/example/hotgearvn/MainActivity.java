@@ -15,13 +15,13 @@ import android.view.WindowManager;
 
 import com.example.hotgearvn.dao.InvoiceDao;
 import com.example.hotgearvn.dao.UsersDao;
+import com.example.hotgearvn.data.UsersData;
 import com.example.hotgearvn.database.HotGearDatabase;
 import com.example.hotgearvn.entities.Invoice;
 import com.example.hotgearvn.entities.Users;
 import com.example.hotgearvn.executor.AppExecutors;
 import com.example.hotgearvn.model.UserWithInvoices;
 
-import org.apache.commons.io.IOUtils;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -47,7 +47,8 @@ public class MainActivity extends AppCompatActivity {
                                 .execute(new Runnable() {
                                     @Override
                                     public void run()  {
-
+                                        UsersDao usersDao = mDb.usersDao();
+                                        usersDao.insertAll(UsersData.populateUsersTable());
                                     }
                                 });
                     }
@@ -77,13 +78,13 @@ public class MainActivity extends AppCompatActivity {
 //
 //        });
         AppExecutors.getInstance().diskI0().execute(()->{
-            List<UserWithInvoices> userWithInvoicesList = usersDao.getUserWithInvoice();
-            int i = 0;
-            for (UserWithInvoices o : userWithInvoicesList){
-                for(Invoice object : o.invoiceList){
-                    Log.d("AAA",object.toString());
-                }
-            }
+//            List<UserWithInvoices> userWithInvoicesList = usersDao.getUserWithInvoice();
+//            int i = 0;
+//            for (UserWithInvoices o : userWithInvoicesList){
+//                for(Invoice object : o.invoiceList){
+//                    Log.d("AAA",object.toString());
+//                }
+//            }
             List<Users> users = usersDao.getAll();
             Log.d("asdas",users.toString());
         });

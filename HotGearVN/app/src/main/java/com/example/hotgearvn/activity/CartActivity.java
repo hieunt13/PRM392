@@ -27,4 +27,8 @@ public class CartActivity extends AppCompatActivity {
     public void showPopUp(View v){
         HandleEvent.showPopUp(v,this);
     }
+
+    public void login_logout(View view){
+        HandleEvent.onClickLogin_Logout(view,this);
+    }
 }

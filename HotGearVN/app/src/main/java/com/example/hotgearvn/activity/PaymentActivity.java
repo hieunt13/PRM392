@@ -1,11 +1,11 @@
 package com.example.hotgearvn.activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.hotgearvn.R;
 import com.example.hotgearvn.utils.HandleEvent;
@@ -17,14 +17,19 @@ public class PaymentActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_payment);
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.navigation,menu);
+        inflater.inflate(R.menu.navigation, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
-    public void showPopUp(View v){
-        HandleEvent.showPopUp(v,this);
+    public void showPopUp(View v) {
+        HandleEvent.showPopUp(v, this);
+    }
+
+    public void login_logout(View view) {
+        HandleEvent.onClickLogin_Logout(view, this);
     }
 }

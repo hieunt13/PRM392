@@ -61,4 +61,9 @@ public class HandleEvent {
         inflater.inflate(menu.navigation, popupMenu.getMenu());
         popupMenu.show();
     }
+
+    public static void onClickLogin_Logout(View view,Context context){
+        Intent intent = new Intent(context,LoginActivity.class);
+        context.startActivity(intent);
+    }
 }

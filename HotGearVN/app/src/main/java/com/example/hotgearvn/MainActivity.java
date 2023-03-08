@@ -13,13 +13,23 @@ import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
 
+import com.example.hotgearvn.dao.CategoryDao;
 import com.example.hotgearvn.dao.InvoiceDao;
+import com.example.hotgearvn.dao.InvoiceProductDao;
+import com.example.hotgearvn.dao.ProductDao;
 import com.example.hotgearvn.dao.UsersDao;
+import com.example.hotgearvn.data.CategoryData;
+import com.example.hotgearvn.data.InvoiceData;
+import com.example.hotgearvn.data.ProductData;
+import com.example.hotgearvn.data.ProductInvoiceData;
 import com.example.hotgearvn.data.UsersData;
 import com.example.hotgearvn.database.HotGearDatabase;
+import com.example.hotgearvn.entities.Category;
 import com.example.hotgearvn.entities.Invoice;
+import com.example.hotgearvn.entities.Product;
 import com.example.hotgearvn.entities.Users;
 import com.example.hotgearvn.executor.AppExecutors;
+import com.example.hotgearvn.model.ProductWithInvoices;
 import com.example.hotgearvn.model.UserWithInvoices;
 
 
@@ -49,12 +59,24 @@ public class MainActivity extends AppCompatActivity {
                                     public void run()  {
                                         UsersDao usersDao = mDb.usersDao();
                                         usersDao.insertAll(UsersData.populateUsersTable());
+                                        CategoryDao categoryDao = mDb.categoryDao();
+                                        categoryDao.addAll(CategoryData.populateCategoryTable());
+                                        ProductDao productDao = mDb.productDao();
+                                        productDao.addProducts(ProductData.populateProductTable());
+                                        InvoiceDao invoiceDao = mDb.invoiceDao();
+                                        invoiceDao.addAll(InvoiceData.populateInvoiceTable());
+                                        InvoiceProductDao invoiceProductDao = mDb.invoiceProductDao();
+                                        invoiceProductDao.addInvoiceProducts(ProductInvoiceData.populateProductInvoiceTable());
                                     }
                                 });
                     }
                 })
                 .build();
         UsersDao usersDao = mDb.usersDao();
+        ProductDao productDao = mDb.productDao();
+        InvoiceDao invoiceDao = mDb.invoiceDao();
+        CategoryDao categoryDao = mDb.categoryDao();
+        InvoiceProductDao invoiceProductDao = mDb.invoiceProductDao();
 //        AppExecutors.getInstance().diskI0().execute(()->{
 //
 //            UsersDao usersDao = mDb.usersDao();
@@ -86,7 +108,15 @@ public class MainActivity extends AppCompatActivity {
 //                }
 //            }
             List<Users> users = usersDao.getAll();
-            Log.d("asdas",users.toString());
+            List<Product> products = productDao.getAll();
+            List<Category> categories = categoryDao.getAll();
+            List<Invoice> invoices = invoiceDao.getAll();
+            List<ProductWithInvoices> productInvoiceDataList = invoiceProductDao.getProductWithInvoices();
+            Log.d("prducts", products.toString());
+            Log.d("users",users.toString());
+            Log.d("category",categories.toString());
+            Log.d("invoice",invoices.toString());
+            Log.d("productInvoice",productInvoiceDataList.toString());
         });
 
     }

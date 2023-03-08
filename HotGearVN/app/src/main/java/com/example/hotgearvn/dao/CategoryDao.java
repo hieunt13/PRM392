@@ -25,6 +25,9 @@ public interface CategoryDao {
     @Query("SELECT * FROM category")
     List<Category> getAll();
 
+    @Insert(onConflict = REPLACE)
+    void addAll(Category[] categories);
+
     @Query("SElECT * FROM category WHERE category_id = :id")
     Category getById(Long id);
 }

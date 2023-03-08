@@ -26,6 +26,9 @@ public interface InvoiceDao {
     @Query("SELECT * FROM invoice")
     List<Invoice> getAll();
 
+    @Insert()
+    void addAll(Invoice[] invoices);
+
     @Query("SELECT * FROM invoice WHERE invoice_id = :id")
     Invoice getById(Long id);
 

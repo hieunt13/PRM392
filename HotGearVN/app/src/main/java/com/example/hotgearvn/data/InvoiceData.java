@@ -1,9 +1,8 @@
 package com.example.hotgearvn.data;
 
-import com.example.hotgearvn.entities.Category;
 import com.example.hotgearvn.entities.Invoice;
 
-public class invoiceData {
+public class InvoiceData {
     public static Invoice[] populateInvoiceTable() {
         return new Invoice[] {
                 new Invoice(0,Long.parseLong("1"),30000000),

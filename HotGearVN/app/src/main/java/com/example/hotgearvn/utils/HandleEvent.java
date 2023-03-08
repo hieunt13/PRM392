@@ -3,7 +3,6 @@ package com.example.hotgearvn.utils;
 import static com.example.hotgearvn.R.id;
 import static com.example.hotgearvn.R.menu;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
@@ -13,12 +12,13 @@ import android.widget.PopupMenu;
 
 import com.example.hotgearvn.activity.CartActivity;
 import com.example.hotgearvn.activity.LoginActivity;
-import com.example.hotgearvn.activity.MainActivity;
+import com.example.hotgearvn.MainActivity;
 import com.example.hotgearvn.activity.PaymentActivity;
 import com.example.hotgearvn.activity.ProductListActivity;
 
 public class HandleEvent {
     public static void showPopUp(View v, Context context) {
+        Log.d("Header","onClick");
         PopupMenu popupMenu = new PopupMenu(context, v);
         MenuInflater inflater = popupMenu.getMenuInflater();
         popupMenu.setOnMenuItemClickListener(item -> {
@@ -53,7 +53,6 @@ public class HandleEvent {
                     intent = new Intent(context, PaymentActivity.class);
                     break;
                 default:
-                    Log.e("Error", new RuntimeException("404 not found page").getMessage());
                     return false;
             }
             context.startActivity(intent);

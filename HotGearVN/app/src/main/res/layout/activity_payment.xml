@@ -4,14 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginLeft="10dp"
-    android:layout_marginRight="10dp"
     tools:context=".activity.PaymentActivity">
-    <include layout="@layout/activity_header"/>
+
+    <include layout="@layout/activity_header" />
+
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginRight="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -28,8 +31,8 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_marginRight="40dp"
-            android:textColor="#338dbc"
             android:text="Hiện thị thông tin đơn hàng"
+            android:textColor="#338dbc"
             android:textSize="20dp" />
 
         <TextView
@@ -37,7 +40,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="$ 700"
-            android:textSize="18dp" />
+            android:textSize="15sp" />
 
     </LinearLayout>
 
@@ -45,9 +48,11 @@
         android:id="@+id/textView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:text="Thông tin giao hàng"
-        android:textSize="20dp"
         android:textColor="@color/black"
+        android:textSize="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
@@ -59,6 +64,8 @@
         android:id="@+id/linearLayout3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView"
         app:layout_constraintVertical_bias="0.018"
@@ -81,10 +88,12 @@
 
     <EditText
         android:id="@+id/etUserName"
-        android:background="@drawable/edit_text_payment_border"
         android:layout_width="match_parent"
         android:layout_height="40dp"
+        android:layout_marginLeft="10dp"
         android:layout_marginTop="24dp"
+        android:layout_marginRight="10dp"
+        android:background="@drawable/edit_text_payment_border"
         android:paddingLeft="10dp"
         android:text="Họ Và Tên"
         app:layout_constraintEnd_toEndOf="parent"
@@ -96,9 +105,11 @@
         android:id="@+id/editText"
         android:layout_width="match_parent"
         android:layout_height="40dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:background="@drawable/edit_text_payment_border"
-        android:text="Email"
         android:paddingLeft="10dp"
+        android:text="Email"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -110,9 +121,11 @@
         android:id="@+id/editText2"
         android:layout_width="match_parent"
         android:layout_height="40dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:background="@drawable/edit_text_payment_border"
-        android:text="Số điện thoại"
         android:paddingLeft="10dp"
+        android:text="Số điện thoại"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editText"
@@ -122,6 +135,8 @@
         android:id="@+id/editText3"
         android:layout_width="match_parent"
         android:layout_height="40dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:background="@drawable/edit_text_payment_border"
         android:paddingLeft="10dp"
         android:text="Địa chỉ"
@@ -135,6 +150,8 @@
         android:id="@+id/textView2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:text="Phương Thức Vận chuyển"
         android:textColor="@color/black"
         android:textSize="20dp"
@@ -148,6 +165,8 @@
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:text="Giao hàng tận nơi"
         android:textSize="18dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -160,8 +179,10 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:text="$0"
-        android:textSize="18dp"
+        android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.866"
@@ -173,6 +194,8 @@
         android:id="@+id/textView4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:text="Phương thức thanh toán"
         android:textColor="@color/black"
         android:textSize="20dp"
@@ -187,6 +210,8 @@
         android:id="@+id/textView5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:text="Thanh toán khi giao hàng (COD)"
         android:textSize="18dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -216,6 +241,8 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:text="Giỏ hàng"
         android:textColor="#338dbc"
         android:textSize="18dp"
@@ -224,6 +251,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button" />
 
-        />
+    />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

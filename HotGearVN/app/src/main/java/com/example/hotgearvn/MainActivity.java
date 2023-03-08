@@ -1,4 +1,4 @@
-package com.example.hotgearvn.activity;
+package com.example.hotgearvn;
 
 import android.os.Bundle;
 import android.util.Log;

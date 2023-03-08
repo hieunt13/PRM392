@@ -3,19 +3,44 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="30dp"
+    android:background="@color/red_gearVn"
     tools:context=".activity.HeaderActivity">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+    <ImageButton
+        android:id="@+id/btnMenu"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:onClick="showPopUp"
+        android:src="@drawable/menu"
+        tools:ignore="UsingOnClickInXml" />
 
-        <ImageButton
-            android:id="@+id/btnMenu"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/menu"
-            android:onClick="showPopUp"
-            tools:ignore="UsingOnClickInXml" />
+    <RelativeLayout
+        android:id="@+id/relativeLayout"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_marginEnd="106dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/btnLogIn_LogOut"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/btnMenu"
+        app:layout_constraintTop_toTopOf="parent">
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="match_parent"
+            android:src="@drawable/logo" />
     </RelativeLayout>
+
+    <Button
+        android:id="@+id/btnLogIn_LogOut"
+        android:layout_width="104dp"
+        android:layout_height="match_parent"
+        android:background="#EA5A5A"
+        android:drawableEnd="@drawable/login"
+        android:paddingEnd="10dp"
+        android:text="Login"
+        android:textColor="#372A2A"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/relativeLayout"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

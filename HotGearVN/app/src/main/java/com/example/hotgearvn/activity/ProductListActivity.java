@@ -40,6 +40,7 @@ public class ProductListActivity extends AppCompatActivity {
         rvProduct.setLayoutManager(new GridLayoutManager(this,2));
         rvProduct.addItemDecoration(new GridSpacingItemDecoration(2, 35, true));
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();

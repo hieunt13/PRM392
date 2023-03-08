@@ -72,7 +72,7 @@
         app:layout_constraintTop_toBottomOf="@+id/etPassword" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/tvForgotPassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -83,14 +83,15 @@
         app:layout_constraintTop_toBottomOf="@+id/btnSignIn" />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/tvSignUp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="108dp"
-        android:text="Or Signup with"
+        android:text="@string/sign_up"
+        android:gravity="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+        app:layout_constraintTop_toBottomOf="@+id/tvForgotPassword" />
 
     <ImageButton
         android:id="@+id/google"
@@ -101,7 +102,7 @@
         app:layout_constraintEnd_toStartOf="@+id/facebook"
         app:layout_constraintHorizontal_bias="0.71"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+        app:layout_constraintTop_toBottomOf="@+id/tvSignUp" />
 
     <ImageButton
         android:id="@+id/twitter"
@@ -112,7 +113,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.253"
         app:layout_constraintStart_toEndOf="@+id/facebook"
-        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+        app:layout_constraintTop_toBottomOf="@+id/tvSignUp" />
 
     <ImageButton
         android:id="@+id/facebook"
@@ -123,5 +124,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+        app:layout_constraintTop_toBottomOf="@+id/tvSignUp" />
 </androidx.constraintlayout.widget.ConstraintLayout>

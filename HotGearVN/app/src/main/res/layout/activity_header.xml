@@ -29,7 +29,7 @@
         <ImageView
             android:layout_width="30dp"
             android:layout_height="match_parent"
-            android:src="@drawable/logo" />
+            android:src="@drawable/google" />
     </RelativeLayout>
 
     <Button

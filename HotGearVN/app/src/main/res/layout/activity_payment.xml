@@ -147,7 +147,7 @@
         app:layout_constraintVertical_bias="0.020" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/tvForgotPassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
@@ -162,7 +162,7 @@
         app:layout_constraintVertical_bias="0.040" />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/tvSignUp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
@@ -173,7 +173,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2"
+        app:layout_constraintTop_toBottomOf="@+id/tvForgotPassword"
         app:layout_constraintVertical_bias="0.040" />
 
     <TextView
@@ -186,8 +186,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.866"
-        app:layout_constraintStart_toEndOf="@+id/textView3"
-        app:layout_constraintTop_toBottomOf="@+id/textView2"
+        app:layout_constraintStart_toEndOf="@+id/tvSignUp"
+        app:layout_constraintTop_toBottomOf="@+id/tvForgotPassword"
         app:layout_constraintVertical_bias="0.040" />
 
     <TextView
@@ -203,7 +203,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView3"
+        app:layout_constraintTop_toBottomOf="@+id/tvSignUp"
         app:layout_constraintVertical_bias="0.040" />
 
     <TextView

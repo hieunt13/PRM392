@@ -1,6 +1,5 @@
 package com.example.hotgearvn.data;
 
-import com.example.hotgearvn.entities.Category;
 import com.example.hotgearvn.entities.Product_Invoice;
 
 public class ProductInvoiceData {

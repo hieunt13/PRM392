@@ -8,12 +8,20 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import android.database.SQLException;
 import android.os.Build;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Window;
-import android.view.WindowManager;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.View;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.room.Room;
 
 import com.example.hotgearvn.dao.CategoryDao;
+import com.example.hotgearvn.R;
 import com.example.hotgearvn.dao.InvoiceDao;
 import com.example.hotgearvn.dao.InvoiceProductDao;
 import com.example.hotgearvn.dao.ProductDao;
@@ -31,6 +39,7 @@ import com.example.hotgearvn.entities.Users;
 import com.example.hotgearvn.executor.AppExecutors;
 import com.example.hotgearvn.model.ProductWithInvoices;
 import com.example.hotgearvn.model.UserWithInvoices;
+import com.example.hotgearvn.utils.HandleEvent;
 
 
 import java.io.BufferedReader;
@@ -45,7 +54,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.getSupportActionBar().hide();
         setContentView(R.layout.activity_main);
 
         mDb = Room.databaseBuilder(getApplicationContext(),HotGearDatabase.class,"hotGear-database")
@@ -119,5 +127,26 @@ public class MainActivity extends AppCompatActivity {
             Log.d("productInvoice",productInvoiceDataList.toString());
         });
 
+        mDb = HotGearDatabase.getDatabase(this);
+        AppExecutors.getInstance().diskI0().execute(()->{
+            Log.d("asdas",mDb.usersDao().getAll().toString());
+        });
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.navigation,menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    public void showPopUp(View v){
+        HandleEvent.showPopUp(v,this);
+
+    }
+
+    public void login_logout(View view){
+        HandleEvent.onClickLogin_Logout(view,this);
+    }
+
 }

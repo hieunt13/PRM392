@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/mainPage"
+        android:title="@string/home"
+        />
+    <item
+        android:title="Product"
+        >
+        <menu>
+            <item android:id="@+id/screen"
+                android:title="Screen"
+                />
+
+            <item android:id="@+id/laptop"
+                android:title="Laptop"/>
+
+            <item android:id="@+id/mouse"
+                android:title="Mouse"/>
+
+            <item android:id="@+id/keyboard"
+                android:title="Keyboard"/>
+        </menu>
+
+    </item>
+    <item
+        android:id="@+id/cartPage"
+        android:title="Cart"
+        />
+    <item
+        android:id="@+id/invoicePage"
+        android:title="Invoice"
+        />
+    <item
+        android:id="@+id/profilePage"
+        android:title="Profile"
+        />
+</menu>

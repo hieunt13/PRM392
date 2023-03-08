@@ -1,7 +1,6 @@
 package com.example.hotgearvn.data;
 
 import com.example.hotgearvn.entities.Category;
-import com.example.hotgearvn.entities.Users;
 
 public class CategoryData {
     public static Category[] populateCategoryTable() {

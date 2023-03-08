@@ -29,4 +29,7 @@ public interface ProductDao {
     @Query("SELECT * FROM product WHERE product_id = :id")
     Product getById(Long id);
 
+    @Query("SELECT * FROM product WHERE category_id = :id")
+    Product getByCategoryId(Long id);
+
 }

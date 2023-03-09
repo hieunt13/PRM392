@@ -62,16 +62,16 @@ public class MainActivity extends AppCompatActivity {
         CategoryDao categoryDao = mDb.categoryDao();
         InvoiceProductDao invoiceProductDao = mDb.invoiceProductDao();
         HotGearDatabase.databaseWriteExecutor.execute(()->{
-            List<Users> users = usersDao.getAll();
-            List<Product> products = productDao.getAll();
-            List<Category> categories = categoryDao.getAll();
-            List<Invoice> invoices = invoiceDao.getAll();
-            List<ProductWithInvoices> productInvoiceDataList = invoiceProductDao.getProductWithInvoices();
-            Log.d("prducts", products.toString());
-            Log.d("users",users.toString());
-            Log.d("category",categories.toString());
-            Log.d("invoice",invoices.toString());
-            Log.d("productInvoice",productInvoiceDataList.toString());
+//            List<Users> users = usersDao.getAll();
+//            List<Product> products = productDao.getAll();
+//            List<Category> categories = categoryDao.getAll();
+//            List<Invoice> invoices = invoiceDao.getAll();
+//            List<ProductWithInvoices> productInvoiceDataList = invoiceProductDao.getProductWithInvoices();
+//            Log.d("prducts", products.toString());
+//            Log.d("users",users.toString());
+//            Log.d("category",categories.toString());
+//            Log.d("invoice",invoices.toString());
+//            Log.d("productInvoice",productInvoiceDataList.toString());
         });
     }
 

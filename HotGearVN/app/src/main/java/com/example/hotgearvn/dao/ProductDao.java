@@ -30,6 +30,6 @@ public interface ProductDao {
     Product getById(Long id);
 
     @Query("SELECT * FROM product WHERE category_id = :id")
-    List<Product> getByCategoryId(Long id);
+    Product getByCategoryId(Long id);
 
 }

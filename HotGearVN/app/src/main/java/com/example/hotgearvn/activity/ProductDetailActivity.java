@@ -1,21 +1,57 @@
 package com.example.hotgearvn.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.hotgearvn.R;
+import com.example.hotgearvn.dao.CategoryDao;
+import com.example.hotgearvn.dao.ProductDao;
+import com.example.hotgearvn.database.HotGearDatabase;
+import com.example.hotgearvn.entities.Category;
+import com.example.hotgearvn.entities.Product;
 import com.example.hotgearvn.utils.HandleEvent;
 
 public class ProductDetailActivity extends AppCompatActivity {
+    ImageView proImg;
+    TextView proCate;
+    TextView proName;
+    TextView proDetail;
+    TextView proQuantity;
+    TextView proPrice;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_detail);
+        Intent intent = getIntent();
+        long productId = intent.getLongExtra("productId",0);
+        HotGearDatabase mDb = HotGearDatabase.getDatabase(this);
+        ProductDao productDao = mDb.productDao();
+        CategoryDao cateDao = mDb.categoryDao();
+        Product product = productDao.getById(productId);
+        Category cateProduct = cateDao.getById(product.getCategoryId());
+
+        proImg = findViewById(R.id.imageViewProductImage);
+        proCate = findViewById(R.id.textViewProductCategory);
+        proName = findViewById(R.id.textProductName);
+        proDetail = findViewById(R.id.textViewProductDetail);
+        proQuantity = findViewById(R.id.textProductQuantity);
+        proPrice = findViewById(R.id.textProductPrice);
+
+        proImg.setImageResource(product.getImage());
+        proCate.setText(cateProduct.getName());
+        proName.setText(product.getName());
+        proDetail.setText(product.getDetails());
+        proQuantity.setText(product.getQuantity()+"");
+        proPrice.setText(product.getPrice().intValue()+"đ");
+
     }
 
     @Override

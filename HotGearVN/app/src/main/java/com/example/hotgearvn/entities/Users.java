@@ -31,6 +31,10 @@ public class Users {
         this.phone = phone;
     }
 
+    public Users() {
+
+    }
+
     public Long getUserId() {
         return userId;
     }

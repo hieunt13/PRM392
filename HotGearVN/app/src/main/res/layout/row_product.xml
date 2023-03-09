@@ -59,15 +59,16 @@
         app:layout_constraintTop_toBottomOf="@+id/textViewPrice" />
 
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/buttonAddToCart"
         android:layout_width="75dp"
         android:layout_height="40dp"
         android:layout_marginRight="12dp"
         android:layout_marginBottom="10dp"
         android:layout_marginTop="4dp"
         android:focusable="true"
-        android:text="Detail"
-        android:textColor="@color/white"
+        android:text="Add "
+        android:drawableRight="@drawable/cart"
+        android:textColor="@color/black"
         android:textSize="10sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -77,7 +78,7 @@
         app:layout_constraintVertical_bias="0.376" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/buttonBuy"
         android:layout_width="75dp"
         android:layout_marginTop="4dp"
         android:layout_height="40dp"
@@ -88,7 +89,7 @@
         android:textSize="10sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/button3"
+        app:layout_constraintStart_toEndOf="@+id/buttonAddToCart"
         app:layout_constraintTop_toBottomOf="@+id/textViewQuantity"
         app:layout_constraintVertical_bias="0.376" />
 

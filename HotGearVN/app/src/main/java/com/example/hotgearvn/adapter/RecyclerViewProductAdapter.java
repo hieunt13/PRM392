@@ -9,13 +9,16 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.hotgearvn.R;
 import com.example.hotgearvn.activity.ProductDetailActivity;
+import com.example.hotgearvn.activity.ProductListActivity;
 import com.example.hotgearvn.entities.Product;
+import com.example.hotgearvn.item.ItemClickListener;
 
 import java.util.ArrayList;
 
@@ -51,9 +54,13 @@ public class RecyclerViewProductAdapter extends RecyclerView.Adapter<RecyclerVie
             holder.productQuantity.setText("Hết hàng");
         }
 
-        holder.btnDetail.setOnClickListener(view->{
-            Intent intent = new Intent(view.getContext(), ProductDetailActivity.class);
-            view.getContext().startActivity(intent);
+        holder.setItemClickListener(new ItemClickListener() {
+            @Override
+            public void onClick(View view, int position, boolean isLongClick) {
+                Intent intent = new Intent(view.getContext(), ProductDetailActivity.class);
+                intent.putExtra("productId", product.getProductId());
+                view.getContext().startActivity(intent);
+            }
         });
     }
 
@@ -62,22 +69,34 @@ public class RecyclerViewProductAdapter extends RecyclerView.Adapter<RecyclerVie
         return productList.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         ImageView productImg;
         TextView productName;
         TextView productPrice;
 
         TextView productQuantity;
-        Button btnDetail;
+        Button btnBuy;
         Button btnAddCart;
+
+        private ItemClickListener itemClickListener;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
+            itemView.setOnClickListener(this);
             productImg = itemView.findViewById(R.id.imageViewProduct);
             productName = itemView.findViewById(R.id.textViewName);
             productPrice = itemView.findViewById(R.id.textViewPrice);
             productQuantity = itemView.findViewById(R.id.textViewQuantity);
-            btnDetail = itemView.findViewById(R.id.button3);
-            btnAddCart = itemView.findViewById(R.id.button2);
+            btnBuy = itemView.findViewById(R.id.buttonBuy);
+            btnAddCart = itemView.findViewById(R.id.buttonAddToCart);
         }
+
+        public void setItemClickListener(ItemClickListener itemClickListener){
+            this.itemClickListener = itemClickListener;
+        }
+
+        public void onClick(View v){
+            itemClickListener.onClick(v, getAdapterPosition(),false);
+        }
+
     }
 }

@@ -23,7 +23,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/etEmail"
+        android:id="@+id/etUsernameSI"
         android:layout_width="match_parent"
         android:layout_height="?actionBarSize"
         android:layout_margin="20dp"
@@ -40,7 +40,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <EditText
-        android:id="@+id/etPassword"
+        android:id="@+id/etPasswordSI"
         android:layout_width="match_parent"
         android:layout_height="?actionBarSize"
         android:layout_margin="20dp"
@@ -55,7 +55,7 @@
         android:textSize="17sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etEmail" />
+        app:layout_constraintTop_toBottomOf="@+id/etUsernameSI" />
 
     <Button
         android:id="@+id/btnSignIn"
@@ -69,7 +69,7 @@
         android:textColor="#777"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etPassword" />
+        app:layout_constraintTop_toBottomOf="@+id/etPasswordSI" />
 
     <TextView
         android:id="@+id/tvForgotPassword"

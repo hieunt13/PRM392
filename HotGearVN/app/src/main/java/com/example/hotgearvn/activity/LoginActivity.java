@@ -2,6 +2,7 @@ package com.example.hotgearvn.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
@@ -10,6 +11,8 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.hotgearvn.R;
+import com.example.hotgearvn.dao.UsersDao;
+import com.example.hotgearvn.database.HotGearDatabase;
 import com.example.hotgearvn.utils.HandleEvent;
 
 public class LoginActivity extends AppCompatActivity {
@@ -21,6 +24,9 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         tvSignUp = findViewById(R.id.tvSignUp);
+        HotGearDatabase database = HotGearDatabase.getDatabase(this);
+        UsersDao usersDao = database.usersDao();
+        Log.d("user", usersDao.getAll().toString());
         tvSignUp.setOnClickListener(view->{
             Intent intent = new Intent(this,RegisterActivity.class);
             startActivity(intent);

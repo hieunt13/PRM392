@@ -28,6 +28,8 @@ import java.util.ArrayList;
 
 public class ProductListActivity extends AppCompatActivity {
 
+    ArrayList<Product> productList;
+
     RecyclerViewProductAdapter adapter;
 
     ArrayList<Product> productListByCategory;
@@ -47,10 +49,6 @@ public class ProductListActivity extends AppCompatActivity {
 
     private int totalPage;
 
-    HotGearDatabase mDb = HotGearDatabase.getDatabase(this);
-
-    ProductDao productDao = mDb.productDao();
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,7 +60,10 @@ public class ProductListActivity extends AppCompatActivity {
 
         rvProduct = findViewById(R.id.rvProduct);
 
-
+        productList = new ArrayList<>();
+        HotGearDatabase mDb = HotGearDatabase.getDatabase(this);
+        ProductDao productDao = mDb.productDao();
+        productList = (ArrayList<Product>) productDao.getAll();
         Intent intent = getIntent();
         String category = intent.getStringExtra("category");
         switch (category) {
@@ -95,9 +96,11 @@ public class ProductListActivity extends AppCompatActivity {
 
     }
 
-    public void getProductListByCategory(long categoryId) {
+    public void getProductListByCategory(int categoryId) {
         productListByCategory = new ArrayList<>();
-        productListByCategory = (ArrayList<Product>) productDao.getByCategoryId(categoryId);
+        for (Product product : productList) {
+            if (product.getCategoryId() == categoryId) productListByCategory.add(product);
+        }
         totalPage = (int) (Math.ceil(productListByCategory.size() / productPerPage));
     }
 

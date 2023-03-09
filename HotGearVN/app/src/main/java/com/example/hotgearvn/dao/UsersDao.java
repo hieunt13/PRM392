@@ -30,6 +30,9 @@ public interface UsersDao {
     @Query("SELECT * FROM users")
     public List<Users> getAll();
 
+    @Query("SELECT * FROM users WHERE username = :username")
+    public Users getUser(String username);
+
     @Transaction
     @Query("SELECT * FROM users")
     public List<UserWithInvoices> getUserWithInvoice();

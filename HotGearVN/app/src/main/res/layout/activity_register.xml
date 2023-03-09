@@ -32,10 +32,10 @@
         android:layout_margin="20dp"
         android:background="@drawable/rounded_corner"
         android:hint="Username"
-        android:inputType="textPassword"
+        android:inputType="text"
         android:paddingStart="10dp"
         android:paddingLeft="10dp"
-        android:textColor="#fff"
+        android:textColor="#100F0F"
         android:textColorHint="#100F0F"
         android:textSize="17sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -52,7 +52,7 @@
         android:inputType="textEmailAddress"
         android:paddingStart="10dp"
         android:paddingLeft="10dp"
-        android:textColor="#fff"
+        android:textColor="#100F0F"
         android:textColorHint="#121111"
         android:textSize="17sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -61,22 +61,57 @@
         app:layout_constraintTop_toBottomOf="@+id/etUsername" />
 
     <EditText
+        android:id="@+id/etFullName"
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        android:layout_margin="20dp"
+        android:background="@drawable/rounded_corner"
+        android:hint="Full name"
+        android:inputType="text"
+        android:paddingStart="10dp"
+        android:paddingLeft="10dp"
+        android:textColor="#100F0F"
+        android:textColorHint="#121111"
+        android:textSize="17sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.4"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etEmail" />
+
+    <EditText
+        android:id="@+id/etPhone"
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        android:layout_margin="20dp"
+        android:background="@drawable/rounded_corner"
+        android:hint="Phone"
+        android:inputType="text"
+        android:paddingStart="10dp"
+        android:paddingLeft="10dp"
+        android:textColor="#100F0F"
+        android:textColorHint="#121111"
+        android:textSize="17sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.4"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etFullName" />
+
+    <EditText
         android:id="@+id/etPassword"
         android:layout_width="match_parent"
         android:layout_height="?actionBarSize"
         android:layout_margin="20dp"
-        android:layout_marginTop="52dp"
         android:background="@drawable/rounded_corner"
         android:hint="Password"
         android:inputType="textPassword"
         android:paddingStart="10dp"
         android:paddingLeft="10dp"
-        android:textColor="#fff"
+        android:textColor="#100F0F"
         android:textColorHint="#100F0F"
         android:textSize="17sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etEmail" />
+        app:layout_constraintTop_toBottomOf="@+id/etPhone" />
 
     <EditText
         android:id="@+id/etRepassword"
@@ -89,7 +124,7 @@
         android:inputType="textPassword"
         android:paddingStart="10dp"
         android:paddingLeft="10dp"
-        android:textColor="#fff"
+        android:textColor="#100F0F"
         android:textColorHint="#100F0F"
         android:textSize="17sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -98,10 +133,10 @@
 
 
     <Button
-        android:id="@+id/btnSignIn"
+        android:id="@+id/btnSignup"
         android:layout_width="116dp"
         android:layout_height="49dp"
-        android:layout_marginTop="68dp"
+        android:layout_marginTop="32dp"
         android:backgroundTint="@color/white"
         android:paddingLeft="20dp"
         android:paddingRight="20dp"
@@ -120,7 +155,7 @@
         android:text="Or Signup with"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnSignIn" />
+        app:layout_constraintTop_toBottomOf="@+id/btnSignup" />
 
     <ImageButton
         android:id="@+id/google"

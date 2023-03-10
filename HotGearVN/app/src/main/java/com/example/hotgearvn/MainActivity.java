@@ -6,6 +6,7 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
+import android.content.SharedPreferences;
 import android.database.SQLException;
 import android.os.Build;
 import android.content.Intent;
@@ -15,6 +16,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -49,19 +51,39 @@ import java.io.InputStreamReader;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-
+    Button btnLogout;
+    SharedPreferences sharedpreferences;
     private HotGearDatabase mDb;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        btnLogout = findViewById(R.id.btnLogout);
+        sharedpreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
+        String saveInfo = sharedpreferences.getString("SaveinfoKey", "");
+        Log.d("save", saveInfo);
+        btnLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (saveInfo == "save") {
+                    SharedPreferences.Editor editor = sharedpreferences.edit();
+                    editor.putString("StatusKey", "Logout");
+                    editor.commit();
+                } else {
+                    SharedPreferences.Editor editor = sharedpreferences.edit();
+                    editor.clear();
+                    editor.commit();
+                }
+            }
+        });
         mDb = HotGearDatabase.getDatabase(this);
         UsersDao usersDao = mDb.usersDao();
         ProductDao productDao = mDb.productDao();
         InvoiceDao invoiceDao = mDb.invoiceDao();
         CategoryDao categoryDao = mDb.categoryDao();
         InvoiceProductDao invoiceProductDao = mDb.invoiceProductDao();
-        HotGearDatabase.databaseWriteExecutor.execute(()->{
+        HotGearDatabase.databaseWriteExecutor.execute(() -> {
 //            List<Users> users = usersDao.getAll();
 //            List<Product> products = productDao.getAll();
 //            List<Category> categories = categoryDao.getAll();
@@ -78,17 +100,17 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.navigation,menu);
+        inflater.inflate(R.menu.navigation, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
-    public void showPopUp(View v){
-        HandleEvent.showPopUp(v,this);
+    public void showPopUp(View v) {
+        HandleEvent.showPopUp(v, this);
 
     }
 
-    public void login_logout(View view){
-        HandleEvent.onClickLogin_Logout(view,this);
+    public void login_logout(View view) {
+        HandleEvent.onClickLogin_Logout(view, this);
     }
 
 }

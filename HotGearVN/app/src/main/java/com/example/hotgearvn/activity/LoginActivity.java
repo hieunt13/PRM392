@@ -10,6 +10,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -28,6 +29,8 @@ public class LoginActivity extends AppCompatActivity {
     EditText etUsername, etPassword;
     private final String REQUIRE = "Require";
     Button btnLogin;
+    Button btnLoginHeader;
+    CheckBox checkBox;
     TextView tvSignUp;
 
     public static final String MYPREFERENCES = "MyPrefs";
@@ -37,6 +40,9 @@ public class LoginActivity extends AppCompatActivity {
     public static final String FULLNAME = "FullnameKey";
     public static final String USERID = "UseridKey";
     public static final String EMAIL = "EmailKey";
+
+    public static final String STATUS = "StatusKey";
+    public static final String  SAVEINFO = "SaveinfoKey";
 
     SharedPreferences sharedpreferences;
 
@@ -48,7 +54,9 @@ public class LoginActivity extends AppCompatActivity {
         etUsername = findViewById(R.id.etUsernameSI);
         etPassword = findViewById(R.id.etPasswordSI);
         btnLogin = findViewById(R.id.btnSignIn);
-        sharedpreferences = getSharedPreferences(MYPREFERENCES, Context.MODE_PRIVATE);
+        checkBox = findViewById(R.id.cbLuu);
+        btnLoginHeader = findViewById(R.id.btnLogIn_LogOut);
+        sharedpreferences = getSharedPreferences(MYPREFERENCES, MODE_PRIVATE);
 
         tvSignUp = findViewById(R.id.tvSignUp);
         btnLogin.setOnClickListener(new View.OnClickListener() {
@@ -59,9 +67,17 @@ public class LoginActivity extends AppCompatActivity {
                 } else {
                     String username = etUsername.getText().toString();
                     String password = etPassword.getText().toString();
+                    boolean Saveinfo = checkBox.isChecked();
+                    String save ="";
+                    if (Saveinfo == true){
+                        save = "save";
+                    } else {
+                        save = "not save";
+                    }
                     HotGearDatabase database = HotGearDatabase.getDatabase(getApplicationContext());
                     UsersDao usersDao = database.usersDao();
                     Log.d("user", usersDao.getAll().toString());
+                    String finalSave = save;
                     new Thread(new Runnable() {
                         @Override
                         public void run() {
@@ -81,7 +97,10 @@ public class LoginActivity extends AppCompatActivity {
                                 editor.putString(FULLNAME, users.getFullName());
                                 editor.putString(PHONE, users.getPhone());
                                 editor.putString(PASSWORD, users.getPassword());
+                                editor.putString(STATUS, "login");
+                                editor.putString(SAVEINFO, finalSave);
                                 editor.commit();
+                                btnLoginHeader.setText("Logout");
                                 Intent in = new Intent(LoginActivity.this, MainActivity.class);
                                 startActivity(in);
                             }

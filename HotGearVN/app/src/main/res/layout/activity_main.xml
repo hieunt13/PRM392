@@ -1,34 +1,585 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
-    android:layoutDirection="ltr">
-
-    <include
-        android:id="@+id/include2"
-        layout="@layout/activity_header" />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/btnLogout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="88dp"
-        android:text="Logout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/include2" />
+    android:paddingHorizontal="0dp"
+    android:paddingVertical="0dp"
+    android:fillViewport="true">
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <include
+            android:id="@+id/include2"
+            layout="@layout/activity_header" />
+        <com.smarteist.autoimageslider.SliderView
+            android:id="@+id/svProduct"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            app:sliderAnimationDuration="600"
+            app:sliderAutoCycleDirection="back_and_forth"
+            app:sliderAutoCycleEnabled="true"
+            app:sliderIndicatorAnimationDuration="600"
+            app:sliderIndicatorGravity="center_horizontal|bottom"
+            app:sliderIndicatorMargin="15dp"
+            app:sliderIndicatorOrientation="horizontal"
+            app:sliderIndicatorPadding="3dp"
+            app:sliderIndicatorRadius="2dp"
+            app:sliderIndicatorSelectedColor="#000000"
+            app:sliderIndicatorUnselectedColor="#818181"
+            app:sliderScrollTimeInSec="3"
+            app:sliderStartAutoCycle="true"
+            />
+        <!--laptop section-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginHorizontal="25dp"
+            android:background="#FA1010"
+            android:paddingHorizontal="10dp"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/textViewMoreLaptop"
+                android:layout_gravity="end"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAlignment="textEnd"
+                android:textColor="#fff"
+                android:textSize="11sp"
+                android:text="Xem thêm >"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:textColor="#fff"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:text="LAPTOP GEAR VN - MIỄN PHÍ GIAO HÀNG TOÀN QUỐC"/>
+
+
+        </LinearLayout>
+
+        <GridLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:columnCount="2"
+            android:layout_marginTop="5dp"
+            android:paddingHorizontal="10dp"
+            android:useDefaultMargins="true"
+            >
+            <!--item 1-->
+            <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:id="@+id/constraintLayoutLaptopMain1"
+                android:layout_width="0dp"
+                android:layout_height="270dp"
+                android:layout_columnWeight="1"
+                android:background="@drawable/customborder">
+
+                <ImageView
+                    android:id="@+id/imageViewLaptopMain1"
+                    android:layout_width="match_parent"
+                    android:layout_height="149dp"
+                    android:layout_marginTop="4dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:src="@drawable/laptopgaming" />
+
+                <TextView
+                    android:id="@+id/textViewNameLaptopMain1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="Laptop Gaming Gygabyte"
+                    android:textColor="@color/black"
+                    android:textSize="13dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/imageViewLaptopMain1" />
+
+                <TextView
+                    android:id="@+id/textViewPriceLaptopMain1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="21,690,000đ"
+                    android:textColor="#BD1212"
+                    android:textSize="20sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textViewNameLaptopMain1"
+                    app:layout_constraintVertical_bias="0.7" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+            <!--/item 1-->
+            <!--item 2-->
+            <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:id="@+id/constraintLayoutLaptopMain2"
+                android:layout_width="0dp"
+                android:layout_height="270dp"
+                android:layout_columnWeight="1"
+                android:background="@drawable/customborder">
+
+                <ImageView
+                    android:id="@+id/imageViewLaptopMain2"
+                    android:layout_width="match_parent"
+                    android:layout_height="149dp"
+                    android:layout_marginTop="4dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:src="@drawable/laptopgaming" />
+
+                <TextView
+                    android:id="@+id/textViewNameLaptopMain2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="Laptop Gaming Gygabyte"
+                    android:textColor="@color/black"
+                    android:textSize="13dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/imageViewLaptopMain2" />
+
+                <TextView
+                    android:id="@+id/textViewPriceLaptopMain2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="21,690,000đ"
+                    android:textColor="#BD1212"
+                    android:textSize="20sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textViewNameLaptopMain2"
+                    app:layout_constraintVertical_bias="0.7" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+            <!--/item 2-->
+            <!--item 3-->
+            <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="0dp"
+                android:layout_height="270dp"
+                android:layout_columnWeight="1"
+                android:id="@+id/constraintLayoutLaptopMain3"
+                android:background="@drawable/customborder">
+
+                <ImageView
+                    android:id="@+id/imageViewLaptopMain3"
+                    android:layout_width="match_parent"
+                    android:layout_height="149dp"
+                    android:layout_marginTop="4dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:src="@drawable/laptopgaming" />
+
+                <TextView
+                    android:id="@+id/textViewNameLaptopMain3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="Laptop Gaming Gygabyte"
+                    android:textColor="@color/black"
+                    android:textSize="13dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/imageViewLaptopMain3" />
+
+                <TextView
+                    android:id="@+id/textViewPriceLaptopMain3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="21,690,000đ"
+                    android:textColor="#BD1212"
+                    android:textSize="20sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textViewNameLaptopMain3"
+                    app:layout_constraintVertical_bias="0.7" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+            <!--/item 3-->
+        </GridLayout>
+        <!--/laptop section-->
+
+        <!--screen section-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginHorizontal="25dp"
+            android:background="#FA1010"
+            android:paddingHorizontal="10dp"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/textViewMoreScreen"
+                android:layout_gravity="end"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAlignment="textEnd"
+                android:textColor="#fff"
+                android:textSize="11sp"
+                android:text="Xem thêm >"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:textColor="#fff"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:text="SCREEN GEAR VN - MIỄN PHÍ GIAO HÀNG TOÀN QUỐC"/>
+
+
+        </LinearLayout>
+
+        <GridLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:columnCount="2"
+            android:layout_marginTop="5dp"
+            android:paddingHorizontal="10dp"
+            android:useDefaultMargins="true"
+            >
+            <!--item 1-->
+            <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:id="@+id/constraintLayoutScreenMain1"
+                android:layout_width="0dp"
+                android:layout_height="270dp"
+                android:layout_columnWeight="1"
+                android:background="@drawable/customborder">
+
+                <ImageView
+                    android:id="@+id/imageViewScreenMain1"
+                    android:layout_width="match_parent"
+                    android:layout_height="149dp"
+                    android:layout_marginTop="4dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:src="@drawable/laptopgaming" />
+
+                <TextView
+                    android:id="@+id/textViewNameScreenMain1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="Laptop Gaming Gygabyte"
+                    android:textColor="@color/black"
+                    android:textSize="13dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/imageViewScreenMain1" />
+
+                <TextView
+                    android:id="@+id/textViewPriceScreenMain1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="21,690,000đ"
+                    android:textColor="#BD1212"
+                    android:textSize="20sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textViewNameScreenMain1"
+                    app:layout_constraintVertical_bias="0.7" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+            <!--/item 1-->
+            <!--item 2-->
+            <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:id="@+id/constraintLayoutScreenMain2"
+                android:layout_width="0dp"
+                android:layout_height="270dp"
+                android:layout_columnWeight="1"
+                android:background="@drawable/customborder">
+
+                <ImageView
+                    android:id="@+id/imageViewScreenMain2"
+                    android:layout_width="match_parent"
+                    android:layout_height="149dp"
+                    android:layout_marginTop="4dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:src="@drawable/laptopgaming" />
+
+                <TextView
+                    android:id="@+id/textViewNameScreenMain2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="Laptop Gaming Gygabyte"
+                    android:textColor="@color/black"
+                    android:textSize="13dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/imageViewScreenMain2" />
+
+                <TextView
+                    android:id="@+id/textViewPriceScreenMain2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="21,690,000đ"
+                    android:textColor="#BD1212"
+                    android:textSize="20sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textViewNameScreenMain2"
+                    app:layout_constraintVertical_bias="0.7" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+            <!--/item 2-->
+        </GridLayout>
+        <!--/screen section-->
+
+        <!--mouse section-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginHorizontal="25dp"
+            android:background="#FA1010"
+            android:paddingHorizontal="10dp"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/textViewMoreMouse"
+                android:layout_gravity="end"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAlignment="textEnd"
+                android:textColor="#fff"
+                android:textSize="11sp"
+                android:text="Xem thêm >"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:textColor="#fff"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:text="MOUSE GEAR VN - MIỄN PHÍ GIAO HÀNG TOÀN QUỐC"/>
+
+
+        </LinearLayout>
+
+        <GridLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:columnCount="2"
+            android:layout_marginTop="5dp"
+            android:paddingHorizontal="10dp"
+            android:useDefaultMargins="true"
+            >
+            <!--item 1-->
+            <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:id="@+id/constraintLayoutMouseMain1"
+                android:layout_width="0dp"
+                android:layout_height="270dp"
+                android:layout_columnWeight="1"
+                android:background="@drawable/customborder">
+
+                <ImageView
+                    android:id="@+id/imageViewMouseMain1"
+                    android:layout_width="match_parent"
+                    android:layout_height="149dp"
+                    android:layout_marginTop="4dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:src="@drawable/laptopgaming" />
+
+                <TextView
+                    android:id="@+id/textViewNameMouseMain1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="Laptop Gaming Gygabyte"
+                    android:textColor="@color/black"
+                    android:textSize="13dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/imageViewMouseMain1" />
+
+                <TextView
+                    android:id="@+id/textViewPriceMouseMain1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="21,690,000đ"
+                    android:textColor="#BD1212"
+                    android:textSize="20sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textViewNameMouseMain1"
+                    app:layout_constraintVertical_bias="0.7" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+            <!--/item 1-->
+            <!--item 2-->
+            <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:id="@+id/constraintLayoutMouseMain2"
+                android:layout_width="0dp"
+                android:layout_height="270dp"
+                android:layout_columnWeight="1"
+                android:background="@drawable/customborder">
+
+                <ImageView
+                    android:id="@+id/imageViewMouseMain2"
+                    android:layout_width="match_parent"
+                    android:layout_height="149dp"
+                    android:layout_marginTop="4dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:src="@drawable/laptopgaming" />
+
+                <TextView
+                    android:id="@+id/textViewNameMouseMain2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="Laptop Gaming Gygabyte"
+                    android:textColor="@color/black"
+                    android:textSize="13dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/imageViewMouseMain2" />
+
+                <TextView
+                    android:id="@+id/textViewPriceMouseMain2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="21,690,000đ"
+                    android:textColor="#BD1212"
+                    android:textSize="20sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textViewNameMouseMain2"
+                    app:layout_constraintVertical_bias="0.7" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+            <!--/item 2-->
+        </GridLayout>
+        <!--/mouse section-->
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:textAlignment="center"
+            android:paddingHorizontal="40dp"
+            android:textSize="18sp"
+            android:text="Mua hàng online chất lượng cao và rẻ tại GEAR"/>
+
+        <Button
+            android:id="@+id/btnLogout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="88dp"
+            android:text="Logout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/include2" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:background="#EAEAEA"
+            android:padding="10dp"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:textSize="12sp"
+                android:text="CÔNG TY TNHH THƯƠNG MẠI GEAR"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:textSize="12sp"
+                android:text="EMAIL:SE1621@GEAR.COM"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:textSize="12sp"
+                android:text="ĐỊA CHỈ: Lô E2a-7, Đường D1, Đ. D1, Long Thạnh Mỹ, Thành Phố Thủ Đức, Thành phố Hồ Chí Minh "/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="12sp"
+                android:layout_marginTop="5sp"
+                android:text="Mua PC Gaming, laptop gaming, card màn hình, màn hình máy tính, máy tính để bàn, ghế gaming, thiết bị chơi game như PS5 hàng đầu Việt Nam bảo hành chính hãng. Mua online nhận ưu đãi hấp dẫn với nhiều chương trình đặc biệt như ngày 8/3, b2s, noel..."/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal">
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_weight="1"
+                    android:src="@drawable/qualityproduct" />
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="4dp"
+                    android:layout_weight="1"
+                    android:src="@drawable/bestprice" />
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="4dp"
+                    android:layout_weight="1"
+                    android:src="@drawable/service24" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+
+</androidx.core.widget.NestedScrollView>

@@ -247,8 +247,8 @@ public class MainActivity extends AppCompatActivity {
         productListDisplay("Mouse", 1, 2, productList);
         productListDisplay("Laptop", 3, 3, productList);
         productListDisplay("Screen", 4, 2, productList);
+        
         // LOG OUT SECTION
-
         btnLogout = findViewById(R.id.btnLogout);
         sharedpreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
         String saveInfo = sharedpreferences.getString("SaveinfoKey", "");

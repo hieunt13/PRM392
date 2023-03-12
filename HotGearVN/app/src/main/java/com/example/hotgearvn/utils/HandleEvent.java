@@ -13,6 +13,7 @@ import android.view.MenuInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.PopupMenu;
+import android.widget.Toast;
 
 import com.example.hotgearvn.activity.CartActivity;
 import com.example.hotgearvn.activity.LoginActivity;
@@ -106,6 +107,7 @@ public class HandleEvent {
                     editor.commit();
                 }
                 //set back to login button
+                Toast.makeText(context,"Logout!",Toast.LENGTH_SHORT).show();
                 btnLoginLogout.setText("Login");
                 btnLoginLogout.setOnClickListener(view->{
                     onClickLogin_Logout(view,context);

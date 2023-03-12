@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
+import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -16,6 +17,10 @@ public class PaymentActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_payment);
+        //Handle button login logout header
+        Button btnLoginHeader;
+        btnLoginHeader = findViewById(R.id.btnLogIn_LogOut);
+        HandleEvent.buttonLoginLogoutEvent(btnLoginHeader,this);
     }
 
     @Override

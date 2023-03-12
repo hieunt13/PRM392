@@ -35,7 +35,6 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 public class MainActivity extends AppCompatActivity {
-    Button btnLogout;
     SharedPreferences sharedpreferences;
     ArrayList<Product> sliderProducts = new ArrayList<>();
 //  laptop
@@ -69,6 +68,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        //Handle button login logout header
+        Button btnLoginHeader;
+        btnLoginHeader = findViewById(R.id.btnLogIn_LogOut);
+        HandleEvent.buttonLoginLogoutEvent(btnLoginHeader,this);
+
         mDb = HotGearDatabase.getDatabase(this);
         UsersDao usersDao = mDb.usersDao();
         ProductDao productDao = mDb.productDao();
@@ -95,27 +99,9 @@ public class MainActivity extends AppCompatActivity {
         productListDisplay("Screen", 4, 2, productList);
         
         // LOG OUT SECTION
-        btnLogout = findViewById(R.id.btnLogout);
         sharedpreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
         String saveInfo = sharedpreferences.getString("SaveinfoKey", "");
         Log.d("save", saveInfo);
-        btnLogout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (saveInfo == "save") {
-                    SharedPreferences.Editor editor = sharedpreferences.edit();
-                    editor.putString("StatusKey", "Logout");
-                    editor.commit();
-                } else {
-                    SharedPreferences.Editor editor = sharedpreferences.edit();
-                    editor.clear();
-                    editor.commit();
-                }
-            }
-        });
-
-
-
     }
 
     private void productListDisplay(String categoryName,int categoryId, int displayQuantity, List<Product> productList) {

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -30,6 +31,11 @@ public class ProductDetailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_detail);
+        //Handle button login logout header
+        Button btnLoginHeader;
+        btnLoginHeader = findViewById(R.id.btnLogIn_LogOut);
+        HandleEvent.buttonLoginLogoutEvent(btnLoginHeader,this);
+
         Intent intent = getIntent();
         long productId = intent.getLongExtra("productId",0);
         HotGearDatabase mDb = HotGearDatabase.getDatabase(this);

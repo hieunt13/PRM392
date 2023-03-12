@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
+import android.widget.Button;
 
 import com.example.hotgearvn.R;
 import com.example.hotgearvn.utils.HandleEvent;
@@ -16,6 +17,10 @@ public class CartActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cart);
+        //Handle button login logout header
+        Button btnLoginHeader;
+        btnLoginHeader = findViewById(R.id.btnLogIn_LogOut);
+        HandleEvent.buttonLoginLogoutEvent(btnLoginHeader,this);
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

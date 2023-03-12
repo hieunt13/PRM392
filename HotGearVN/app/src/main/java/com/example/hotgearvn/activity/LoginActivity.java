@@ -1,6 +1,15 @@
 package com.example.hotgearvn.activity;
 
-import android.content.Context;
+import static com.example.hotgearvn.constants.MyPreferenceKey.EMAIL;
+import static com.example.hotgearvn.constants.MyPreferenceKey.FULLNAME;
+import static com.example.hotgearvn.constants.MyPreferenceKey.MYPREFERENCES;
+import static com.example.hotgearvn.constants.MyPreferenceKey.PASSWORD;
+import static com.example.hotgearvn.constants.MyPreferenceKey.PHONE;
+import static com.example.hotgearvn.constants.MyPreferenceKey.SAVEINFO;
+import static com.example.hotgearvn.constants.MyPreferenceKey.STATUS;
+import static com.example.hotgearvn.constants.MyPreferenceKey.USERID;
+import static com.example.hotgearvn.constants.MyPreferenceKey.USERNAME;
+
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -27,22 +36,10 @@ import com.example.hotgearvn.utils.HandleEvent;
 public class LoginActivity extends AppCompatActivity {
 
     EditText etUsername, etPassword;
-    private final String REQUIRE = "Require";
     Button btnLogin;
-    Button btnLoginHeader;
+
     CheckBox checkBox;
     TextView tvSignUp;
-
-    public static final String MYPREFERENCES = "MyPrefs";
-    public static final String USERNAME = "UsernameKey";
-    public static final String PASSWORD = "PasswordKey";
-    public static final String PHONE = "PhoneKey";
-    public static final String FULLNAME = "FullnameKey";
-    public static final String USERID = "UseridKey";
-    public static final String EMAIL = "EmailKey";
-
-    public static final String STATUS = "StatusKey";
-    public static final String  SAVEINFO = "SaveinfoKey";
 
     SharedPreferences sharedpreferences;
 
@@ -50,14 +47,16 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        //Handle button login logout header
+        Button btnLoginHeader;
+        btnLoginHeader = findViewById(R.id.btnLogIn_LogOut);
+        HandleEvent.buttonLoginLogoutEvent(btnLoginHeader,this);
 
         etUsername = findViewById(R.id.etUsernameSI);
         etPassword = findViewById(R.id.etPasswordSI);
         btnLogin = findViewById(R.id.btnSignIn);
         checkBox = findViewById(R.id.cbLuu);
-        btnLoginHeader = findViewById(R.id.btnLogIn_LogOut);
         sharedpreferences = getSharedPreferences(MYPREFERENCES, MODE_PRIVATE);
-
         tvSignUp = findViewById(R.id.tvSignUp);
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -125,6 +124,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private boolean checkInput() {
         //UserName
+        String REQUIRE = "Require";
         if (TextUtils.isEmpty(etUsername.getText().toString())) {
             etUsername.setError(REQUIRE);
             return false;

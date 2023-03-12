@@ -125,11 +125,15 @@ public class MainActivity extends AppCompatActivity {
         int priceId = 0;
         int layoutId = 0;
         int viewMoreId = 0;
+        int addToCartId = 0;
+        int buyId = 0;
         TextView tvViewMore;
         TextView tvPriceProduct;
         TextView tvNameProduct;
         ImageView ivProduct;
         ConstraintLayout clsProduct;
+        Button btnAddtoCart;
+        Button btnBuy;
         Predicate<Product> byCategory = product -> product.getCategoryId() == categoryId;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             products = productList.stream().filter(byCategory).collect(Collectors.toList());
@@ -148,10 +152,14 @@ public class MainActivity extends AppCompatActivity {
             nameId = getResources().getIdentifier("textViewName"+categoryName+"Main"+i, "id", getPackageName());
             priceId = getResources().getIdentifier("textViewPrice"+categoryName+"Main"+i, "id", getPackageName());
             layoutId = getResources().getIdentifier("constraintLayout"+categoryName+"Main"+i, "id", getPackageName());
+            addToCartId = getResources().getIdentifier("buttonAddToCart"+categoryName+"Main"+i, "id", getPackageName());
+            buyId = getResources().getIdentifier("buttonBuy"+categoryName+"Main"+i, "id", getPackageName());
             tvPriceProduct = findViewById(priceId);
             tvNameProduct = findViewById(nameId);
             ivProduct = findViewById(imageId);
             clsProduct = findViewById(layoutId);
+            btnAddtoCart = findViewById(addToCartId);
+            btnBuy = findViewById(buyId);
             ivProduct.setImageResource(products.get(i-1).getImage());
             tvNameProduct.setText(products.get(i-1).getName());
             tvPriceProduct.setText(products.get(i-1).getPrice().intValue()+" đ");
@@ -161,6 +169,8 @@ public class MainActivity extends AppCompatActivity {
                 intent.putExtra("productId", productsTemp.get(position).getProductId());
                 v.getContext().startActivity(intent);
             });
+            btnAddtoCart.setOnClickListener(v -> {});
+            btnBuy.setOnClickListener(v -> {});
         }
     }
 

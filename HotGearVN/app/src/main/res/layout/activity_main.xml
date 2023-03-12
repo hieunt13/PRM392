@@ -4,18 +4,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fillViewport="true"
     android:paddingHorizontal="0dp"
-    android:paddingVertical="0dp"
-    android:fillViewport="true">
+    android:paddingVertical="0dp">
 
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+
         <include
             android:id="@+id/include2"
             layout="@layout/activity_header" />
+
         <com.smarteist.autoimageslider.SliderView
             android:id="@+id/svProduct"
             android:layout_width="match_parent"
@@ -32,34 +34,35 @@
             app:sliderIndicatorSelectedColor="#000000"
             app:sliderIndicatorUnselectedColor="#818181"
             app:sliderScrollTimeInSec="3"
-            app:sliderStartAutoCycle="true"
-            />
+            app:sliderStartAutoCycle="true" />
         <!--laptop section-->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="70dp"
-            android:layout_marginTop="10dp"
             android:layout_marginHorizontal="10dp"
+            android:layout_marginTop="10dp"
             android:background="@color/red_gearVn"
-            android:paddingHorizontal="10dp"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingHorizontal="10dp">
+
             <TextView
                 android:id="@+id/textViewMoreLaptop"
-                android:layout_gravity="end"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:text="Xem thêm >"
                 android:textAlignment="textEnd"
                 android:textColor="#fff"
-                android:textSize="11sp"
-                android:text="Xem thêm >"/>
+                android:textSize="11sp" />
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
+                android:text="LAPTOP GEAR VN - MIỄN PHÍ GIAO HÀNG TOÀN QUỐC"
                 android:textColor="#fff"
                 android:textSize="16sp"
-                android:textStyle="bold"
-                android:text="LAPTOP GEAR VN - MIỄN PHÍ GIAO HÀNG TOÀN QUỐC"/>
+                android:textStyle="bold" />
 
 
         </LinearLayout>
@@ -67,11 +70,10 @@
         <GridLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:columnCount="2"
             android:layout_marginTop="5dp"
+            android:columnCount="2"
             android:paddingHorizontal="10dp"
-            android:useDefaultMargins="true"
-            >
+            android:useDefaultMargins="true">
             <!--item 1-->
             <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -174,10 +176,10 @@
             <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 xmlns:app="http://schemas.android.com/apk/res-auto"
                 xmlns:tools="http://schemas.android.com/tools"
+                android:id="@+id/constraintLayoutLaptopMain3"
                 android:layout_width="0dp"
                 android:layout_height="270dp"
                 android:layout_columnWeight="1"
-                android:id="@+id/constraintLayoutLaptopMain3"
                 android:background="@drawable/customborder">
 
                 <ImageView
@@ -226,28 +228,30 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="70dp"
-            android:layout_marginTop="15dp"
             android:layout_marginHorizontal="10dp"
+            android:layout_marginTop="15dp"
             android:background="@color/red_gearVn"
-            android:paddingHorizontal="10dp"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingHorizontal="10dp">
+
             <TextView
                 android:id="@+id/textViewMoreScreen"
-                android:layout_gravity="end"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:text="Xem thêm >"
                 android:textAlignment="textEnd"
                 android:textColor="#fff"
-                android:textSize="11sp"
-                android:text="Xem thêm >"/>
+                android:textSize="11sp" />
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
+                android:text="SCREEN GEAR VN - MIỄN PHÍ GIAO HÀNG TOÀN QUỐC"
                 android:textColor="#fff"
                 android:textSize="16sp"
-                android:textStyle="bold"
-                android:text="SCREEN GEAR VN - MIỄN PHÍ GIAO HÀNG TOÀN QUỐC"/>
+                android:textStyle="bold" />
 
 
         </LinearLayout>
@@ -255,11 +259,10 @@
         <GridLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:columnCount="2"
             android:layout_marginTop="5dp"
+            android:columnCount="2"
             android:paddingHorizontal="10dp"
-            android:useDefaultMargins="true"
-            >
+            android:useDefaultMargins="true">
             <!--item 1-->
             <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -365,28 +368,30 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="70dp"
-            android:layout_marginTop="15dp"
             android:layout_marginHorizontal="10dp"
+            android:layout_marginTop="15dp"
             android:background="@color/red_gearVn"
-            android:paddingHorizontal="10dp"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingHorizontal="10dp">
+
             <TextView
                 android:id="@+id/textViewMoreMouse"
-                android:layout_gravity="end"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:text="Xem thêm >"
                 android:textAlignment="textEnd"
                 android:textColor="#fff"
-                android:textSize="11sp"
-                android:text="Xem thêm >"/>
+                android:textSize="11sp" />
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
+                android:text="MOUSE GEAR VN - MIỄN PHÍ GIAO HÀNG TOÀN QUỐC"
                 android:textColor="#fff"
                 android:textSize="16sp"
-                android:textStyle="bold"
-                android:text="MOUSE GEAR VN - MIỄN PHÍ GIAO HÀNG TOÀN QUỐC"/>
+                android:textStyle="bold" />
 
 
         </LinearLayout>
@@ -394,11 +399,10 @@
         <GridLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:columnCount="2"
             android:layout_marginTop="5dp"
+            android:columnCount="2"
             android:paddingHorizontal="10dp"
-            android:useDefaultMargins="true"
-            >
+            android:useDefaultMargins="true">
             <!--item 1-->
             <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -504,70 +508,67 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="40dp"
-            android:textAlignment="center"
             android:paddingHorizontal="40dp"
-            android:textSize="18sp"
-            android:text="Mua hàng online chất lượng cao và rẻ tại GEAR"/>
+            android:text="Mua hàng online chất lượng cao và rẻ tại GEAR"
+            android:textAlignment="center"
+            android:textSize="18sp" />
 
-        <Button
-            android:id="@+id/btnLogout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="88dp"
-            android:text="Logout"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/include2" />
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="40dp"
             android:background="#EAEAEA"
-            android:padding="10dp"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:padding="10dp">
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textStyle="bold"
+                android:text="CÔNG TY TNHH THƯƠNG MẠI GEAR"
                 android:textSize="12sp"
-                android:text="CÔNG TY TNHH THƯƠNG MẠI GEAR"/>
+                android:textStyle="bold" />
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textStyle="bold"
+                android:text="EMAIL:SE1621@GEAR.COM"
                 android:textSize="12sp"
-                android:text="EMAIL:SE1621@GEAR.COM"/>
+                android:textStyle="bold" />
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textStyle="bold"
+                android:text="ĐỊA CHỈ: Lô E2a-7, Đường D1, Đ. D1, Long Thạnh Mỹ, Thành Phố Thủ Đức, Thành phố Hồ Chí Minh "
                 android:textSize="12sp"
-                android:text="ĐỊA CHỈ: Lô E2a-7, Đường D1, Đ. D1, Long Thạnh Mỹ, Thành Phố Thủ Đức, Thành phố Hồ Chí Minh "/>
+                android:textStyle="bold" />
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="12sp"
                 android:layout_marginTop="5sp"
-                android:text="Mua PC Gaming, laptop gaming, card màn hình, màn hình máy tính, máy tính để bàn, ghế gaming, thiết bị chơi game như PS5 hàng đầu Việt Nam bảo hành chính hãng. Mua online nhận ưu đãi hấp dẫn với nhiều chương trình đặc biệt như ngày 8/3, b2s, noel..."/>
+                android:text="Mua PC Gaming, laptop gaming, card màn hình, màn hình máy tính, máy tính để bàn, ghế gaming, thiết bị chơi game như PS5 hàng đầu Việt Nam bảo hành chính hãng. Mua online nhận ưu đãi hấp dẫn với nhiều chương trình đặc biệt như ngày 8/3, b2s, noel..."
+                android:textSize="12sp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
                 android:layout_marginTop="5dp"
                 android:orientation="horizontal">
+
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="100dp"
                     android:layout_marginTop="4dp"
                     android:layout_weight="1"
                     android:src="@drawable/qualityproduct" />
+
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginTop="4dp"
                     android:layout_weight="1"
                     android:src="@drawable/bestprice" />
+
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -579,7 +580,6 @@
         </LinearLayout>
 
     </LinearLayout>
-
 
 
 </androidx.core.widget.NestedScrollView>

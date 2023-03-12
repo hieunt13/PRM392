@@ -38,9 +38,9 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="70dp"
-            android:layout_marginTop="40dp"
-            android:layout_marginHorizontal="25dp"
-            android:background="#FA1010"
+            android:layout_marginTop="10dp"
+            android:layout_marginHorizontal="10dp"
+            android:background="@color/red_gearVn"
             android:paddingHorizontal="10dp"
             android:orientation="vertical">
             <TextView
@@ -226,9 +226,9 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="70dp"
-            android:layout_marginTop="40dp"
-            android:layout_marginHorizontal="25dp"
-            android:background="#FA1010"
+            android:layout_marginTop="15dp"
+            android:layout_marginHorizontal="10dp"
+            android:background="@color/red_gearVn"
             android:paddingHorizontal="10dp"
             android:orientation="vertical">
             <TextView
@@ -365,9 +365,9 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="70dp"
-            android:layout_marginTop="40dp"
-            android:layout_marginHorizontal="25dp"
-            android:background="#FA1010"
+            android:layout_marginTop="15dp"
+            android:layout_marginHorizontal="10dp"
+            android:background="@color/red_gearVn"
             android:paddingHorizontal="10dp"
             android:orientation="vertical">
             <TextView

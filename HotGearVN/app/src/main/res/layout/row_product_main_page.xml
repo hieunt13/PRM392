@@ -19,7 +19,7 @@
     <TextView
         android:id="@+id/textViewNameMain"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="30dp"
         android:layout_marginTop="4dp"
         android:text="Laptop Gaming Gygabyte"
         android:textColor="@color/black"
@@ -36,28 +36,62 @@
         android:layout_marginTop="5dp"
         android:text="21,690,000đ"
         android:textColor="#BD1212"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:textSize="10sp"
+        app:layout_constraintBottom_toTopOf="@+id/buttonAddToCartMain"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewNameMain"
-        app:layout_constraintVertical_bias="0.7" />
+        app:layout_constraintVertical_bias="0.0" />
+
+    <Button
+        android:id="@+id/buttonAddToCartMain"
+        android:layout_width="75dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginRight="12dp"
+        android:layout_marginBottom="10dp"
+        android:drawableRight="@drawable/cart"
+        android:focusable="true"
+        android:text="Add "
+        android:textColor="@color/black"
+        android:textSize="10sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewPriceMain"
+        app:layout_constraintVertical_bias="0.376" />
+
+    <Button
+        android:id="@+id/buttonBuyMain"
+        android:layout_width="75dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="10dp"
+        android:backgroundTint="@color/red_gearVn"
+        android:text="Buy"
+        android:textColor="@color/white"
+        android:textSize="10sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/buttonAddToCartMain"
+        app:layout_constraintTop_toBottomOf="@+id/textViewPriceMain"
+        app:layout_constraintVertical_bias="0.376" />
 
 
-<!--    <TextView-->
-<!--        android:id="@+id/textViewQuantity"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginTop="4dp"-->
-<!--        android:text="Hết hàng"-->
-<!--        android:textColor="#D63636"-->
-<!--        android:textSize="12dp"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintHorizontal_bias="0.0"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/textViewPrice" />-->
-
+    <!--    <TextView-->
+    <!--        android:id="@+id/textViewQuantity"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_marginTop="4dp"-->
+    <!--        android:text="Hết hàng"-->
+    <!--        android:textColor="#D63636"-->
+    <!--        android:textSize="12dp"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintHorizontal_bias="0.0"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:layout_constraintTop_toBottomOf="@+id/textViewPrice" />-->
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -9,14 +9,12 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.hotgearvn.R;
 import com.example.hotgearvn.activity.ProductDetailActivity;
-import com.example.hotgearvn.activity.ProductListActivity;
 import com.example.hotgearvn.entities.Product;
 import com.example.hotgearvn.item.ItemClickListener;
 
@@ -86,8 +84,8 @@ public class RecyclerViewProductAdapter extends RecyclerView.Adapter<RecyclerVie
             productName = itemView.findViewById(R.id.textViewName);
             productPrice = itemView.findViewById(R.id.textViewPrice);
             productQuantity = itemView.findViewById(R.id.textViewQuantity);
-            btnBuy = itemView.findViewById(R.id.buttonBuy);
-            btnAddCart = itemView.findViewById(R.id.buttonAddToCart);
+            btnBuy = itemView.findViewById(R.id.buttonBuyMain);
+            btnAddCart = itemView.findViewById(R.id.buttonAddToCartMain);
         }
 
         public void setItemClickListener(ItemClickListener itemClickListener){

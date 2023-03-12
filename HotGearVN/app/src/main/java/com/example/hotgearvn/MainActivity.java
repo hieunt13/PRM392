@@ -1,66 +1,34 @@
 package com.example.hotgearvn;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.room.Room;
-import androidx.room.RoomDatabase;
-import androidx.sqlite.db.SupportSQLiteDatabase;
-
-import android.content.SharedPreferences;
-import android.database.SQLException;
-import android.os.Build;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.room.Room;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.example.hotgearvn.activity.ProductDetailActivity;
 import com.example.hotgearvn.activity.ProductListActivity;
-import com.example.hotgearvn.adapter.GridViewProductMainPageAdapter;
 import com.example.hotgearvn.adapter.ImageSliderProductAdapter;
 import com.example.hotgearvn.dao.CategoryDao;
-import com.example.hotgearvn.R;
 import com.example.hotgearvn.dao.InvoiceDao;
 import com.example.hotgearvn.dao.InvoiceProductDao;
 import com.example.hotgearvn.dao.ProductDao;
 import com.example.hotgearvn.dao.UsersDao;
-import com.example.hotgearvn.data.CategoryData;
-import com.example.hotgearvn.data.InvoiceData;
-import com.example.hotgearvn.data.ProductData;
-import com.example.hotgearvn.data.ProductInvoiceData;
-import com.example.hotgearvn.data.UsersData;
 import com.example.hotgearvn.database.HotGearDatabase;
-import com.example.hotgearvn.entities.Category;
-import com.example.hotgearvn.entities.Invoice;
 import com.example.hotgearvn.entities.Product;
-import com.example.hotgearvn.entities.Users;
-import com.example.hotgearvn.executor.AppExecutors;
-import com.example.hotgearvn.model.ProductWithInvoices;
-import com.example.hotgearvn.model.UserWithInvoices;
 import com.example.hotgearvn.utils.HandleEvent;
 import com.smarteist.autoimageslider.SliderView;
 
-
-import org.w3c.dom.Text;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
@@ -108,18 +76,6 @@ public class MainActivity extends AppCompatActivity {
         CategoryDao categoryDao = mDb.categoryDao();
         InvoiceProductDao invoiceProductDao = mDb.invoiceProductDao();
 
-//        HotGearDatabase.databaseWriteExecutor.execute(() -> {
-//            List<Users> users = usersDao.getAll();
-//            List<Product> products = productDao.getAll();
-//            List<Category> categories = categoryDao.getAll();
-//            List<Invoice> invoices = invoiceDao.getAll();
-//            List<ProductWithInvoices> productInvoiceDataList = invoiceProductDao.getProductWithInvoices();
-//            Log.d("prducts", products.toString());
-//            Log.d("users",users.toString());
-//            Log.d("category",categories.toString());
-//            Log.d("invoice",invoices.toString());
-//            Log.d("productInvoice",productInvoiceDataList.toString());
-//        });
         // image slider
         svProduct = findViewById(R.id.svProduct);
         HotGearDatabase mDb = HotGearDatabase.getDatabase(this);
@@ -133,116 +89,6 @@ public class MainActivity extends AppCompatActivity {
 
         //get all product
         List<Product> productList = productDao.getAll();
-
-        //product detail
-//        int imageId = 0;
-//        int nameId = 0;
-//        int priceId = 0;
-//        int layoutId = 0;
-
-        // grid layout laptop product
-//        Predicate<Product> byLaptop = product -> product.getCategoryId() == 3;
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-//            laptopProducts = productList.stream().filter(byLaptop).collect(Collectors.toList());
-//        }
-//        tvViewMoreLaptop = findViewById(R.id.textViewMoreLaptop);
-//        tvViewMoreLaptop.setOnClickListener(view -> {
-//            Intent intent = new Intent(this, ProductListActivity.class);
-//            intent.putExtra("category","laptop");
-//            startActivity(intent);
-//        });
-//        for(int i = 1; i <= 3; i++){
-//            imageId = getResources().getIdentifier("imageViewLaptopMain"+i, "id", getPackageName());
-//            ivLaptop = findViewById(imageId);
-//            nameId = getResources().getIdentifier("textViewNameLaptopMain"+i, "id", getPackageName());
-//            tvNameLaptop = findViewById(nameId);
-//            priceId = getResources().getIdentifier("textViewPriceLaptopMain"+i, "id", getPackageName());
-//            tvPriceLaptop = findViewById(priceId);
-//            layoutId = getResources().getIdentifier("constraintLayoutLaptopMain"+i, "id", getPackageName());
-//            cslLaptop = findViewById(layoutId);
-//            ivLaptop.setImageResource(laptopProducts.get(i-1).getImage());
-//            tvNameLaptop.setText(laptopProducts.get(i-1).getName());
-//            tvPriceLaptop.setText(laptopProducts.get(i-1).getPrice().intValue()+" đ");
-//            int position = i - 1;
-//            cslLaptop.setOnClickListener(v -> {
-//                Intent intent = new Intent(v.getContext(), ProductDetailActivity.class);
-//                intent.putExtra("productId", laptopProducts.get(position).getProductId());
-//                v.getContext().startActivity(intent);
-//            });
-//        }
-
-        // grid layout screen product
-//        Predicate<Product> byScreen = product -> product.getCategoryId() == 4;
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-//            screenProducts = productList.stream().filter(byScreen).collect(Collectors.toList());
-//        }
-//        tvViewMoreScreen = findViewById(R.id.textViewMoreScreen);
-//        tvViewMoreScreen.setOnClickListener(view -> {
-//            Intent intent = new Intent(this, ProductListActivity.class);
-//            intent.putExtra("category","screen");
-//            startActivity(intent);
-//        });
-//        for(int i = 1; i <= 2; i++){
-//            imageId = getResources().getIdentifier("imageViewScreenMain"+i, "id", getPackageName());
-//            ivScreen = findViewById(imageId);
-//            nameId = getResources().getIdentifier("textViewNameScreenMain"+i, "id", getPackageName());
-//            tvNameScreen = findViewById(nameId);
-//            priceId = getResources().getIdentifier("textViewPriceScreenMain"+i, "id", getPackageName());
-//            tvPriceScreen = findViewById(priceId);
-//            layoutId = getResources().getIdentifier("constraintLayoutScreenMain"+i, "id", getPackageName());
-//            cslScreen = findViewById(layoutId);
-//            ivScreen.setImageResource(screenProducts.get(i-1).getImage());
-//            tvNameScreen.setText(screenProducts.get(i-1).getName());
-//            tvPriceScreen.setText(screenProducts.get(i-1).getPrice().intValue()+" đ");
-//            int position = i - 1;
-//            cslScreen.setOnClickListener(v -> {
-//                Intent intent = new Intent(v.getContext(), ProductDetailActivity.class);
-//                intent.putExtra("productId", screenProducts.get(position).getProductId());
-//                v.getContext().startActivity(intent);
-//            });
-//        }
-
-        // grid layout mouse product
-//        Predicate<Product> byMouse = product -> product.getCategoryId() == 1;
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-//            mouseProducts = productList.stream().filter(byMouse).collect(Collectors.toList());
-//        }
-//        tvViewMoreMouse = findViewById(R.id.textViewMoreMouse);
-//        tvViewMoreMouse.setOnClickListener(view -> {
-//            Intent intent = new Intent(this, ProductListActivity.class);
-//            intent.putExtra("category","mouse");
-//            startActivity(intent);
-//        });
-//        for(int i = 1; i <= 2; i++){
-//            imageId = getResources().getIdentifier("imageViewMouseMain"+i, "id", getPackageName());
-//            ivMouse = findViewById(imageId);
-//            nameId = getResources().getIdentifier("textViewNameMouseMain"+i, "id", getPackageName());
-//            tvNameMouse = findViewById(nameId);
-//            priceId = getResources().getIdentifier("textViewPriceMouseMain"+i, "id", getPackageName());
-//            tvPriceMouse = findViewById(priceId);
-//            layoutId = getResources().getIdentifier("constraintLayoutMouseMain"+i, "id", getPackageName());
-//            cslMouse = findViewById(layoutId);
-//            ivMouse.setImageResource(mouseProducts.get(i-1).getImage());
-//            tvNameMouse.setText(mouseProducts.get(i-1).getName());
-//            tvPriceMouse.setText(mouseProducts.get(i-1).getPrice().intValue()+" đ");
-//            int position = i - 1;
-//            cslMouse.setOnClickListener(v -> {
-//                Intent intent = new Intent(v.getContext(), ProductDetailActivity.class);
-//                intent.putExtra("productId", mouseProducts.get(position).getProductId());
-//                v.getContext().startActivity(intent);
-//            });
-//        }
-//        gvLaptopProduct = findViewById(R.id.gridViewLaptopProduct);
-//        GridViewProductMainPageAdapter gridViewProductMainPageAdapter = new GridViewProductMainPageAdapter(this, R.layout.row_product_main_page, laptopProducts);
-//        gvLaptopProduct.setAdapter(gridViewProductMainPageAdapter);
-//        gvLaptopProduct.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-//                Intent intent = new Intent(view.getContext(), ProductDetailActivity.class);
-//                intent.putExtra("productId", laptopProducts.get(i).getProductId());
-//                view.getContext().startActivity(intent);
-//            }
-//        });
 
         productListDisplay("Mouse", 1, 2, productList);
         productListDisplay("Laptop", 3, 3, productList);

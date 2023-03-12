@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -49,6 +50,8 @@ public class GridViewProductMainPageAdapter extends BaseAdapter {
         TextView tvName = (TextView)  view.findViewById(R.id.textViewNameMain);
         TextView tvPrice = (TextView)  view.findViewById(R.id.textViewPriceMain);
         ImageView ivImage = (ImageView) view.findViewById(R.id.imageViewProductMain);
+        Button btnAddCart = view.findViewById(R.id.buttonAddToCartMain);
+        Button btnBuy = view.findViewById(R.id.buttonBuyMain);
         Product product = productList.get(i);
         tvName.setText(product.getName());
         tvPrice.setText(product.getPrice().intValue()+" đ");

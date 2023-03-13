@@ -1,7 +1,8 @@
 package com.example.hotgearvn.activity;
 
-import static com.example.hotgearvn.activity.LoginActivity.MYPREFERENCES;
-import static com.example.hotgearvn.activity.LoginActivity.USERID;
+
+import static com.example.hotgearvn.constants.MyPreferenceKey.MYPREFERENCES;
+import static com.example.hotgearvn.constants.MyPreferenceKey.USERID;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -19,7 +20,6 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.hotgearvn.R;
-import com.example.hotgearvn.adapter.RecyclerViewCartAdapter;
 import com.example.hotgearvn.dao.CategoryDao;
 import com.example.hotgearvn.dao.ProductDao;
 import com.example.hotgearvn.database.HotGearDatabase;
@@ -27,7 +27,6 @@ import com.example.hotgearvn.entities.Category;
 import com.example.hotgearvn.entities.Product;
 import com.example.hotgearvn.utils.HandleEvent;
 import com.example.hotgearvn.utils.snakeBar;
-import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 import java.util.HashSet;

@@ -1,10 +1,11 @@
 package com.example.hotgearvn.activity;
 
-import static com.example.hotgearvn.activity.LoginActivity.EMAIL;
-import static com.example.hotgearvn.activity.LoginActivity.FULLNAME;
-import static com.example.hotgearvn.activity.LoginActivity.MYPREFERENCES;
-import static com.example.hotgearvn.activity.LoginActivity.PHONE;
-import static com.example.hotgearvn.activity.LoginActivity.USERID;
+
+import static com.example.hotgearvn.constants.MyPreferenceKey.EMAIL;
+import static com.example.hotgearvn.constants.MyPreferenceKey.FULLNAME;
+import static com.example.hotgearvn.constants.MyPreferenceKey.MYPREFERENCES;
+import static com.example.hotgearvn.constants.MyPreferenceKey.PHONE;
+import static com.example.hotgearvn.constants.MyPreferenceKey.USERID;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
@@ -13,7 +14,6 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -26,8 +26,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
-import android.widget.Button;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -41,9 +39,7 @@ import com.example.hotgearvn.database.HotGearDatabase;
 import com.example.hotgearvn.entities.Invoice;
 import com.example.hotgearvn.entities.Product;
 import com.example.hotgearvn.utils.HandleEvent;
-import com.google.android.material.snackbar.Snackbar;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;

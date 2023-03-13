@@ -1,14 +1,7 @@
 package com.example.hotgearvn.activity;
 
-import static com.example.hotgearvn.activity.LoginActivity.MYPREFERENCES;
-import static com.example.hotgearvn.activity.LoginActivity.USERID;
 
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.recyclerview.widget.DividerItemDecoration;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+import static com.example.hotgearvn.constants.MyPreferenceKey.*;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -19,9 +12,14 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
-import android.widget.ImageView;
+import android.widget.Button;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.hotgearvn.R;
 import com.example.hotgearvn.adapter.RecyclerViewCartAdapter;
@@ -30,7 +28,6 @@ import com.example.hotgearvn.database.HotGearDatabase;
 import com.example.hotgearvn.entities.Product;
 import com.example.hotgearvn.utils.HandleEvent;
 import com.example.hotgearvn.utils.snakeBar;
-import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 import java.util.HashSet;

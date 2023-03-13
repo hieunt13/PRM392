@@ -122,6 +122,11 @@ public class CartActivity extends AppCompatActivity {
                 }
             }
         });
+        
+        //Handle button login logout header
+        Button btnLoginHeader;
+        btnLoginHeader = findViewById(R.id.btnLogIn_LogOut);
+        HandleEvent.buttonLoginLogoutEvent(btnLoginHeader,this);
     }
 
     @Override

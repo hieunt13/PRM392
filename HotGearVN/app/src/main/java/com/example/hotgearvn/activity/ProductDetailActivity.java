@@ -50,6 +50,11 @@ public class ProductDetailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_detail);
+        //Handle button login logout header
+        Button btnLoginHeader;
+        btnLoginHeader = findViewById(R.id.btnLogIn_LogOut);
+        HandleEvent.buttonLoginLogoutEvent(btnLoginHeader,this);
+
         Intent intent = getIntent();
         long productId = intent.getLongExtra("productId", 0);
         HotGearDatabase mDb = HotGearDatabase.getDatabase(this);
@@ -103,18 +108,6 @@ public class ProductDetailActivity extends AppCompatActivity {
                 productCartListTemp.addAll(productCartList);
                 editor.putStringSet("productCart", productCartListTemp);
                 editor.commit();
-
-//                Log.d("log", "id: " + listProductToCart);
-//                if (listProductToCart.contains(String.valueOf(product.getProductId()))) {
-//                    Intent intent = new Intent(view.getContext(), RecyclerViewCartAdapter.class);
-//                    Intent intentGet = getIntent();
-//                    int quantityProductInCart = intentGet.getIntExtra("quantityProductInCart", 1);
-//                    quantityProductInCart++;
-//                    intent.putExtra("quantityDuplicate", quantityProductInCart);
-//                    intent.putExtra("priceInProductDetail",product.getPrice());
-//                    Log.i("product quantity:", "" + quantityProductInCart);
-//                }
-
             }
         });
         btnBuy.setOnClickListener(new View.OnClickListener() {

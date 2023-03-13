@@ -55,7 +55,7 @@ public class HandleEvent {
                     intent = new Intent(context, LoginActivity.class);
                     break;
                 case id.invoicePage:
-                    intent = new Intent(context, PaymentActivity.class);
+//                    intent = new Intent(context, PaymentActivity.class);
                     break;
                 default:
                     return false;

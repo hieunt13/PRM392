@@ -18,7 +18,7 @@ public interface ProductDao {
     void add(Product product);
 
     @Insert(onConflict = REPLACE)
-    void addProducts(Product...products);
+    void addProducts(Product... products);
 
     @Delete
     void delete(Product product);
@@ -31,5 +31,8 @@ public interface ProductDao {
 
     @Query("SELECT * FROM product WHERE category_id = :id")
     Product getByCategoryId(Long id);
+
+    @Query("UPDATE Product SET quantity = :quantity WHERE product_id = :id")
+    void updateQuantityById(int quantity, Long id);
 
 }

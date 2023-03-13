@@ -7,7 +7,8 @@
     tools:context=".activity.ProductDetailActivity"
     android:paddingHorizontal="0dp"
     android:paddingVertical="0dp"
-    android:fillViewport="true">
+    android:fillViewport="true"
+    android:id="@+id/ProductDetailLayout">
 
     <LinearLayout
         android:layout_width="match_parent"

@@ -82,7 +82,6 @@ public class MainActivity extends AppCompatActivity {
 
         // image slider
         svProduct = findViewById(R.id.svProduct);
-        HotGearDatabase mDb = HotGearDatabase.getDatabase(this);
         sliderProducts.add(productDao.getById(Long.parseLong("10")));
         sliderProducts.add(productDao.getById(Long.parseLong("7")));
         sliderProducts.add(productDao.getById(Long.parseLong("8")));

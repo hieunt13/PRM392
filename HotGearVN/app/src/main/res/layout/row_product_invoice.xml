@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="15dp"
+    android:paddingTop="15dp"
+    android:paddingLeft="15dp"
+    >
+
+
+    <ImageView
+        android:id="@+id/imageViewPro"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_marginStart="4dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:srcCompat="@drawable/laptopgaming" />
+
+    <TextView
+        android:id="@+id/textViewTenPro"
+        android:layout_width="250dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="Laptop Asus Vivobook 15X OLED A1503ZA"
+        android:textColor="@color/black"
+        android:textSize="18dp"
+        app:layout_constraintStart_toEndOf="@+id/imageViewPro"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textViewSoluong"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="4dp"
+        android:textSize="15dp"
+        android:text="x3"
+        app:layout_constraintStart_toEndOf="@+id/imageViewPro"
+        app:layout_constraintTop_toBottomOf="@+id/textViewTenPro" />
+
+    <TextView
+        android:id="@+id/textViewGia"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:textSize="15dp"
+        android:textColor="@color/black"
+        android:layout_marginTop="4dp"
+        android:text="2000000đ"
+        app:layout_constraintStart_toEndOf="@+id/imageViewPro"
+        app:layout_constraintTop_toBottomOf="@+id/textViewSoluong" />
+</androidx.constraintlayout.widget.ConstraintLayout>

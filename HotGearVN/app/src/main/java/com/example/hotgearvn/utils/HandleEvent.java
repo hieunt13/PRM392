@@ -30,6 +30,7 @@ public class HandleEvent {
         PopupMenu popupMenu = new PopupMenu(context, v);
         MenuInflater inflater = popupMenu.getMenuInflater();
         popupMenu.setOnMenuItemClickListener(item -> {
+            SharedPreferences pref = context.getApplicationContext().getSharedPreferences(MYPREFERENCES, 0);
             Intent intent = null;
             switch (item.getItemId()) {
                 case id.mainPage:
@@ -59,13 +60,17 @@ public class HandleEvent {
                     intent = new Intent(context, CartActivity.class);
                     break;
                 case id.profilePage:
-                    SharedPreferences pref = context.getApplicationContext().getSharedPreferences(MYPREFERENCES, 0);
-                    if(pref.getString(STATUS,"null").equalsIgnoreCase("logout")){
+                    if(pref.getString(STATUS,"logout").equalsIgnoreCase("logout")){
                         intent = new Intent(context,LoginActivity.class);
+                        break;
                     }
                     intent = new Intent(context, ProfileActivity.class);
                     break;
                 case id.invoicePage:
+                    if(pref.getString(STATUS,"logout").equalsIgnoreCase("logout")){
+                        intent = new Intent(context,LoginActivity.class);
+                        break;
+                    }
                     intent = new Intent(context, InvoiceHistoryActivity.class);
                     break;
                 default:
@@ -96,11 +101,11 @@ public class HandleEvent {
         if(preferences.getString(STATUS,"null").equalsIgnoreCase("login")){
             //turn login button into logout button and handle logout function
             btnLoginLogout.setText("Logout");
-            String saveInfo = preferences.getString("SaveinfoKey", "");
+            String saveInfo = preferences.getString(SAVEINFO, "");
             btnLoginLogout.setOnClickListener(v -> {
                 if (saveInfo == "save") {
                     SharedPreferences.Editor editor = preferences.edit();
-                    editor.putString("StatusKey", "Logout");
+                    editor.putString(STATUS, "Logout");
                     editor.commit();
                 } else {
                     SharedPreferences.Editor editor = preferences.edit();

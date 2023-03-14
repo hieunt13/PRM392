@@ -1,6 +1,7 @@
 package com.example.hotgearvn.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.hotgearvn.R;
+import com.example.hotgearvn.activity.InvoiceDetailActivity;
+import com.example.hotgearvn.activity.ProductDetailActivity;
 import com.example.hotgearvn.dao.InvoiceProductDao;
 import com.example.hotgearvn.database.HotGearDatabase;
 import com.example.hotgearvn.entities.Invoice;
@@ -44,7 +47,6 @@ public class RecyclerviewInvoiceHistoryAdapter extends RecyclerView.Adapter<Recy
         HotGearDatabase mDb = HotGearDatabase.getDatabase(context);
         InvoiceProductDao invoiceProductDao = mDb.invoiceProductDao();
         Invoice invoice = invoices.get(position);
-        List<InvoiceWithProducts> listInvoiceWithProduct = invoiceProductDao.getInvoiceByIdWithProducts(invoice.getInvoiceId());
         String title = " Đơn hàng "+(position+1)+" • "+invoice.getDate();
         holder.invoiceTitle.setText(title);
         int pttt = invoice.getPaymentMethod();
@@ -56,6 +58,14 @@ public class RecyclerviewInvoiceHistoryAdapter extends RecyclerView.Adapter<Recy
         }
 
         holder.invoiceImgIcon.setImageResource(R.drawable.arrow_right);
+        holder.setItemClickListener(new ItemClickListener() {
+            @Override
+            public void onClick(View view, int position, boolean isLongClick) {
+                Intent intent = new Intent(view.getContext(), InvoiceDetailActivity.class);
+                intent.putExtra("invoiceId", invoice.getInvoiceId());
+                view.getContext().startActivity(intent);
+            }
+        });
     }
 
 

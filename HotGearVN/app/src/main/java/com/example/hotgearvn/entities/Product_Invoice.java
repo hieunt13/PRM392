@@ -32,9 +32,14 @@ public class Product_Invoice {
     @ColumnInfo(name = "product_id")
     private Long productId;
 
-    public Product_Invoice(Long invoiceId, Long productId) {
+    @NonNull
+    @ColumnInfo(name = "productQuantityInvoice")
+    private int productQuantityInvoice;
+
+    public Product_Invoice(Long invoiceId, Long productId, int productQuantityInvoice) {
         this.invoiceId = invoiceId;
         this.productId = productId;
+        this.productQuantityInvoice = productQuantityInvoice;
     }
 
     public Long getInvoiceId() {
@@ -51,5 +56,13 @@ public class Product_Invoice {
 
     public void setProductId(Long productId) {
         this.productId = productId;
+    }
+
+    public int getProductQuantityInvoice() {
+        return productQuantityInvoice;
+    }
+
+    public void setProductQuantityInvoice(int productQuantityInvoice) {
+        this.productQuantityInvoice = productQuantityInvoice;
     }
 }

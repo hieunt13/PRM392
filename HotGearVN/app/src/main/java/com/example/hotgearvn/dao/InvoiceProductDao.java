@@ -23,13 +23,10 @@ public interface InvoiceProductDao {
     @Insert(onConflict = REPLACE)
     void addInvoiceProducts(Product_Invoice... product_invoice);
 
-    @Query("SELECT * FROM product")
-    List<ProductWithInvoices> getProductWithInvoices();
-
     @Query("SELECT * FROM invoice")
     List<InvoiceWithProducts> getInvoiceWithProducts();
 
     @Query("SELECT * FROM invoice WHERE invoice_id = :id")
-    List<InvoiceWithProducts> getInvoiceByIdWithProducts(Long id);
+    InvoiceWithProducts getInvoiceByIdWithProducts(Long id);
 
 }

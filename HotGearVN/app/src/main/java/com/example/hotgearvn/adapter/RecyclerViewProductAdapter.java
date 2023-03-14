@@ -86,6 +86,7 @@ public class RecyclerViewProductAdapter extends RecyclerView.Adapter<RecyclerVie
             productQuantity = itemView.findViewById(R.id.textViewQuantity);
             btnBuy = itemView.findViewById(R.id.buttonBuyMain);
             btnAddCart = itemView.findViewById(R.id.buttonAddToCartMain);
+
         }
 
         public void setItemClickListener(ItemClickListener itemClickListener){

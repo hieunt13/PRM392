@@ -5,6 +5,8 @@ import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 
+import java.util.Date;
+
 
 @Entity(tableName = "invoice",foreignKeys ={
         @ForeignKey(
@@ -27,10 +29,14 @@ public class Invoice {
     @ColumnInfo(name = "total_price")
     private double totalPrice;
 
-    public Invoice(int paymentMethod, Long userId, double totalPrice) {
+    @ColumnInfo(name = "date")
+    private String date;
+
+    public Invoice(int paymentMethod, Long userId, double totalPrice, String date) {
         this.paymentMethod = paymentMethod;
         this.userId = userId;
         this.totalPrice = totalPrice;
+        this.date = date;
     }
 
     public Long getInvoiceId() {
@@ -65,6 +71,14 @@ public class Invoice {
         this.totalPrice = totalPrice;
     }
 
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
     @Override
     public String toString() {
         return "Invoice{" +
@@ -72,6 +86,7 @@ public class Invoice {
                 ", paymentMethod=" + paymentMethod +
                 ", userId=" + userId +
                 ", totalPrice=" + totalPrice +
+                ", date=" + date.toString() +
                 '}';
     }
 }

@@ -52,7 +52,7 @@ public class ProductDetailActivity extends AppCompatActivity {
         //Handle button login logout header
         Button btnLoginHeader;
         btnLoginHeader = findViewById(R.id.btnLogIn_LogOut);
-        HandleEvent.buttonLoginLogoutEvent(btnLoginHeader,this);
+        HandleEvent.buttonLoginLogoutEvent(btnLoginHeader, this);
 
         Intent intent = getIntent();
         long productId = intent.getLongExtra("productId", 0);
@@ -94,15 +94,15 @@ public class ProductDetailActivity extends AppCompatActivity {
                 Set<String> productCartListTemp = new HashSet<String>();
                 for (String cartProduct : productCartList) {
                     String[] productWithQuantity = cartProduct.split(",");
-                    if(productWithQuantity[0].equals(product.getProductId())){
-                        productCartListTemp.add(product.getProductId()+","+(Integer.valueOf(productWithQuantity[1])+1));
+                    if (productWithQuantity[0].equals(product.getProductId())) {
+                        productCartListTemp.add(product.getProductId() + "," + (Integer.valueOf(productWithQuantity[1]) + 1));
                         added = true;
                         productCartList.remove(cartProduct);
                         break;
                     }
                 }
-                if(!added){
-                    productCartListTemp.add(product.getProductId()+","+1);
+                if (!added) {
+                    productCartListTemp.add(product.getProductId() + "," + 1);
                 }
                 productCartListTemp.addAll(productCartList);
                 editor.putStringSet("productCart", productCartListTemp);
@@ -115,14 +115,33 @@ public class ProductDetailActivity extends AppCompatActivity {
                 if (userIDCheck.equals("")) {
                     makeSnakeBar(productDetailLayout, "Bạn cần đăng nhập trước !", "Đăng nhập", LoginActivity.class);
                 } else {
+//                    Set<String> productCartList = sharedpreferences.getStringSet("productCart", new HashSet<String>());
+//                    ArrayList<String> listOfProductId = new ArrayList<>();
+//                    for (String item : productCartList) {
+//                        listOfProductId.add(item);
+//                    }
+//                    Log.i("list", "list: " + listOfProductId);
+                    boolean added = false;
+                    SharedPreferences.Editor editor = sharedpreferences.edit();
                     Set<String> productCartList = sharedpreferences.getStringSet("productCart", new HashSet<String>());
-                    ArrayList<String> listOfProductId = new ArrayList<>();
-                    for (String item : productCartList) {
-                        listOfProductId.add(item);
+                    Set<String> productCartListTemp = new HashSet<String>();
+                    for (String cartProduct : productCartList) {
+                        String[] productWithQuantity = cartProduct.split(",");
+                        if (productWithQuantity[0].equals(product.getProductId())) {
+                            productCartListTemp.add(product.getProductId() + "," + (Integer.valueOf(productWithQuantity[1]) + 1));
+                            added = true;
+                            productCartList.remove(cartProduct);
+                            break;
+                        }
                     }
-                    Log.i("list", "list: " + listOfProductId);
-                    Intent intent = new Intent(view.getContext(), PaymentActivity.class);
-                    intent.putExtra("productIdToPay", listOfProductId);
+                    if (!added) {
+                        productCartListTemp.add(product.getProductId() + "," + 1);
+                    }
+                    productCartListTemp.addAll(productCartList);
+                    editor.putStringSet("productCart", productCartListTemp);
+                    editor.commit();
+                    Intent intent = new Intent(view.getContext(), CartActivity.class);
+//                    intent.putExtra("productIdToPay", listOfProductId);
                     view.getContext().startActivity(intent);
                 }
             }

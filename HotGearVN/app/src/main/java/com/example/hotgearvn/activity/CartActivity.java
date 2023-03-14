@@ -67,7 +67,7 @@ public class CartActivity extends AppCompatActivity {
         HotGearDatabase mDb = HotGearDatabase.getDatabase(this);
         ProductDao productDao = mDb.productDao();
         ArrayList<Product> productList = (ArrayList<Product>) productDao.getAll();
-        Intent intent = new Intent(CartActivity.this, PaymentActivity.class);
+//        Intent intent = new Intent(CartActivity.this, PaymentActivity.class);
         productsInCart = new ArrayList<>();
         for (Product item : productList) {
             if (productCartList.contains(String.valueOf(item.getProductId()))) {
@@ -77,7 +77,7 @@ public class CartActivity extends AppCompatActivity {
                 Log.i("cart", "Price: " + price);
                 totalPrice += price;
                 Log.i("cart", "totalPrice: " + totalPrice);
-                intent.putExtra("totalPriceInCart", totalPrice);
+//                intent.putExtra("totalPriceInCart", totalPrice);
                 productsInCart.add(item);
             }
         }
@@ -115,6 +115,8 @@ public class CartActivity extends AppCompatActivity {
                     Log.i("list", "list: " + listOfProductId);
                     Intent intent = new Intent(view.getContext(), PaymentActivity.class);
                     intent.putExtra("productIdToPay", listOfProductId);
+                    intent.putExtra("totalPriceInCart", totalPrice);
+                    Log.i("cart when buy", "totalPrice: " + totalPrice);
                     view.getContext().startActivity(intent);
                 }
             }

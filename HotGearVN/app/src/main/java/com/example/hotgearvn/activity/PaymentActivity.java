@@ -52,7 +52,7 @@ public class PaymentActivity extends AppCompatActivity {
     SharedPreferences sharedpreferences;
 
     private ConstraintLayout home;
-    public static int methodPayment;
+    public static int methodPayment = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,6 +73,7 @@ public class PaymentActivity extends AppCompatActivity {
         String fullname = sharedpreferences.getString(FULLNAME, "");
         String email = sharedpreferences.getString(EMAIL, "");
         String phone = sharedpreferences.getString(PHONE, "");
+
         ArrayList<String> listOfPaymentMethod = new ArrayList<String>();
         listOfPaymentMethod.add("Thanh toán khi giao hàng (COD)");
         listOfPaymentMethod.add("Thanh toán bằng Ngân hàng");
@@ -81,15 +82,12 @@ public class PaymentActivity extends AppCompatActivity {
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         Intent intentGet = getIntent();
-        int totalPrice = intentGet.getIntExtra("totalPriceInCart", 0);
-        int priceFromProductDetail = intentGet.getIntExtra("priceInProductDetail", 0);
-
-        double paymentPrice = totalPrice != 0 ? totalPrice : priceFromProductDetail;
+        int totalPrice = intentGet.getIntExtra("totalPriceInCart", 10);
         etUserNamePayment.setText(fullname);
         etEmailPayment.setText(email);
         etPhonePayment.setText(phone);
         spPayment.setAdapter(arrayAdapter);
-        tvProductPricePayment.setText("" + paymentPrice + " đ");
+        tvProductPricePayment.setText("" + totalPrice + " đ");
 
 
         sharedpreferences = getSharedPreferences("ProductInCart", MODE_PRIVATE);
@@ -105,7 +103,8 @@ public class PaymentActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 //                Toast.makeText(PaymentActivity.this, listOfPaymentMethod.get(i), Toast.LENGTH_SHORT).show();
-                if (listOfPaymentMethod.get(i) == "1") {
+
+                if (listOfPaymentMethod.get(i) == "Thanh toán bằng Ngân hàng") {
                     openPaymentDialog();
                     methodPayment = i;
                 }
@@ -123,11 +122,12 @@ public class PaymentActivity extends AppCompatActivity {
                 for (Product item : productList) {
                     if (productCartList.contains(String.valueOf(item.getProductId()))) {
                         int minusQuantity = item.getQuantity() - 1;
-                        productDao.updateQuantityById(minusQuantity, item.getProductId());
-                        invoiceDao.add(new Invoice(methodPayment, userId, paymentPrice));
+                        productDao.updateQuantityById(minusQuantity, item.getProductId());  // update product quantity
+                        invoiceDao.add(new Invoice(methodPayment, userId, totalPrice)); // Create new invoice
 
                     }
                 }
+                //Pop up dialog
                 paymentSuccess();
             }
         });

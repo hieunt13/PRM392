@@ -37,7 +37,7 @@ public class CartActivity extends AppCompatActivity {
     ArrayList<Product> productsInCart;
     RecyclerView rvCart;
     RecyclerViewCartAdapter adapter;
-    TextView tvNoProductInCart, tvTotalPriceCart, tvBuyProductInCart, delete;
+    TextView tvNoProductInCart, tvTotalPriceCart, tvBuyProductInCart, delete, tvUpdateProductInCart;
     SharedPreferences sharedpreferences;
     Double totalPrice = 0.0;
     private ConstraintLayout cartLayout;
@@ -52,6 +52,7 @@ public class CartActivity extends AppCompatActivity {
         tvTotalPriceCart = findViewById(R.id.tvTotalPriceCart);
         delete = findViewById(R.id.tvDeleteProductInCart);
         tvBuyProductInCart = findViewById(R.id.tvBuyProductInCart);
+        tvUpdateProductInCart = findViewById(R.id.tvUpdateProductInCart);
         cartLayout = findViewById(R.id.cartLayout);
 
         sharedpreferences = getSharedPreferences(MYPREFERENCES, MODE_PRIVATE);
@@ -98,6 +99,12 @@ public class CartActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 confirmDelete();
+            }
+        });
+        tvUpdateProductInCart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                recreate();
             }
         });
 

@@ -34,11 +34,19 @@ public class Invoice {
 
     private String address;
 
-    public Invoice(int paymentMethod, Long userId, double totalPrice, String date) {
+//    public Invoice(int paymentMethod, Long userId, double totalPrice, String date) {
+//        this.paymentMethod = paymentMethod;
+//        this.userId = userId;
+//        this.totalPrice = totalPrice;
+//        this.date = date;
+//    }
+
+    public Invoice(int paymentMethod, Long userId, double totalPrice, String date, String address) {
         this.paymentMethod = paymentMethod;
         this.userId = userId;
         this.totalPrice = totalPrice;
         this.date = date;
+        this.address = address;
     }
 
     public String getAddress() {

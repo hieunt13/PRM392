@@ -37,12 +37,15 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import com.example.hotgearvn.MainActivity;
 import com.example.hotgearvn.R;
 import com.example.hotgearvn.dao.InvoiceDao;
+import com.example.hotgearvn.dao.InvoiceProductDao;
 import com.example.hotgearvn.dao.ProductDao;
 import com.example.hotgearvn.database.HotGearDatabase;
 import com.example.hotgearvn.entities.Invoice;
 import com.example.hotgearvn.entities.Product;
+import com.example.hotgearvn.entities.Product_Invoice;
 import com.example.hotgearvn.utils.HandleEvent;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
@@ -61,6 +64,7 @@ public class PaymentActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_payment);
+        String date = new Date(System.currentTimeMillis()).toString();
         tvViewCartProduct = findViewById(R.id.tvViewCartProduct);
         etUserNamePayment = findViewById(R.id.etUserNamePayment);
         etEmailPayment = findViewById(R.id.etEmailPayment);
@@ -109,6 +113,7 @@ public class PaymentActivity extends AppCompatActivity {
 
         HotGearDatabase mDb = HotGearDatabase.getDatabase(this);
         ProductDao productDao = mDb.productDao();
+        InvoiceProductDao invoiceProductDao = mDb.invoiceProductDao();
         InvoiceDao invoiceDao = mDb.invoiceDao();
         ArrayList<Product> productList = (ArrayList<Product>) productDao.getAll();
         spPayment.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -132,17 +137,34 @@ public class PaymentActivity extends AppCompatActivity {
         btnCreateInvoice.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                for (Product item : productList) {
-                    if (productCartListId.contains(String.valueOf(item.getProductId()))) {
-                        int minusQuantity;
-                        for (String itemQuantity : productCartListQuantity) {
-                            minusQuantity = item.getQuantity() - Integer.parseInt(itemQuantity);
-                            productDao.updateQuantityById(minusQuantity, item.getProductId());
-                        }
-                        // update product quantity
-                        invoiceDao.add(new Invoice(methodPayment, userId, totalPrice)); // Create new invoice
-
+                String address = etAddressPayment.getText().toString();
+                sharedpreferences = getSharedPreferences(MYPREFERENCES, MODE_PRIVATE);
+                String userID = sharedpreferences.getString(USERID, "");
+                sharedpreferences = getSharedPreferences(PRODUCTINCART, MODE_PRIVATE);
+                Set<String> productCartListWithQuantity = sharedpreferences.getStringSet("productCart", new HashSet<String>());
+                // Split id and quantity after get from cart
+                Set<String> productCartListId = new HashSet<String>();
+                Set<String> productCartListQuantity = new HashSet<String>();
+                //Cast Set to List
+                ArrayList<String> productCartListIdlist = new ArrayList<>(productCartListId);
+                ArrayList<String> productCartListQuantitylist = new ArrayList<>(productCartListQuantity);
+                //Create new invoice
+                invoiceDao.add(new Invoice(methodPayment, Long.valueOf(userID), totalPrice, date, address));
+                Long newInvoiceID = Long.valueOf(invoiceDao.getAll().size());
+                for (String cartProduct : productCartListWithQuantity) {
+                    String[] productWithQuantity = cartProduct.split(",");
+                    productCartListIdlist.add(productWithQuantity[0]);
+                    productCartListQuantitylist.add(productWithQuantity[1]);
+                }
+                for (int i = 0; i < productCartListIdlist.size(); i++) {
+                    Product product = productDao.getById(Long.valueOf(productCartListIdlist.get(i)));
+                    int minusQuantity;
+                    for (String itemQuantity : productCartListQuantity) {
+                        minusQuantity = product.getQuantity() - Integer.parseInt(itemQuantity);
+                        productDao.updateQuantityById(minusQuantity, product.getProductId());
                     }
+                    // Create new invoice
+                    invoiceProductDao.addInvoiceProduct(new Product_Invoice(newInvoiceID, product.getProductId(), Integer.valueOf(productCartListQuantitylist.get(i))));
                 }
                 //Pop up dialog
                 paymentSuccess();
@@ -223,7 +245,8 @@ public class PaymentActivity extends AppCompatActivity {
         btnYes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(PaymentActivity.this,"Xác nhận thành công",Toast.LENGTH_SHORT).show();
+                Toast.makeText(PaymentActivity.this, "Xác nhận thành công", Toast.LENGTH_SHORT).show();
+                dialog.dismiss();
             }
         });
 

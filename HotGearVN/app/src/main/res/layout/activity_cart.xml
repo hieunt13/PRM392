@@ -67,8 +67,16 @@
             android:layout_gravity="center"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:layout_marginRight="43dp"
+            android:layout_marginRight="10dp"
             android:background="@drawable/ic_baseline_delete_forever_24"
+            />
+        <TextView
+            android:id="@+id/tvUpdateProductInCart"
+            android:layout_gravity="center"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginRight="43dp"
+            android:background="@drawable/ic_update"
             />
 
         <TextView

@@ -51,10 +51,10 @@ public class ListViewProductInvoiceAdapter extends BaseAdapter {
         TextView soProduct = view.findViewById(R.id.textViewSoluong);
         TextView giaProduct = view.findViewById(R.id.textViewGia);
         Product product = InvoiceWithProducts.productList.get(position);
-        int quantity = InvoiceWithProducts.productQuantityInvoice.get(position);
+        int quantity = InvoiceWithProducts.product_invoices_quantiy.get(position).getProductQuantityInvoice();
         imgProduct.setImageResource(product.getImage());
         soProduct.setText("x"+quantity);
         giaProduct.setText(product.getPrice().intValue()+"đ");
-        return null;
+        return view;
     }
 }

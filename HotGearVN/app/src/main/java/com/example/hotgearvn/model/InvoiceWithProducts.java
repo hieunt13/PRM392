@@ -17,5 +17,9 @@ public class InvoiceWithProducts {
             associateBy = @Junction(Product_Invoice.class)
     )
     public List<Product> productList;
-    public List<Integer> productQuantityInvoice;
+    @Relation(
+            parentColumn = "invoice_id", // id of your Date clase
+            entityColumn = "invoice_id"  // id of your DateSteakCrossRef class
+    )
+    public List<Product_Invoice> product_invoices_quantiy;
 }

@@ -32,11 +32,23 @@ public class Invoice {
     @ColumnInfo(name = "date")
     private String date;
 
-    public Invoice(int paymentMethod, Long userId, double totalPrice, String date) {
+    @ColumnInfo(name = "address")
+    private String address;
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public Invoice(int paymentMethod, Long userId, double totalPrice, String date,String address) {
         this.paymentMethod = paymentMethod;
         this.userId = userId;
         this.totalPrice = totalPrice;
         this.date = date;
+        this.address = address;
     }
 
     public Long getInvoiceId() {

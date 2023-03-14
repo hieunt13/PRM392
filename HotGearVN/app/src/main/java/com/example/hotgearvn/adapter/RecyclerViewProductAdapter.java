@@ -45,7 +45,7 @@ public class RecyclerViewProductAdapter extends RecyclerView.Adapter<RecyclerVie
 
         holder.productImg.setImageResource(product.getImage());
         holder.productName.setText(product.getName());
-        holder.productPrice.setText(product.getPrice().intValue()+" đ");
+        holder.productPrice.setText(String.format("%,.0f",product.getPrice())+" đ");
         if(product.getQuantity() != 0){
             holder.productQuantity.setText("Còn lại:"+product.getQuantity());
         }else{

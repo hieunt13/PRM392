@@ -147,15 +147,19 @@ public class MainActivity extends AppCompatActivity {
             btnBuy = findViewById(buyId);
             ivProduct.setImageResource(products.get(i-1).getImage());
             tvNameProduct.setText(products.get(i-1).getName());
-            tvPriceProduct.setText(products.get(i-1).getPrice().intValue()+" đ");
+            tvPriceProduct.setText(String.format("%,.0f",products.get(i-1).getPrice())+" đ");
             int position = i - 1;
             clsProduct.setOnClickListener(v -> {
                 Intent intent = new Intent(v.getContext(), ProductDetailActivity.class);
                 intent.putExtra("productId", productsTemp.get(position).getProductId());
                 v.getContext().startActivity(intent);
             });
-            btnAddtoCart.setOnClickListener(v -> {});
-            btnBuy.setOnClickListener(v -> {});
+            btnAddtoCart.setOnClickListener(v -> {
+
+            });
+            btnBuy.setOnClickListener(v -> {
+                
+            });
         }
     }
 

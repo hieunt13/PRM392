@@ -50,7 +50,7 @@ public class RecyclerviewInvoiceHistoryAdapter extends RecyclerView.Adapter<Recy
         String title = " Đơn hàng "+(position+1)+" • "+invoice.getDate();
         holder.invoiceTitle.setText(title);
         int pttt = invoice.getPaymentMethod();
-        holder.invoiceTotalPrice.setText("Tổng tiền: "+invoice.getTotalPrice()+"đ");
+        holder.invoiceTotalPrice.setText("Tổng tiền: "+String.format("%,.0f",invoice.getTotalPrice())+"đ");
         if(pttt == 0){
             holder.invoiceTotalProduct.setText(" Phương thức thanh toán: COD");
         }else{

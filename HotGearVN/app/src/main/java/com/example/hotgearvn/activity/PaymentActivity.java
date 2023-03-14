@@ -5,6 +5,7 @@ import static com.example.hotgearvn.constants.MyPreferenceKey.EMAIL;
 import static com.example.hotgearvn.constants.MyPreferenceKey.FULLNAME;
 import static com.example.hotgearvn.constants.MyPreferenceKey.MYPREFERENCES;
 import static com.example.hotgearvn.constants.MyPreferenceKey.PHONE;
+import static com.example.hotgearvn.constants.MyPreferenceKey.PRODUCTINCART;
 import static com.example.hotgearvn.constants.MyPreferenceKey.USERID;
 
 import android.app.Dialog;
@@ -14,6 +15,7 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -26,6 +28,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -52,7 +55,7 @@ public class PaymentActivity extends AppCompatActivity {
     SharedPreferences sharedpreferences;
 
     private ConstraintLayout home;
-    public static int methodPayment = 0;
+    int methodPayment = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,31 +85,41 @@ public class PaymentActivity extends AppCompatActivity {
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         Intent intentGet = getIntent();
-        int totalPrice = intentGet.getIntExtra("totalPriceInCart", 10);
+        Double totalPrice = intentGet.getDoubleExtra("totalPriceInCart", 10);
         etUserNamePayment.setText(fullname);
         etEmailPayment.setText(email);
         etPhonePayment.setText(phone);
         spPayment.setAdapter(arrayAdapter);
-        tvProductPricePayment.setText("" + totalPrice + " đ");
+        tvProductPricePayment.setText("" + totalPrice.intValue() + " đ");
 
 
-        sharedpreferences = getSharedPreferences("ProductInCart", MODE_PRIVATE);
+        sharedpreferences = getSharedPreferences(PRODUCTINCART, MODE_PRIVATE);
         Set<String> productCartList = sharedpreferences.getStringSet("productCart", new HashSet<String>());
+
+        // split id and quantity after get from cart
+        Set<String> productCartListId = new HashSet<String>();
+        Set<String> productCartListQuantity = new HashSet<String>();
+        for (String cartProduct : productCartList) {
+            String[] productWithQuantity = cartProduct.split(",");
+            //list id
+            productCartListId.add(productWithQuantity[0]);
+            //list quantity
+            productCartListQuantity.add(productWithQuantity[1]);
+        }
 
         HotGearDatabase mDb = HotGearDatabase.getDatabase(this);
         ProductDao productDao = mDb.productDao();
         InvoiceDao invoiceDao = mDb.invoiceDao();
         ArrayList<Product> productList = (ArrayList<Product>) productDao.getAll();
-
-
         spPayment.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 //                Toast.makeText(PaymentActivity.this, listOfPaymentMethod.get(i), Toast.LENGTH_SHORT).show();
-
+                Log.i("methodPayment", listOfPaymentMethod.get(i) + ": " + methodPayment);
                 if (listOfPaymentMethod.get(i) == "Thanh toán bằng Ngân hàng") {
                     openPaymentDialog();
                     methodPayment = i;
+                    Log.i("methodPayment", listOfPaymentMethod.get(i) + ": " + methodPayment);
                 }
             }
 
@@ -120,9 +133,13 @@ public class PaymentActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 for (Product item : productList) {
-                    if (productCartList.contains(String.valueOf(item.getProductId()))) {
-                        int minusQuantity = item.getQuantity() - 1;
-                        productDao.updateQuantityById(minusQuantity, item.getProductId());  // update product quantity
+                    if (productCartListId.contains(String.valueOf(item.getProductId()))) {
+                        int minusQuantity;
+                        for (String itemQuantity : productCartListQuantity) {
+                            minusQuantity = item.getQuantity() - Integer.parseInt(itemQuantity);
+                            productDao.updateQuantityById(minusQuantity, item.getProductId());
+                        }
+                        // update product quantity
                         invoiceDao.add(new Invoice(methodPayment, userId, totalPrice)); // Create new invoice
 
                     }
@@ -142,7 +159,7 @@ public class PaymentActivity extends AppCompatActivity {
         //Handle button login logout header
         Button btnLoginHeader;
         btnLoginHeader = findViewById(R.id.btnLogIn_LogOut);
-        HandleEvent.buttonLoginLogoutEvent(btnLoginHeader,this);
+        HandleEvent.buttonLoginLogoutEvent(btnLoginHeader, this);
     }
 
     @Override
@@ -192,5 +209,24 @@ public class PaymentActivity extends AppCompatActivity {
         WindowManager.LayoutParams windowAttributes = window.getAttributes();
         windowAttributes.gravity = Gravity.CENTER;
         window.setAttributes(windowAttributes);
+
+        Button btnNo = dialog.findViewById(R.id.btnNo);
+        Button btnYes = dialog.findViewById(R.id.btnYes);
+
+        btnNo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
+
+        btnYes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(PaymentActivity.this,"Xác nhận thành công",Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        dialog.show();
     }
 }

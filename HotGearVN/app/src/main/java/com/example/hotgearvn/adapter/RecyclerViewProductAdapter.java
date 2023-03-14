@@ -1,24 +1,35 @@
 package com.example.hotgearvn.adapter;
 
+import static com.example.hotgearvn.constants.MyPreferenceKey.MYPREFERENCES;
+import static com.example.hotgearvn.constants.MyPreferenceKey.USERID;
+
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.hotgearvn.R;
+import com.example.hotgearvn.activity.CartActivity;
+import com.example.hotgearvn.activity.LoginActivity;
 import com.example.hotgearvn.activity.ProductDetailActivity;
 import com.example.hotgearvn.entities.Product;
 import com.example.hotgearvn.item.ItemClickListener;
+import com.example.hotgearvn.utils.snakeBar;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 public class RecyclerViewProductAdapter extends RecyclerView.Adapter<RecyclerViewProductAdapter.ViewHolder> {
 
@@ -45,10 +56,10 @@ public class RecyclerViewProductAdapter extends RecyclerView.Adapter<RecyclerVie
 
         holder.productImg.setImageResource(product.getImage());
         holder.productName.setText(product.getName());
-        holder.productPrice.setText(product.getPrice().intValue()+" đ");
-        if(product.getQuantity() != 0){
-            holder.productQuantity.setText("Còn lại:"+product.getQuantity());
-        }else{
+        holder.productPrice.setText(product.getPrice().intValue() + " đ");
+        if (product.getQuantity() != 0) {
+            holder.productQuantity.setText("Còn lại:" + product.getQuantity());
+        } else {
             holder.productQuantity.setText("Hết hàng");
         }
 
@@ -60,6 +71,61 @@ public class RecyclerViewProductAdapter extends RecyclerView.Adapter<RecyclerVie
                 view.getContext().startActivity(intent);
             }
         });
+
+        holder.btnAddCart.setOnClickListener(view -> {
+            boolean added = false;
+            Toast.makeText(view.getContext(), "Sản phẩm đã được thêm vào giỏi hàng", Toast.LENGTH_SHORT).show();
+            SharedPreferences sharedpreferences = view.getContext().getSharedPreferences("ProductInCart", view.getContext().MODE_PRIVATE);
+            Set<String> productCartList = sharedpreferences.getStringSet("productCart", new HashSet<String>());
+            Set<String> productCartListTemp = new HashSet<String>();
+            for (String cartProduct : productCartList) {
+                String[] productWithQuantity = cartProduct.split(",");
+                if (productWithQuantity[0].equalsIgnoreCase(product.getProductId().toString())) {
+                    productCartListTemp.add(product.getProductId() + "," + (Integer.valueOf(productWithQuantity[1]) + 1));
+                    added = true;
+                    productCartList.remove(cartProduct);
+                    break;
+                }
+            }
+            if (!added) {
+                productCartListTemp.add(product.getProductId() + "," + 1);
+            }
+            productCartListTemp.addAll(productCartList);
+            SharedPreferences.Editor editor = sharedpreferences.edit();
+            editor.putStringSet("productCart", productCartListTemp);
+            editor.commit();
+        });
+        holder.btnBuy.setOnClickListener(view -> {
+            SharedPreferences sharedpreferences;
+            sharedpreferences = view.getContext().getSharedPreferences(MYPREFERENCES, view.getContext().MODE_PRIVATE);
+            String userIDCheck = sharedpreferences.getString(USERID, "");
+            if (userIDCheck.equals("")) {
+                Toast.makeText(view.getContext(), "Bạn cần đăng nhập trước!", Toast.LENGTH_SHORT).show();
+            } else {
+                boolean added = false;
+                sharedpreferences = view.getContext().getSharedPreferences("ProductInCart", view.getContext().MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedpreferences.edit();
+                Set<String> productCartList = sharedpreferences.getStringSet("productCart", new HashSet<String>());
+                Set<String> productCartListTemp = new HashSet<String>();
+                for (String cartProduct : productCartList) {
+                    String[] productWithQuantity = cartProduct.split(",");
+                    if (productWithQuantity[0].equalsIgnoreCase(product.getProductId().toString())) {
+                        productCartListTemp.add(product.getProductId() + "," + (Integer.valueOf(productWithQuantity[1]) + 1));
+                        added = true;
+                        productCartList.remove(cartProduct);
+                        break;
+                    }
+                }
+                if (!added) {
+                    productCartListTemp.add(product.getProductId() + "," + 1);
+                }
+                productCartListTemp.addAll(productCartList);
+                editor.putStringSet("productCart", productCartListTemp);
+                editor.commit();
+                Intent intent = new Intent(view.getContext(), CartActivity.class);
+                view.getContext().startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -67,7 +133,7 @@ public class RecyclerViewProductAdapter extends RecyclerView.Adapter<RecyclerVie
         return productList.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         ImageView productImg;
         TextView productName;
         TextView productPrice;
@@ -77,6 +143,7 @@ public class RecyclerViewProductAdapter extends RecyclerView.Adapter<RecyclerVie
         Button btnAddCart;
 
         private ItemClickListener itemClickListener;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             itemView.setOnClickListener(this);
@@ -88,12 +155,12 @@ public class RecyclerViewProductAdapter extends RecyclerView.Adapter<RecyclerVie
             btnAddCart = itemView.findViewById(R.id.buttonAddToCartMain);
         }
 
-        public void setItemClickListener(ItemClickListener itemClickListener){
+        public void setItemClickListener(ItemClickListener itemClickListener) {
             this.itemClickListener = itemClickListener;
         }
 
-        public void onClick(View v){
-            itemClickListener.onClick(v, getAdapterPosition(),false);
+        public void onClick(View v) {
+            itemClickListener.onClick(v, getAdapterPosition(), false);
         }
 
     }

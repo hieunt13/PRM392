@@ -12,4 +12,6 @@ public class MyPreferenceKey {
 
     public static final String STATUS = "StatusKey";
     public static final String  SAVEINFO = "SaveinfoKey";
+
+    public static final String PRODUCTINCART = "ProductInCart";
 }

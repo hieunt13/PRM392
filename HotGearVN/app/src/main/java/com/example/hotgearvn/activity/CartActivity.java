@@ -40,7 +40,6 @@ public class CartActivity extends AppCompatActivity {
     TextView tvNoProductInCart, tvTotalPriceCart, tvBuyProductInCart, delete;
     SharedPreferences sharedpreferences;
     Double totalPrice = 0.0;
-    int quantityProductInCart;
     private ConstraintLayout cartLayout;
 
 
@@ -57,32 +56,33 @@ public class CartActivity extends AppCompatActivity {
 
         sharedpreferences = getSharedPreferences(MYPREFERENCES, MODE_PRIVATE);
         String userID = sharedpreferences.getString(USERID, "");
-        sharedpreferences = getSharedPreferences("ProductInCart", MODE_PRIVATE);
+        sharedpreferences = getSharedPreferences(PRODUCTINCART, MODE_PRIVATE);
         Set<String> productCartListWithQuantity = sharedpreferences.getStringSet("productCart", new HashSet<String>());
-        Set<String> productCartList = new HashSet<>();
+        // Split id and quantity after get from cart
+        Set<String> productCartListId = new HashSet<String>();
+        Set<String> productCartListQuantity = new HashSet<String>();
+        //Cast Set to List
+        ArrayList<String> productCartListIdlist = new ArrayList<>(productCartListId);
+        ArrayList<String> productCartListQuantitylist = new ArrayList<>(productCartListQuantity);
         for (String cartProduct : productCartListWithQuantity) {
             String[] productWithQuantity = cartProduct.split(",");
-            productCartList.add(productWithQuantity[0]);
+            productCartListIdlist.add(productWithQuantity[0]);
+            productCartListQuantitylist.add(productWithQuantity[1]);
         }
         HotGearDatabase mDb = HotGearDatabase.getDatabase(this);
         ProductDao productDao = mDb.productDao();
-        ArrayList<Product> productList = (ArrayList<Product>) productDao.getAll();
-//        Intent intent = new Intent(CartActivity.this, PaymentActivity.class);
         productsInCart = new ArrayList<>();
-        for (Product item : productList) {
-            if (productCartList.contains(String.valueOf(item.getProductId()))) {
-                Log.i("cart", "id: " + item.getProductId());
-                Product product = productDao.getById(item.getProductId());
-                Double price = product.getPrice();
-                Log.i("cart", "Price: " + price);
-                totalPrice += price;
-                Log.i("cart", "totalPrice: " + totalPrice);
-//                intent.putExtra("totalPriceInCart", totalPrice);
-                productsInCart.add(item);
-            }
+
+        for (int i = 0; i < productCartListIdlist.size(); i++) {
+            Product product = productDao.getById(Long.valueOf(productCartListIdlist.get(i)));
+            Double price = 0.0;
+            price = product.getPrice() * Integer.parseInt(productCartListQuantitylist.get(i));
+            totalPrice += price;
+            productsInCart.add(product);
         }
 
-        adapter = new RecyclerViewCartAdapter(productsInCart,this);
+
+        adapter = new RecyclerViewCartAdapter(productsInCart, this);
 
         if (productsInCart.size() == 0) {
             tvNoProductInCart.setText("Không có sản phẩm nào trong giỏ hàng");
@@ -121,11 +121,11 @@ public class CartActivity extends AppCompatActivity {
                 }
             }
         });
-        
+
         //Handle button login logout header
         Button btnLoginHeader;
         btnLoginHeader = findViewById(R.id.btnLogIn_LogOut);
-        HandleEvent.buttonLoginLogoutEvent(btnLoginHeader,this);
+        HandleEvent.buttonLoginLogoutEvent(btnLoginHeader, this);
     }
 
     @Override

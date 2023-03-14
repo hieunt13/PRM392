@@ -2,6 +2,7 @@ package com.example.hotgearvn.activity;
 
 
 import static com.example.hotgearvn.constants.MyPreferenceKey.MYPREFERENCES;
+import static com.example.hotgearvn.constants.MyPreferenceKey.PRODUCTINCART;
 import static com.example.hotgearvn.constants.MyPreferenceKey.USERID;
 
 import android.content.Intent;
@@ -64,7 +65,7 @@ public class ProductDetailActivity extends AppCompatActivity {
 
         sharedpreferences = getSharedPreferences(MYPREFERENCES, MODE_PRIVATE);
         userIDCheck = sharedpreferences.getString(USERID, "");
-        sharedpreferences = getSharedPreferences("ProductInCart", MODE_PRIVATE);
+        sharedpreferences = getSharedPreferences(PRODUCTINCART, MODE_PRIVATE);
 
         proImg = findViewById(R.id.imageViewProductImage);
         proCate = findViewById(R.id.textViewProductCategory);
@@ -94,7 +95,7 @@ public class ProductDetailActivity extends AppCompatActivity {
                 Set<String> productCartListTemp = new HashSet<String>();
                 for (String cartProduct : productCartList) {
                     String[] productWithQuantity = cartProduct.split(",");
-                    if (productWithQuantity[0].equals(product.getProductId())) {
+                    if (productWithQuantity[0].equalsIgnoreCase(product.getProductId().toString())) {
                         productCartListTemp.add(product.getProductId() + "," + (Integer.valueOf(productWithQuantity[1]) + 1));
                         added = true;
                         productCartList.remove(cartProduct);
@@ -115,19 +116,13 @@ public class ProductDetailActivity extends AppCompatActivity {
                 if (userIDCheck.equals("")) {
                     makeSnakeBar(productDetailLayout, "Bạn cần đăng nhập trước !", "Đăng nhập", LoginActivity.class);
                 } else {
-//                    Set<String> productCartList = sharedpreferences.getStringSet("productCart", new HashSet<String>());
-//                    ArrayList<String> listOfProductId = new ArrayList<>();
-//                    for (String item : productCartList) {
-//                        listOfProductId.add(item);
-//                    }
-//                    Log.i("list", "list: " + listOfProductId);
                     boolean added = false;
                     SharedPreferences.Editor editor = sharedpreferences.edit();
                     Set<String> productCartList = sharedpreferences.getStringSet("productCart", new HashSet<String>());
                     Set<String> productCartListTemp = new HashSet<String>();
                     for (String cartProduct : productCartList) {
                         String[] productWithQuantity = cartProduct.split(",");
-                        if (productWithQuantity[0].equals(product.getProductId())) {
+                        if (productWithQuantity[0].equalsIgnoreCase(product.getProductId().toString())) {
                             productCartListTemp.add(product.getProductId() + "," + (Integer.valueOf(productWithQuantity[1]) + 1));
                             added = true;
                             productCartList.remove(cartProduct);
@@ -141,7 +136,6 @@ public class ProductDetailActivity extends AppCompatActivity {
                     editor.putStringSet("productCart", productCartListTemp);
                     editor.commit();
                     Intent intent = new Intent(view.getContext(), CartActivity.class);
-//                    intent.putExtra("productIdToPay", listOfProductId);
                     view.getContext().startActivity(intent);
                 }
             }

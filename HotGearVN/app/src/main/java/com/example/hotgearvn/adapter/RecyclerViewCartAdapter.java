@@ -61,16 +61,56 @@ public class RecyclerViewCartAdapter extends RecyclerView.Adapter<RecyclerViewCa
         holder.productQuantity.setText(quantity+"");
 
         holder.btnPlus.setOnClickListener(view -> {
+            boolean added = false;
             int quantity1 = Integer.valueOf(holder.productQuantity.getText().toString());
-            holder.productQuantity.setText(String.valueOf(quantity1++));
+            holder.productQuantity.setText(String.valueOf(quantity1+1));
+            SharedPreferences sharedpreferencesP = view.getContext().getSharedPreferences("ProductInCart", view.getContext().MODE_PRIVATE);
+            Set<String> productCartListP = sharedpreferencesP.getStringSet("productCart", new HashSet<String>());
+            Set<String> productCartListTemp = new HashSet<String>();
+            for (String cartProduct : productCartListP) {
+                String[] productWithQuantity = cartProduct.split(",");
+                if (productWithQuantity[0].equalsIgnoreCase(productInCart.getProductId().toString())) {
+                    productCartListTemp.add(productInCart.getProductId() + "," + (Integer.valueOf(productWithQuantity[1]) + 1));
+                    added = true;
+                    productCartList.remove(cartProduct);
+                    break;
+                }
+            }
+            if (!added) {
+                productCartListTemp.add(productInCart.getProductId() + "," + 1);
+            }
+            productCartListTemp.addAll(productCartList);
+            SharedPreferences.Editor editor = sharedpreferences.edit();
+            editor.putStringSet("productCart", productCartListTemp);
+            editor.commit();
         });
 
         holder.btnMinus.setOnClickListener(view -> {
             int quantity2 = Integer.valueOf(holder.productQuantity.getText().toString());
-            if (quantity2 <= 0) {
+            if (quantity2 <= 1) {
                 holder.productQuantity.setText("1");
             } else {
-                holder.productQuantity.setText(String.valueOf(quantity2--));
+                boolean added = false;
+                holder.productQuantity.setText(String.valueOf(quantity2-1));
+                SharedPreferences sharedpreferencesP = view.getContext().getSharedPreferences("ProductInCart", view.getContext().MODE_PRIVATE);
+                Set<String> productCartListP = sharedpreferencesP.getStringSet("productCart", new HashSet<String>());
+                Set<String> productCartListTemp = new HashSet<String>();
+                for (String cartProduct : productCartListP) {
+                    String[] productWithQuantity = cartProduct.split(",");
+                    if (productWithQuantity[0].equalsIgnoreCase(productInCart.getProductId().toString())) {
+                        productCartListTemp.add(productInCart.getProductId() + "," + (Integer.valueOf(productWithQuantity[1]) - 1));
+                        added = true;
+                        productCartList.remove(cartProduct);
+                        break;
+                    }
+                }
+                if (!added) {
+                    productCartListTemp.add(productInCart.getProductId() + "," + 1);
+                }
+                productCartListTemp.addAll(productCartList);
+                SharedPreferences.Editor editor = sharedpreferences.edit();
+                editor.putStringSet("productCart", productCartListTemp);
+                editor.commit();
             }
         });
     }

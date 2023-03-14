@@ -56,10 +56,10 @@ public class RecyclerViewProductAdapter extends RecyclerView.Adapter<RecyclerVie
 
         holder.productImg.setImageResource(product.getImage());
         holder.productName.setText(product.getName());
-        holder.productPrice.setText(product.getPrice().intValue() + " đ");
-        if (product.getQuantity() != 0) {
-            holder.productQuantity.setText("Còn lại:" + product.getQuantity());
-        } else {
+        holder.productPrice.setText(String.format("%,.0f",product.getPrice())+" đ");
+        if(product.getQuantity() != 0){
+            holder.productQuantity.setText("Còn lại:"+product.getQuantity());
+        }else{
             holder.productQuantity.setText("Hết hàng");
         }
 
@@ -153,6 +153,7 @@ public class RecyclerViewProductAdapter extends RecyclerView.Adapter<RecyclerVie
             productQuantity = itemView.findViewById(R.id.textViewQuantity);
             btnBuy = itemView.findViewById(R.id.buttonBuyMain);
             btnAddCart = itemView.findViewById(R.id.buttonAddToCartMain);
+
         }
 
         public void setItemClickListener(ItemClickListener itemClickListener) {

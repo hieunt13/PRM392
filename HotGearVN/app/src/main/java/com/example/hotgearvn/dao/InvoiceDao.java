@@ -9,6 +9,7 @@ import androidx.room.Query;
 
 import com.example.hotgearvn.entities.Category;
 import com.example.hotgearvn.entities.Invoice;
+import com.example.hotgearvn.model.InvoiceWithProducts;
 
 import java.util.List;
 
@@ -31,5 +32,8 @@ public interface InvoiceDao {
 
     @Query("SELECT * FROM invoice WHERE invoice_id = :id")
     Invoice getById(Long id);
+
+    @Query("SELECT i.* FROM users u join invoice i on u.user_id = i.user_id WHERE u.user_id= :id")
+    List<Invoice> getHistoryById(Long id);
 
 }

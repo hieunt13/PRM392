@@ -33,6 +33,9 @@ public interface UsersDao {
     @Query("SELECT * FROM users WHERE username = :username")
     public Users getUser(String username);
 
+    @Query("SELECT * FROM users WHERE user_id = :id")
+    public Users getUserById(Long id);
+
     @Query("SELECT * FROM users WHERE username = :username AND password = :password")
     public Users login(String username, String password);
 

@@ -18,4 +18,5 @@ public class ProductWithInvoices {
             associateBy = @Junction(Product_Invoice.class)
     )
     public List<Invoice> invoiceList;
+
 }

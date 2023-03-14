@@ -23,12 +23,23 @@ public class Users {
 
     private String phone;
 
+    private String address;
+
     public Users(String username, String password, String email, String fullName, String phone) {
         this.username = username;
         this.password = password;
         this.email = email;
         this.fullName = fullName;
         this.phone = phone;
+    }
+
+    public Users(String username, String password, String email, String fullName, String phone, String address) {
+        this.username = username;
+        this.password = password;
+        this.email = email;
+        this.fullName = fullName;
+        this.phone = phone;
+        this.address = address;
     }
 
     public Users() {
@@ -83,6 +94,14 @@ public class Users {
         this.phone = phone;
     }
 
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
     @Override
     public String toString() {
         return "Users{" +
@@ -92,6 +111,7 @@ public class Users {
                 ", email='" + email + '\'' +
                 ", fullName='" + fullName + '\'' +
                 ", phone='" + phone + '\'' +
+                ", address='" + address + '\'' +
                 '}';
     }
 }

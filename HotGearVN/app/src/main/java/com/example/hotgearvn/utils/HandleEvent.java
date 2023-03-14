@@ -16,6 +16,7 @@ import android.widget.PopupMenu;
 import android.widget.Toast;
 
 import com.example.hotgearvn.activity.CartActivity;
+import com.example.hotgearvn.activity.InvoiceHistoryActivity;
 import com.example.hotgearvn.activity.LoginActivity;
 import com.example.hotgearvn.MainActivity;
 import com.example.hotgearvn.activity.PaymentActivity;
@@ -65,7 +66,7 @@ public class HandleEvent {
                     intent = new Intent(context, ProfileActivity.class);
                     break;
                 case id.invoicePage:
-                    intent = new Intent(context, PaymentActivity.class);
+                    intent = new Intent(context, InvoiceHistoryActivity.class);
                     break;
                 default:
                     return false;

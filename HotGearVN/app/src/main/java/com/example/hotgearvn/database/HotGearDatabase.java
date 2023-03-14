@@ -75,7 +75,7 @@ public abstract class HotGearDatabase extends RoomDatabase {
                     InvoiceDao invoiceDao = INSTANCE.invoiceDao();
                     invoiceDao.addAll(InvoiceData.populateInvoiceTable());
                     InvoiceProductDao invoiceProductDao = INSTANCE.invoiceProductDao();
-                    invoiceProductDao.addInvoiceProducts(ProductInvoiceData.populateProductInvoiceTable());
+                    invoiceProductDao.addAllInvoiceProduct(ProductInvoiceData.populateProductInvoiceTable());
                 });
         }
     };

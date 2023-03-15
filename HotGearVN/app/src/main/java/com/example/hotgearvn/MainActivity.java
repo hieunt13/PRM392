@@ -21,7 +21,6 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.fragment.app.FragmentActivity;
 
 import com.example.hotgearvn.activity.CartActivity;
 import com.example.hotgearvn.activity.LoginActivity;
@@ -36,13 +35,7 @@ import com.example.hotgearvn.dao.UsersDao;
 import com.example.hotgearvn.database.HotGearDatabase;
 import com.example.hotgearvn.entities.Product;
 import com.example.hotgearvn.utils.HandleEvent;
-import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.CameraPosition;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
+import com.example.hotgearvn.utils.snakeBar;
 import com.smarteist.autoimageslider.SliderView;
 
 import java.util.ArrayList;
@@ -52,11 +45,10 @@ import java.util.Set;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
-public class MainActivity extends AppCompatActivity implements OnMapReadyCallback {
+public class MainActivity extends AppCompatActivity {
     SharedPreferences sharedpreferences;
     ArrayList<Product> sliderProducts = new ArrayList<>();
-    private GoogleMap mMap;
-//  laptop
+    //  laptop
     List<Product> laptopProducts = new ArrayList<>();
     ImageView ivLaptop;
     TextView tvNameLaptop;
@@ -115,11 +107,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         productListDisplay("Mouse", 1, 2, productList);
         productListDisplay("Laptop", 3, 3, productList);
         productListDisplay("Screen", 4, 2, productList);
-
-        // google map
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.map);
-        mapFragment.getMapAsync(this);
 
         // LOG OUT SECTION
         sharedpreferences = getSharedPreferences(MYPREFERENCES, MODE_PRIVATE);
@@ -239,20 +226,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.navigation, menu);
         return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    public void onMapReady(GoogleMap googleMap) {
-        mMap = googleMap;
-
-        // Add a marker in Sydney and move the camera
-        LatLng hotgearvn = new LatLng(10.84142, 106.81004);
-        CameraPosition cameraPosition = new CameraPosition.Builder()
-                .target(hotgearvn)      // Sets the center of the map to Mountain View
-                .zoom(15)                   // Sets the zoom
-                .build();                   // Creates a CameraPosition from the builder
-        mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
-        mMap.addMarker(new MarkerOptions().position(hotgearvn).title("Marker in HotgearVn"));
     }
 
     public void showPopUp(View v) {

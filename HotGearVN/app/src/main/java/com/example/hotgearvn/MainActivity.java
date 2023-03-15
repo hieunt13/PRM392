@@ -27,6 +27,7 @@ import com.example.hotgearvn.dao.UsersDao;
 import com.example.hotgearvn.database.HotGearDatabase;
 import com.example.hotgearvn.entities.Product;
 import com.example.hotgearvn.utils.HandleEvent;
+import com.example.hotgearvn.utils.snakeBar;
 import com.smarteist.autoimageslider.SliderView;
 
 import java.util.ArrayList;

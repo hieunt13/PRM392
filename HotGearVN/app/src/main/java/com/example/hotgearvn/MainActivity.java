@@ -115,7 +115,11 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         productListDisplay("Mouse", 1, 2, productList);
         productListDisplay("Laptop", 3, 3, productList);
         productListDisplay("Screen", 4, 2, productList);
-
+        // google map
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this);
+        
         // LOG OUT SECTION
         sharedpreferences = getSharedPreferences(MYPREFERENCES, MODE_PRIVATE);
         String saveInfo = sharedpreferences.getString("SaveinfoKey", "");
@@ -247,7 +251,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 .zoom(15)                   // Sets the zoom
                 .build();                   // Creates a CameraPosition from the builder
         mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
-        mMap.addMarker(new MarkerOptions().position(hotgearvn).title("Marker in HotgearVn"));
+        mMap.addMarker(new MarkerOptions().position(hotgearvn).title("Marker in Hot Gear Viet Nam"));
     }
 
     public void showPopUp(View v) {

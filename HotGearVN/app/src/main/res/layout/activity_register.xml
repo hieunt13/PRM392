@@ -94,7 +94,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.4"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etFullName" />
+        app:layout_constraintTop_toBottomOf="@+id/etAdress" />
 
     <EditText
         android:id="@+id/etPassword"
@@ -131,6 +131,24 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/etPassword"/>
 
+    <EditText
+        android:id="@+id/etAdress"
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        android:layout_margin="20dp"
+        android:layout_marginTop="52dp"
+        android:background="@drawable/rounded_corner"
+        android:hint="Adress"
+
+        android:inputType="text"
+        android:paddingStart="10dp"
+        android:paddingLeft="10dp"
+        android:textColor="#100F0F"
+        android:textColorHint="#100F0F"
+        android:textSize="17sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etFullName"/>
 
     <Button
         android:id="@+id/btnSignup"

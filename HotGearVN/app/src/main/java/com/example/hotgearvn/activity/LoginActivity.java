@@ -7,6 +7,7 @@ import static com.example.hotgearvn.constants.MyPreferenceKey.PASSWORD;
 import static com.example.hotgearvn.constants.MyPreferenceKey.PHONE;
 import static com.example.hotgearvn.constants.MyPreferenceKey.SAVEINFO;
 import static com.example.hotgearvn.constants.MyPreferenceKey.STATUS;
+import static com.example.hotgearvn.constants.MyPreferenceKey.ADDRESS;
 import static com.example.hotgearvn.constants.MyPreferenceKey.USERID;
 import static com.example.hotgearvn.constants.MyPreferenceKey.USERNAME;
 
@@ -58,14 +59,23 @@ public class LoginActivity extends AppCompatActivity {
         checkBox = findViewById(R.id.cbLuu);
         sharedpreferences = getSharedPreferences(MYPREFERENCES, MODE_PRIVATE);
         tvSignUp = findViewById(R.id.tvSignUp);
+//        String preUsername = sharedpreferences.getString(USERID, "");
+//        String prePassword = sharedpreferences.getString(PASSWORD, "");
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 if (!checkInput()) {
                     return;
                 } else {
-                    String username = etUsername.getText().toString();
-                    String password = etPassword.getText().toString();
+
+//                    if(preUsername != ""){
+//                        username = preUsername;
+//                        password = prePassword;
+//                    } else {
+                      String username = etUsername.getText().toString();
+                       String password = etPassword.getText().toString();
+
                     boolean Saveinfo = checkBox.isChecked();
                     String save ="";
                     if (Saveinfo == true){
@@ -77,10 +87,12 @@ public class LoginActivity extends AppCompatActivity {
                     UsersDao usersDao = database.usersDao();
                     Log.d("user", usersDao.getAll().toString());
                     String finalSave = save;
+                    String finalUsername = username;
+                    String finalPassword = password;
                     new Thread(new Runnable() {
                         @Override
                         public void run() {
-                            Users users = usersDao.login(username, password);
+                            Users users = usersDao.login(finalUsername, finalPassword);
                             if (users == null) {
                                 runOnUiThread(new Runnable() {
                                     @Override
@@ -95,6 +107,7 @@ public class LoginActivity extends AppCompatActivity {
                                 editor.putString(EMAIL, users.getEmail());
                                 editor.putString(FULLNAME, users.getFullName());
                                 editor.putString(PHONE, users.getPhone());
+                                editor.putString(ADDRESS, users.getAddress());
                                 editor.putString(PASSWORD, users.getPassword());
                                 editor.putString(STATUS, "login");
                                 editor.putString(SAVEINFO, finalSave);

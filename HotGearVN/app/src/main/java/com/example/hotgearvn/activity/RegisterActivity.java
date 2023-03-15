@@ -22,7 +22,7 @@ import com.example.hotgearvn.utils.HandleEvent;
 
 public class RegisterActivity extends AppCompatActivity {
 
-    EditText etUsername, etPassword, etEmail, etRepassword, etPhone, etFullname;
+    EditText etUsername, etPassword, etEmail, etRepassword, etPhone, etFullname, etAddress;
     Button btnSignup;
     private final String REQUIRE = "Require";
 
@@ -38,6 +38,7 @@ public class RegisterActivity extends AppCompatActivity {
         etUsername = (EditText) findViewById(R.id.etUsername);
         etEmail = (EditText) findViewById(R.id.etEmail);
         etFullname = (EditText) findViewById(R.id.etFullName);
+        etAddress = (EditText) findViewById(R.id.etAdress);
         etPhone = (EditText) findViewById(R.id.etPhone);
         etPassword = (EditText) findViewById(R.id.etPassword);
         etRepassword = (EditText) findViewById(R.id.etRepassword);
@@ -52,6 +53,7 @@ public class RegisterActivity extends AppCompatActivity {
                     String Username = etUsername.getText().toString();
                     String Email = etEmail.getText().toString();
                     String Fullname = etFullname.getText().toString();
+                    String Address = etAddress.getText().toString();
                     String Phone = etPhone.getText().toString();
                     String Password = etPassword.getText().toString();
                     String Repassword = etRepassword.getText().toString();
@@ -73,7 +75,7 @@ public class RegisterActivity extends AppCompatActivity {
                     } else if (!Repassword.equals(Password)) {
                         Toast.makeText(RegisterActivity.this, "Confirm password do not match!", Toast.LENGTH_SHORT).show();
                     } else {
-                        Users user = new Users(Username, Password, Email, Fullname, Phone);
+                        Users user = new Users(Username, Password, Email, Fullname, Phone, Address);
                         new Thread(new Runnable() {
                             @Override
                             public void run() {
@@ -106,6 +108,10 @@ public class RegisterActivity extends AppCompatActivity {
         }
         if (TextUtils.isEmpty(etFullname.getText().toString())) {
             etFullname.setError(REQUIRE);
+            return false;
+        }
+        if (TextUtils.isEmpty(etAddress.getText().toString())) {
+            etAddress.setError(REQUIRE);
             return false;
         }
         if (TextUtils.isEmpty(etPhone.getText().toString())) {

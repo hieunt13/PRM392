@@ -57,7 +57,7 @@ public class RecyclerViewCartAdapter extends RecyclerView.Adapter<RecyclerViewCa
         }
         holder.productImg.setImageResource(productInCart.getImage());
         holder.productName.setText(productInCart.getName());
-        holder.productPrice.setText(productInCart.getPrice().intValue() + " đ");
+        holder.productPrice.setText(String.format("%,.0f",productInCart.getPrice()) + " đ");
         holder.productQuantity.setText(quantity+"");
 
         holder.btnPlus.setOnClickListener(view -> {

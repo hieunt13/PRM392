@@ -1,5 +1,9 @@
 package com.example.hotgearvn;
 
+import static com.example.hotgearvn.constants.MyPreferenceKey.MYPREFERENCES;
+import static com.example.hotgearvn.constants.MyPreferenceKey.PRODUCTINCART;
+import static com.example.hotgearvn.constants.MyPreferenceKey.USERID;
+
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
@@ -8,14 +12,18 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import com.example.hotgearvn.activity.CartActivity;
+import com.example.hotgearvn.activity.LoginActivity;
 import com.example.hotgearvn.activity.ProductDetailActivity;
 import com.example.hotgearvn.activity.ProductListActivity;
 import com.example.hotgearvn.adapter.ImageSliderProductAdapter;
@@ -27,31 +35,34 @@ import com.example.hotgearvn.dao.UsersDao;
 import com.example.hotgearvn.database.HotGearDatabase;
 import com.example.hotgearvn.entities.Product;
 import com.example.hotgearvn.utils.HandleEvent;
+import com.example.hotgearvn.utils.snakeBar;
 import com.smarteist.autoimageslider.SliderView;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 public class MainActivity extends AppCompatActivity {
     SharedPreferences sharedpreferences;
     ArrayList<Product> sliderProducts = new ArrayList<>();
-//  laptop
+    //  laptop
     List<Product> laptopProducts = new ArrayList<>();
     ImageView ivLaptop;
     TextView tvNameLaptop;
     TextView tvPriceLaptop;
     TextView tvViewMoreLaptop;
     ConstraintLayout cslLaptop;
-//  screen
+    //  screen
     List<Product> screenProducts = new ArrayList<>();
     ImageView ivScreen;
     TextView tvNameScreen;
     TextView tvPriceScreen;
     TextView tvViewMoreScreen;
     ConstraintLayout cslScreen;
-//  mouse
+    //  mouse
     List<Product> mouseProducts = new ArrayList<>();
     ImageView ivMouse;
     TextView tvNameMouse;
@@ -71,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
         //Handle button login logout header
         Button btnLoginHeader;
         btnLoginHeader = findViewById(R.id.btnLogIn_LogOut);
-        HandleEvent.buttonLoginLogoutEvent(btnLoginHeader,this);
+        HandleEvent.buttonLoginLogoutEvent(btnLoginHeader, this);
 
         mDb = HotGearDatabase.getDatabase(this);
         UsersDao usersDao = mDb.usersDao();
@@ -96,14 +107,14 @@ public class MainActivity extends AppCompatActivity {
         productListDisplay("Mouse", 1, 2, productList);
         productListDisplay("Laptop", 3, 3, productList);
         productListDisplay("Screen", 4, 2, productList);
-        
+
         // LOG OUT SECTION
-        sharedpreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
+        sharedpreferences = getSharedPreferences(MYPREFERENCES, MODE_PRIVATE);
         String saveInfo = sharedpreferences.getString("SaveinfoKey", "");
         Log.d("save", saveInfo);
     }
 
-    private void productListDisplay(String categoryName,int categoryId, int displayQuantity, List<Product> productList) {
+    private void productListDisplay(String categoryName, int categoryId, int displayQuantity, List<Product> productList) {
         List<Product> products = new ArrayList<>();
         int imageId = 0;
         int nameId = 0;
@@ -123,31 +134,31 @@ public class MainActivity extends AppCompatActivity {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             products = productList.stream().filter(byCategory).collect(Collectors.toList());
         }
-        viewMoreId = getResources().getIdentifier("textViewMore"+categoryName, "id", getPackageName());
+        viewMoreId = getResources().getIdentifier("textViewMore" + categoryName, "id", getPackageName());
         tvViewMore = findViewById(viewMoreId);
         tvViewMore.setOnClickListener(view -> {
             Intent intent = new Intent(this, ProductListActivity.class);
-            intent.putExtra("category",categoryName.toLowerCase());
+            intent.putExtra("category", categoryName.toLowerCase());
             startActivity(intent);
         });
         // create temp to use in lamda
         List<Product> productsTemp = products;
-        for(int i = 1; i <= displayQuantity; i++){
-            imageId = getResources().getIdentifier("imageView"+categoryName+"Main"+i, "id", getPackageName());
-            nameId = getResources().getIdentifier("textViewName"+categoryName+"Main"+i, "id", getPackageName());
-            priceId = getResources().getIdentifier("textViewPrice"+categoryName+"Main"+i, "id", getPackageName());
-            layoutId = getResources().getIdentifier("constraintLayout"+categoryName+"Main"+i, "id", getPackageName());
-            addToCartId = getResources().getIdentifier("buttonAddToCart"+categoryName+"Main"+i, "id", getPackageName());
-            buyId = getResources().getIdentifier("buttonBuy"+categoryName+"Main"+i, "id", getPackageName());
+        for (int i = 1; i <= displayQuantity; i++) {
+            imageId = getResources().getIdentifier("imageView" + categoryName + "Main" + i, "id", getPackageName());
+            nameId = getResources().getIdentifier("textViewName" + categoryName + "Main" + i, "id", getPackageName());
+            priceId = getResources().getIdentifier("textViewPrice" + categoryName + "Main" + i, "id", getPackageName());
+            layoutId = getResources().getIdentifier("constraintLayout" + categoryName + "Main" + i, "id", getPackageName());
+            addToCartId = getResources().getIdentifier("buttonAddToCart" + categoryName + "Main" + i, "id", getPackageName());
+            buyId = getResources().getIdentifier("buttonBuy" + categoryName + "Main" + i, "id", getPackageName());
             tvPriceProduct = findViewById(priceId);
             tvNameProduct = findViewById(nameId);
             ivProduct = findViewById(imageId);
             clsProduct = findViewById(layoutId);
             btnAddtoCart = findViewById(addToCartId);
             btnBuy = findViewById(buyId);
-            ivProduct.setImageResource(products.get(i-1).getImage());
-            tvNameProduct.setText(products.get(i-1).getName());
-            tvPriceProduct.setText(String.format("%,.0f",products.get(i-1).getPrice())+" đ");
+            ivProduct.setImageResource(products.get(i - 1).getImage());
+            tvNameProduct.setText(products.get(i - 1).getName());
+            tvPriceProduct.setText(String.format("%,.0f", products.get(i - 1).getPrice()) + " đ");
             int position = i - 1;
             clsProduct.setOnClickListener(v -> {
                 Intent intent = new Intent(v.getContext(), ProductDetailActivity.class);
@@ -155,10 +166,57 @@ public class MainActivity extends AppCompatActivity {
                 v.getContext().startActivity(intent);
             });
             btnAddtoCart.setOnClickListener(v -> {
-
+                boolean added = false;
+                Toast.makeText(MainActivity.this, "Sản phẩm đã được thêm vào giỏi hàng", Toast.LENGTH_SHORT).show();
+                sharedpreferences = getSharedPreferences(PRODUCTINCART, MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedpreferences.edit();
+                Set<String> productCartList = sharedpreferences.getStringSet("productCart", new HashSet<String>());
+                Set<String> productCartListTemp = new HashSet<String>();
+                for (String cartProduct : productCartList) {
+                    String[] productWithQuantity = cartProduct.split(",");
+                    if (productWithQuantity[0].equalsIgnoreCase(productsTemp.get(position).getProductId().toString())) {
+                        productCartListTemp.add(productsTemp.get(position).getProductId().toString() + "," + (Integer.valueOf(productWithQuantity[1]) + 1));
+                        added = true;
+                        productCartList.remove(cartProduct);
+                        break;
+                    }
+                }
+                if (!added) {
+                    productCartListTemp.add(productsTemp.get(position).getProductId().toString() + "," + 1);
+                }
+                productCartListTemp.addAll(productCartList);
+                editor.putStringSet("productCart", productCartListTemp);
+                editor.commit();
             });
             btnBuy.setOnClickListener(v -> {
-                
+                sharedpreferences = getSharedPreferences(MYPREFERENCES, MODE_PRIVATE);
+                String userIDCheck = sharedpreferences.getString(USERID, "");
+                if (userIDCheck.equals("")) {
+                    Toast.makeText(MainActivity.this, "Bạn cần đăng nhập trước!", Toast.LENGTH_SHORT).show();
+                } else {
+                    boolean added = false;
+                    sharedpreferences = getSharedPreferences(PRODUCTINCART, MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sharedpreferences.edit();
+                    Set<String> productCartList = sharedpreferences.getStringSet("productCart", new HashSet<String>());
+                    Set<String> productCartListTemp = new HashSet<String>();
+                    for (String cartProduct : productCartList) {
+                        String[] productWithQuantity = cartProduct.split(",");
+                        if (productWithQuantity[0].equalsIgnoreCase(productsTemp.get(position).getProductId().toString())) {
+                            productCartListTemp.add(productsTemp.get(position).getProductId().toString() + "," + (Integer.valueOf(productWithQuantity[1]) + 1));
+                            added = true;
+                            productCartList.remove(cartProduct);
+                            break;
+                        }
+                    }
+                    if (!added) {
+                        productCartListTemp.add(productsTemp.get(position).getProductId().toString() + "," + 1);
+                    }
+                    productCartListTemp.addAll(productCartList);
+                    editor.putStringSet("productCart", productCartListTemp);
+                    editor.commit();
+                    Intent intent = new Intent(MainActivity.this, CartActivity.class);
+                    startActivity(intent);
+                }
             });
         }
     }

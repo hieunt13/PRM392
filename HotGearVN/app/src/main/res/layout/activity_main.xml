@@ -746,6 +746,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="40dp"
+            android:textAlignment="center"
             android:paddingHorizontal="40dp"
             android:textSize="17sp"
             android:text="Mua hàng online chất lượng cao và rẻ tại GEAR"/>

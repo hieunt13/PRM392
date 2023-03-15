@@ -54,7 +54,7 @@ public class ListViewProductInvoiceAdapter extends BaseAdapter {
         int quantity = InvoiceWithProducts.product_invoices_quantiy.get(position).getProductQuantityInvoice();
         imgProduct.setImageResource(product.getImage());
         soProduct.setText("x"+quantity);
-        giaProduct.setText(product.getPrice().intValue()+"đ");
+        giaProduct.setText(String.format("%,.0f",product.getPrice()*quantity)+"đ");
         return view;
     }
 }

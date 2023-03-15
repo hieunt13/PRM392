@@ -13,6 +13,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.HotGearVN"
         tools:targetApi="31">
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyDr-5rUBRlfTKQP9kfy8c_U0mdL9ChMfog" />
         <activity
             android:name=".activity.InvoiceDetailActivity"
             android:exported="true" >

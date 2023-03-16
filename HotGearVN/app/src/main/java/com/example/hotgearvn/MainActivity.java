@@ -119,7 +119,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-        
+
         // LOG OUT SECTION
         sharedpreferences = getSharedPreferences(MYPREFERENCES, MODE_PRIVATE);
         String saveInfo = sharedpreferences.getString("SaveinfoKey", "");

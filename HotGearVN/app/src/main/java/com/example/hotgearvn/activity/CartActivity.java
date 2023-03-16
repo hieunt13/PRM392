@@ -89,7 +89,7 @@ public class CartActivity extends AppCompatActivity {
             tvNoProductInCart.setText("Không có sản phẩm nào trong giỏ hàng");
         } else {
             tvNoProductInCart.setText("");
-            tvTotalPriceCart.setText("Tổng thanh toán " + String.format(",.0f",totalPrice) + "đ");
+            tvTotalPriceCart.setText("Tổng thanh toán " + String.format("%,.0f",totalPrice) + "đ");
             rvCart.setAdapter(adapter);
             rvCart.setLayoutManager(new LinearLayoutManager(this));
         }

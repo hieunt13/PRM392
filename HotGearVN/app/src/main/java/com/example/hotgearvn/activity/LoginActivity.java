@@ -51,7 +51,7 @@ public class LoginActivity extends AppCompatActivity {
         //Handle button login logout header
         Button btnLoginHeader;
         btnLoginHeader = findViewById(R.id.btnLogIn_LogOut);
-        HandleEvent.buttonLoginLogoutEvent(btnLoginHeader,this);
+        HandleEvent.buttonLoginLogoutEvent(btnLoginHeader, this);
 
         etUsername = findViewById(R.id.etUsernameSI);
         etPassword = findViewById(R.id.etPasswordSI);
@@ -59,26 +59,27 @@ public class LoginActivity extends AppCompatActivity {
         checkBox = findViewById(R.id.cbLuu);
         sharedpreferences = getSharedPreferences(MYPREFERENCES, MODE_PRIVATE);
         tvSignUp = findViewById(R.id.tvSignUp);
-//        String preUsername = sharedpreferences.getString(USERID, "");
-//        String prePassword = sharedpreferences.getString(PASSWORD, "");
+        String preUsername = sharedpreferences.getString("UsernameKey", "");
+
+        String prePassword = sharedpreferences.getString("PasswordKey", "");
+        Log.d("pre", prePassword + "," + preUsername);
+        if (!preUsername.equals("")) {
+            etUsername.setText(preUsername);
+            etPassword.setText(prePassword);
+        }
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 if (!checkInput()) {
                     return;
                 } else {
 
-//                    if(preUsername != ""){
-//                        username = preUsername;
-//                        password = prePassword;
-//                    } else {
-                      String username = etUsername.getText().toString();
-                       String password = etPassword.getText().toString();
+                    String username = etUsername.getText().toString();
+                    String password = etPassword.getText().toString();
 
                     boolean Saveinfo = checkBox.isChecked();
-                    String save ="";
-                    if (Saveinfo == true){
+                    String save = "";
+                    if (Saveinfo == true) {
                         save = "save";
                     } else {
                         save = "not save";

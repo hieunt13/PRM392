@@ -44,10 +44,13 @@ import com.example.hotgearvn.entities.Invoice;
 import com.example.hotgearvn.entities.Product;
 import com.example.hotgearvn.entities.Product_Invoice;
 import com.example.hotgearvn.utils.HandleEvent;
+import com.google.firebase.messaging.FirebaseMessaging;
+import com.google.firebase.messaging.RemoteMessage;
 
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Random;
 import java.util.Set;
 
 public class PaymentActivity extends AppCompatActivity {
@@ -166,6 +169,16 @@ public class PaymentActivity extends AppCompatActivity {
                     // Create new invoice
                     invoiceProductDao.addInvoiceProduct(new Product_Invoice(newInvoiceID, product.getProductId(), Integer.valueOf(productCartListQuantitylist.get(i))));
                 }
+                Random random = new Random();
+                String senderID = "200383581841";
+                String messageID = "confirmInvoice" + userID;
+                RemoteMessage remoteMessage = new RemoteMessage.Builder(senderID+"@fcm.googleapis.com")
+                        .setMessageId(Integer.toString(random.nextInt()))
+                        .addData("title", "Hello World")
+                        .addData("message","SAY_HELLO")
+                        .build();
+                FirebaseMessaging.getInstance().send(remoteMessage);
+
                 //Pop up dialog
                 paymentSuccess();
             }

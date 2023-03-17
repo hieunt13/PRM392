@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "200383581841",
+    "project_id": "hot-gear-vn",
+    "storage_bucket": "hot-gear-vn.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:200383581841:android:8ca49286ea1e449863b930",
+        "android_client_info": {
+          "package_name": "com.example.hotgearvn"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "200383581841-8nhjlghc1d68144egl5ulnve5b4dlu5h.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC2LB88lSm8wB_Y8TtWnoExvIJ5ht8R9Aw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "200383581841-8nhjlghc1d68144egl5ulnve5b4dlu5h.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

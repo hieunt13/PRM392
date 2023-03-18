@@ -180,7 +180,7 @@ public class PaymentActivity extends AppCompatActivity {
                     invoiceProductDao.addInvoiceProduct(new Product_Invoice(newInvoiceID, product.getProductId(), Integer.valueOf(productCartListQuantitylist.get(i))));
                 }
                 //send notification
-                send_notification(invoiceId);
+                send_notification(newInvoiceID);
                 //Pop up dialog
                 paymentSuccess();
             }
@@ -275,11 +275,12 @@ public class PaymentActivity extends AppCompatActivity {
         try {
             json.put("to", "/topics/" + "order_succeed");
             JSONObject notificationObj = new JSONObject();
+            Log.d("invoiceId",String.valueOf(invoiceId));
             notificationObj.put("title", "Thông Báo!");
-            notificationObj.put("body", "Đặt hàng thành công");
+            notificationObj.put("message", "Đặt hàng thành công");
             notificationObj.put("invoiceId", Long.toString(invoiceId));
             //replace notification with data when went send data
-            json.put("notification", notificationObj);
+            json.put("data", notificationObj);
 
             String URL = "https://fcm.googleapis.com/fcm/send";
             JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, URL,

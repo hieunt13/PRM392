@@ -44,20 +44,22 @@ public class FirebaseMessageReceiver extends FirebaseMessagingService {
         // here only for reference purposes.
         if(remoteMessage.getData().size()>0){
             Log.d("title",remoteMessage.getData().get("title"));
+            Log.d("message",remoteMessage.getData().get("title"));
+            Log.d("invoiceId",remoteMessage.getData().get("title"));
             showNotification(remoteMessage.getData().get("title"),
                           remoteMessage.getData().get("message"),remoteMessage.getData().get("invoiceId"));
         }
 
-        // Second case when notification payload is
-        // received.
-        if (remoteMessage.getNotification() != null) {
-            // Since the notification is received directly
-            // from FCM, the title and the body can be
-            // fetched directly as below.
-            showNotification(
-                    remoteMessage.getNotification().getTitle(),
-                    remoteMessage.getNotification().getBody(),"1");
-        }
+//        // Second case when notification payload is
+//        // received.
+//        if (remoteMessage.getNotification() != null) {
+//            // Since the notification is received directly
+//            // from FCM, the title and the body can be
+//            // fetched directly as below.
+//            showNotification(
+//                    remoteMessage.getNotification().getTitle(),
+//                    remoteMessage.getNotification().getBody(),remoteMessage.getData().get("invoiceId"));
+//        }
     }
 
 

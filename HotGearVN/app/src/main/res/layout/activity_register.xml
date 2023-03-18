@@ -155,6 +155,7 @@
         android:layout_width="116dp"
         android:layout_height="49dp"
         android:layout_marginTop="32dp"
+        android:layout_marginBottom="50dp"
         android:backgroundTint="@color/white"
         android:paddingLeft="20dp"
         android:paddingRight="20dp"
@@ -164,50 +165,5 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/etRepassword" />
-
-    <TextView
-        android:id="@+id/tvSignUp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="52dp"
-        android:text="Or Signup with"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnSignup" />
-
-    <ImageButton
-        android:id="@+id/google"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="12dp"
-        android:background="@drawable/google"
-        app:layout_constraintEnd_toStartOf="@+id/facebook"
-        app:layout_constraintHorizontal_bias="0.71"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvSignUp" />
-
-    <ImageButton
-        android:id="@+id/twitter"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="12dp"
-        android:background="@drawable/twitter"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.253"
-        app:layout_constraintStart_toEndOf="@+id/facebook"
-        app:layout_constraintTop_toBottomOf="@+id/tvSignUp" />
-
-    <ImageButton
-        android:id="@+id/facebook"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginBottom="10dp"
-        android:layout_marginTop="12dp"
-        android:background="@drawable/facebook_box"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvSignUp" />
 </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

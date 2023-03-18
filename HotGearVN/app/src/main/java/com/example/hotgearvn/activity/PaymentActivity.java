@@ -34,6 +34,10 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.hotgearvn.MainActivity;
 import com.example.hotgearvn.R;
 import com.example.hotgearvn.dao.InvoiceDao;
@@ -47,9 +51,14 @@ import com.example.hotgearvn.utils.HandleEvent;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.firebase.messaging.RemoteMessage;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 
@@ -59,6 +68,7 @@ public class PaymentActivity extends AppCompatActivity {
     Button btnCreateInvoice;
     Spinner spPayment;
     SharedPreferences sharedpreferences;
+    long invoiceId;
 
     private ConstraintLayout home;
     int methodPayment = 0;
@@ -169,16 +179,8 @@ public class PaymentActivity extends AppCompatActivity {
                     // Create new invoice
                     invoiceProductDao.addInvoiceProduct(new Product_Invoice(newInvoiceID, product.getProductId(), Integer.valueOf(productCartListQuantitylist.get(i))));
                 }
-                Random random = new Random();
-                String senderID = "200383581841";
-                String messageID = "confirmInvoice" + userID;
-                RemoteMessage remoteMessage = new RemoteMessage.Builder(senderID+"@fcm.googleapis.com")
-                        .setMessageId(Integer.toString(random.nextInt()))
-                        .addData("title", "Hello World")
-                        .addData("message","SAY_HELLO")
-                        .build();
-                FirebaseMessaging.getInstance().send(remoteMessage);
-
+                //send notification
+                send_notification(invoiceId);
                 //Pop up dialog
                 paymentSuccess();
             }
@@ -264,5 +266,40 @@ public class PaymentActivity extends AppCompatActivity {
         });
 
         dialog.show();
+    }
+
+    private void send_notification(long invoiceId){
+        RequestQueue mRequestQue = Volley.newRequestQueue(PaymentActivity.this);
+
+        JSONObject json = new JSONObject();
+        try {
+            json.put("to", "/topics/" + "order_succeed");
+            JSONObject notificationObj = new JSONObject();
+            notificationObj.put("title", "Thông Báo!");
+            notificationObj.put("body", "Đặt hàng thành công");
+            notificationObj.put("invoiceId", Long.toString(invoiceId));
+            //replace notification with data when went send data
+            json.put("notification", notificationObj);
+
+            String URL = "https://fcm.googleapis.com/fcm/send";
+            JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, URL,
+                    json,
+                    response -> Log.d("MUR", "onResponse: "),
+                    error -> Log.d("MUR", "onError: " + error.networkResponse)
+            ) {
+                @Override
+                public Map<String, String> getHeaders() {
+                    Map<String, String> header = new HashMap<>();
+                    header.put("content-type", "application/json");
+                    header.put("authorization", "key=AAAALqfKzpE:APA91bEgUn2ujMWUBv5e0k9oGxyEIHGMejqmc0dKboYTKKnWUWuxpo7xUuiutMwurOIBJFieS0DyBGSwYwt2bxwj6HA4g5E0EPfSUTbz4llN2R0a7nOdVC8wXmm7FAkvQ2_SDqzfTc2D");
+                    return header;
+                }
+            };
+
+
+            mRequestQue.add(request);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 }

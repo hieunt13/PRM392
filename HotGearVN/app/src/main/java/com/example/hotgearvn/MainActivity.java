@@ -19,6 +19,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.FragmentActivity;
@@ -43,6 +44,9 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.smarteist.autoimageslider.SliderView;
 
 import java.util.ArrayList;
@@ -124,6 +128,18 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         sharedpreferences = getSharedPreferences(MYPREFERENCES, MODE_PRIVATE);
         String saveInfo = sharedpreferences.getString("SaveinfoKey", "");
         Log.d("save", saveInfo);
+
+        FirebaseMessaging.getInstance().subscribeToTopic("order_succeed")
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            Log.d("TAG", "Successfully subscribed to topic");
+                        } else {
+                            Log.w("TAG", "Failed to subscribe to topic", task.getException());
+                        }
+                    }
+                });
     }
 
     private void productListDisplay(String categoryName, int categoryId, int displayQuantity, List<Product> productList) {

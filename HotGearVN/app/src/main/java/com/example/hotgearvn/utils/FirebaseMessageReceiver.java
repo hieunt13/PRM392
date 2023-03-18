@@ -15,8 +15,12 @@ import androidx.core.app.NotificationCompat;
 
 import com.example.hotgearvn.MainActivity;
 import com.example.hotgearvn.R;
+import com.example.hotgearvn.activity.InvoiceDetailActivity;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
+
+import java.sql.Time;
+import java.sql.Timestamp;
 
 public class FirebaseMessageReceiver extends FirebaseMessagingService {
     // Override onNewToken to get new token
@@ -41,7 +45,7 @@ public class FirebaseMessageReceiver extends FirebaseMessagingService {
         if(remoteMessage.getData().size()>0){
             Log.d("title",remoteMessage.getData().get("title"));
             showNotification(remoteMessage.getData().get("title"),
-                          remoteMessage.getData().get("message"));
+                          remoteMessage.getData().get("message"),remoteMessage.getData().get("invoiceId"));
         }
 
         // Second case when notification payload is
@@ -52,28 +56,18 @@ public class FirebaseMessageReceiver extends FirebaseMessagingService {
             // fetched directly as below.
             showNotification(
                     remoteMessage.getNotification().getTitle(),
-                    remoteMessage.getNotification().getBody());
+                    remoteMessage.getNotification().getBody(),"1");
         }
     }
 
-    // Method to get the custom Design for the display of
-    // notification.
-    private RemoteViews getCustomDesign(String title,
-                                        String message) {
-        @SuppressLint("RemoteViewLayout") RemoteViews remoteViews = new RemoteViews(getApplicationContext().getPackageName(),R.layout.notification);
-        remoteViews.setTextViewText(R.id.title, title);
-        remoteViews.setTextViewText(R.id.message, message);
-        remoteViews.setImageViewResource(R.id.icon,
-                R.drawable.logo);
-        return remoteViews;
-    }
 
     // Method to display the notifications
     public void showNotification(String title,
-                                 String message) {
+                                 String message,String invoiceId) {
         // Pass the intent to switch to the MainActivity
         Intent intent
-                = new Intent(this, MainActivity.class);
+                = new Intent(this, InvoiceDetailActivity.class);
+        intent.putExtra("invoiceId",Long.valueOf(invoiceId));
         // Assign channel ID
         String channel_id = "notification_channel";
         // Here FLAG_ACTIVITY_CLEAR_TOP flag is set to clear
@@ -93,26 +87,16 @@ public class FirebaseMessageReceiver extends FirebaseMessagingService {
                 = new NotificationCompat
                 .Builder(getApplicationContext(),
                 channel_id)
-                .setSmallIcon(R.drawable.logo)
+                .setSmallIcon(R.drawable.google)
                 .setAutoCancel(true)
                 .setVibrate(new long[]{1000, 1000, 1000,
                         1000, 1000})
                 .setOnlyAlertOnce(true)
-                .setContentIntent(pendingIntent);
+                .setContentIntent(pendingIntent)
+                .setWhen(System.currentTimeMillis())
+                .setContentTitle(title)
+                .setContentText(message);
 
-        // A customized design for the notification can be
-        // set only for Android versions 4.1 and above. Thus
-        // condition for the same is checked here.
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-            builder = builder.setContent(getCustomDesign(title, message));
-        } // If Android Version is lower than Jelly Beans,
-        // customized layout cannot be used and thus the
-        // layout is set as follows
-        else {
-            builder = builder.setContentTitle(title)
-                    .setContentText(message)
-                    .setSmallIcon(R.drawable.logo);
-        }
         // Create an object of NotificationManager class to
         // notify the
         // user of events that happen in the background.

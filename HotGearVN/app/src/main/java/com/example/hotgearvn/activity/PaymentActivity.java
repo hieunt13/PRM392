@@ -33,6 +33,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -48,6 +49,7 @@ import com.example.hotgearvn.entities.Invoice;
 import com.example.hotgearvn.entities.Product;
 import com.example.hotgearvn.entities.Product_Invoice;
 import com.example.hotgearvn.utils.HandleEvent;
+import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.firebase.messaging.RemoteMessage;
 
@@ -67,6 +69,11 @@ public class PaymentActivity extends AppCompatActivity {
     EditText etAddressPayment;
     Button btnCreateInvoice;
     Spinner spPayment;
+
+    //Navigation
+    DrawerLayout drawerLayout;
+    NavigationView navView;
+
     SharedPreferences sharedpreferences;
     long invoiceId;
 
@@ -77,6 +84,8 @@ public class PaymentActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_payment);
+        drawerLayout = findViewById(R.id.drawerLayout);
+        navView = findViewById(R.id.nav_view);
         String date = new Date(System.currentTimeMillis()).toString();
         tvViewCartProduct = findViewById(R.id.tvViewCartProduct);
         etUserNamePayment = findViewById(R.id.etUserNamePayment);
@@ -207,7 +216,7 @@ public class PaymentActivity extends AppCompatActivity {
     }
 
     public void showPopUp(View v) {
-        HandleEvent.showPopUp(v, this);
+        HandleEvent.showNavigation(this,navView,drawerLayout);
     }
 
     public void login_logout(View view) {

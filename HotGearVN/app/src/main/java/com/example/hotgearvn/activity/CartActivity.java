@@ -18,6 +18,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -28,6 +29,7 @@ import com.example.hotgearvn.database.HotGearDatabase;
 import com.example.hotgearvn.entities.Product;
 import com.example.hotgearvn.utils.HandleEvent;
 import com.example.hotgearvn.utils.snakeBar;
+import com.google.android.material.navigation.NavigationView;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -42,11 +44,19 @@ public class CartActivity extends AppCompatActivity {
     Double totalPrice = 0.0;
     private ConstraintLayout cartLayout;
 
+    //Navigation
+    DrawerLayout drawerLayout;
+    NavigationView navView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cart);
+        //Navigation
+        drawerLayout = findViewById(R.id.drawerLayout);
+        navView = findViewById(R.id.nav_view);
+
         rvCart = findViewById(R.id.rvCart);
         tvNoProductInCart = findViewById(R.id.tvNoProductInCart);
         tvTotalPriceCart = findViewById(R.id.tvTotalPriceCart);
@@ -143,7 +153,7 @@ public class CartActivity extends AppCompatActivity {
     }
 
     public void showPopUp(View v) {
-        HandleEvent.showPopUp(v, this);
+        HandleEvent.showNavigation(this, navView,drawerLayout);
     }
 
     public void login_logout(View view) {

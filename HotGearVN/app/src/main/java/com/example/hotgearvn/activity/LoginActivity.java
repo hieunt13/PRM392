@@ -26,6 +26,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.example.hotgearvn.MainActivity;
 import com.example.hotgearvn.R;
@@ -33,11 +34,16 @@ import com.example.hotgearvn.dao.UsersDao;
 import com.example.hotgearvn.database.HotGearDatabase;
 import com.example.hotgearvn.entities.Users;
 import com.example.hotgearvn.utils.HandleEvent;
+import com.google.android.material.navigation.NavigationView;
 
 public class LoginActivity extends AppCompatActivity {
 
     EditText etUsername, etPassword;
     Button btnLogin;
+
+    //Navigation
+    DrawerLayout drawerLayout;
+    NavigationView navView;
 
     CheckBox checkBox;
     TextView tvSignUp;
@@ -48,6 +54,8 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        drawerLayout = findViewById(R.id.drawerLayout);
+        navView = findViewById(R.id.nav_view);
         //Handle button login logout header
         Button btnLoginHeader;
         btnLoginHeader = findViewById(R.id.btnLogIn_LogOut);
@@ -153,7 +161,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void showPopUp(View v) {
-        HandleEvent.showPopUp(v, this);
+        HandleEvent.showNavigation(this,navView,drawerLayout);
     }
 
     public void login_logout(View view) {

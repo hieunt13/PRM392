@@ -4,6 +4,7 @@ import static com.example.hotgearvn.constants.MyPreferenceKey.MYPREFERENCES;
 import static com.example.hotgearvn.constants.MyPreferenceKey.USERID;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -21,6 +22,7 @@ import com.example.hotgearvn.database.HotGearDatabase;
 import com.example.hotgearvn.entities.Users;
 import com.example.hotgearvn.model.InvoiceWithProducts;
 import com.example.hotgearvn.utils.HandleEvent;
+import com.google.android.material.navigation.NavigationView;
 
 public class InvoiceDetailActivity extends AppCompatActivity {
     ListView lvInvoiceWithProduct;
@@ -31,11 +33,17 @@ public class InvoiceDetailActivity extends AppCompatActivity {
     TextView tvUserName;
     TextView tvUserPhone;
     TextView tvAddress;
+    //Navigation
+    DrawerLayout drawerLayout;
+    NavigationView navView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.invoice_detail);
+
+        drawerLayout = findViewById(R.id.drawerLayout);
+        navView = findViewById(R.id.nav_view);
         //Handle button login logout header
         Button btnLoginHeader;
         btnLoginHeader = findViewById(R.id.btnLogIn_LogOut);
@@ -66,7 +74,7 @@ public class InvoiceDetailActivity extends AppCompatActivity {
     }
 
     public void showPopUp(View v){
-        HandleEvent.showPopUp(v,this);
+        HandleEvent.showNavigation(this,navView,drawerLayout);
     }
 
     public void login_logout(View view){

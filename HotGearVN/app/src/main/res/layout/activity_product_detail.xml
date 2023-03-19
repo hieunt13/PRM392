@@ -1,159 +1,187 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawerLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.ProductDetailActivity"
-    android:paddingHorizontal="0dp"
-    android:paddingVertical="0dp"
-    android:fillViewport="true"
-    android:id="@+id/ProductDetailLayout">
+    tools:context=".activity.ProductDetailActivity">
 
-    <LinearLayout
+    <ScrollView
+        android:id="@+id/ProductDetailLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-        <include layout="@layout/activity_header"/>
-        <ImageView
-            android:id="@+id/imageViewProductImage"
-            android:layout_width="match_parent"
-            android:layout_height="180dp"
-            android:src="@drawable/test_product"/>
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:paddingHorizontal="0dp"
+        android:paddingVertical="0dp">
+
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:paddingHorizontal="10dp"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
-            <TextView
-                android:id="@+id/textViewProductCategory"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="gaming laptop"
-                android:paddingHorizontal="10dp"
-                android:paddingVertical="5dp"
-                android:background="@drawable/pill"
-                android:layout_marginTop="10dp"
-                android:textSize="9sp"/>
-            <TextView
-                android:id="@+id/textProductName"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="GVN VIPER i1660S"
-                android:layout_marginTop="5dp"
-                android:textStyle="bold"
-                android:textSize="25sp"/>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Quantity left: "
-                    android:layout_marginTop="5dp"
-                    android:textSize="17sp"/>
-                <TextView
-                    android:id="@+id/textProductQuantity"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="1"
-                    android:layout_marginTop="5dp"
-                    android:textStyle="bold"
-                    android:textSize="17sp"/>
-            </LinearLayout>
 
-            <TextView
+            <include layout="@layout/activity_header" />
+
+            <ImageView
+                android:id="@+id/imageViewProductImage"
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="#E8DEDE"
-                android:layout_marginVertical="15dp"
-                android:textStyle="bold"
-                android:textSize="17sp"/>
+                android:layout_height="180dp"
+                android:src="@drawable/test_product" />
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:paddingHorizontal="10dp">
+
                 <TextView
+                    android:id="@+id/textViewProductCategory"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Product Detail"
-                    android:textStyle="bold"
-                    android:textSize="20sp"/>
-                <TextView
-                    android:id="@+id/textViewProductDetail"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="MSI Modern 14 được đầu tư  thiết kế nhằm tối ưu trải nghiệm và phục vụ nhu cầu di chuyển mỗi ngày của người dùng. Trọng lượng chỉ khoảng 1.3kg thuận lợi trong việc bỏ vào balo và mang đi cứ lúc nào. Kiểu dáng sang trọng với tông màu đen thời thượng kết hợp từng đường nét chau chuốt tỉ mỉ tạo ra một nét đẹp đầy phong cách. Bắt kịp xu hướng và thị hiếu của các bạn trẻ ngày nay. "
                     android:layout_marginTop="10dp"
-                    android:textSize="15sp"/>
-            </LinearLayout>
+                    android:background="@drawable/pill"
+                    android:paddingHorizontal="10dp"
+                    android:paddingVertical="5dp"
+                    android:text="gaming laptop"
+                    android:textSize="9sp" />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="#E8DEDE"
-                android:layout_marginVertical="15dp"
-                android:textStyle="bold"
-                android:textSize="17sp"/>
+                <TextView
+                    android:id="@+id/textProductName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="GVN VIPER i1660S"
+                    android:textSize="25sp"
+                    android:textStyle="bold" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Price: "
-                        android:textStyle="bold"
 
-                        android:layout_gravity="center_vertical"
-                        android:textSize="20sp"/>
                     <TextView
-                        android:id="@+id/textProductPrice"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/red_gearVn"
-                        android:text="700$"
-                        android:textStyle="bold"
-                        android:textSize="30sp"/>
+                        android:layout_marginTop="5dp"
+                        android:text="Quantity left: "
+                        android:textSize="17sp" />
+
+                    <TextView
+                        android:id="@+id/textProductQuantity"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:text="1"
+                        android:textSize="17sp"
+                        android:textStyle="bold" />
                 </LinearLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginVertical="15dp"
+                    android:background="#E8DEDE"
+                    android:textSize="17sp"
+                    android:textStyle="bold" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    >
-                    <Button
-                        android:id="@+id/buttonAddToCartDetail"
+                    android:orientation="vertical">
+
+                    <TextView
                         android:layout_width="wrap_content"
-                        android:layout_height="50dp"
-                        android:layout_marginTop="5dp"
-                        android:text="Add"
-                        android:drawableRight="@drawable/cart"
-                        android:textSize="15sp"
-                        android:textColor="@color/black"
-                        android:textStyle="bold"/>
-                    <Button
-                        android:id="@+id/buttonBuyDetail"
+                        android:layout_height="wrap_content"
+                        android:text="Product Detail"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/textViewProductDetail"
                         android:layout_width="wrap_content"
-                        android:layout_height="50dp"
-                        android:layout_marginTop="5dp"
-                        android:backgroundTint="@color/red_gearVn"
-                        android:textColor="@color/white"
-                        android:text="Buy"
-                        android:textSize="15sp"
-                        android:textStyle="bold"/>
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:text="MSI Modern 14 được đầu tư  thiết kế nhằm tối ưu trải nghiệm và phục vụ nhu cầu di chuyển mỗi ngày của người dùng. Trọng lượng chỉ khoảng 1.3kg thuận lợi trong việc bỏ vào balo và mang đi cứ lúc nào. Kiểu dáng sang trọng với tông màu đen thời thượng kết hợp từng đường nét chau chuốt tỉ mỉ tạo ra một nét đẹp đầy phong cách. Bắt kịp xu hướng và thị hiếu của các bạn trẻ ngày nay. "
+                        android:textSize="15sp" />
                 </LinearLayout>
 
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginVertical="15dp"
+                    android:background="#E8DEDE"
+                    android:textSize="17sp"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:text="Price: "
+
+                            android:textSize="20sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/textProductPrice"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="700$"
+                            android:textColor="@color/red_gearVn"
+                            android:textSize="30sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <Button
+                            android:id="@+id/buttonAddToCartDetail"
+                            android:layout_width="wrap_content"
+                            android:layout_height="50dp"
+                            android:layout_marginTop="5dp"
+                            android:drawableRight="@drawable/cart"
+                            android:text="Add"
+                            android:textColor="@color/black"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
+
+                        <Button
+                            android:id="@+id/buttonBuyDetail"
+                            android:layout_width="wrap_content"
+                            android:layout_height="50dp"
+                            android:layout_marginTop="5dp"
+                            android:backgroundTint="@color/red_gearVn"
+                            android:text="Buy"
+                            android:textColor="@color/white"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                </LinearLayout>
             </LinearLayout>
+
+
         </LinearLayout>
+    </ScrollView>
 
-
-    </LinearLayout>
-</ScrollView>
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/nav_view"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:fitsSystemWindows="true"
+        app:menu="@menu/navigation" />
+</androidx.drawerlayout.widget.DrawerLayout>

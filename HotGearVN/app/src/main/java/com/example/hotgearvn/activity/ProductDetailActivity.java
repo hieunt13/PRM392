@@ -19,6 +19,7 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.example.hotgearvn.R;
 import com.example.hotgearvn.dao.CategoryDao;
@@ -28,6 +29,7 @@ import com.example.hotgearvn.entities.Category;
 import com.example.hotgearvn.entities.Product;
 import com.example.hotgearvn.utils.HandleEvent;
 import com.example.hotgearvn.utils.snakeBar;
+import com.google.android.material.navigation.NavigationView;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -42,6 +44,11 @@ public class ProductDetailActivity extends AppCompatActivity {
     TextView proPrice;
     Button btnAddToCart;
     Button btnBuy;
+
+    //Navigation
+    DrawerLayout drawerLayout;
+    NavigationView navView;
+
     SharedPreferences sharedpreferences;
     private ScrollView productDetailLayout;
     private String userIDCheck;
@@ -50,6 +57,8 @@ public class ProductDetailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_detail);
+        drawerLayout = findViewById(R.id.drawerLayout);
+        navView = findViewById(R.id.nav_view);
         //Handle button login logout header
         Button btnLoginHeader;
         btnLoginHeader = findViewById(R.id.btnLogIn_LogOut);
@@ -154,7 +163,7 @@ public class ProductDetailActivity extends AppCompatActivity {
     }
 
     public void showPopUp(View v) {
-        HandleEvent.showPopUp(v, this);
+        HandleEvent.showNavigation(this,navView,drawerLayout);
     }
 
     public void login_logout(View view) {

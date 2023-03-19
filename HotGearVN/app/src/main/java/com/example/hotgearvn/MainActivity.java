@@ -2,6 +2,7 @@ package com.example.hotgearvn;
 
 import static com.example.hotgearvn.constants.MyPreferenceKey.MYPREFERENCES;
 import static com.example.hotgearvn.constants.MyPreferenceKey.PRODUCTINCART;
+import static com.example.hotgearvn.constants.MyPreferenceKey.STATUS;
 import static com.example.hotgearvn.constants.MyPreferenceKey.USERID;
 
 import android.content.Intent;
@@ -11,8 +12,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
@@ -22,12 +23,15 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.fragment.app.FragmentActivity;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.example.hotgearvn.activity.CartActivity;
+import com.example.hotgearvn.activity.InvoiceHistoryActivity;
 import com.example.hotgearvn.activity.LoginActivity;
 import com.example.hotgearvn.activity.ProductDetailActivity;
 import com.example.hotgearvn.activity.ProductListActivity;
+import com.example.hotgearvn.activity.ProfileActivity;
 import com.example.hotgearvn.adapter.ImageSliderProductAdapter;
 import com.example.hotgearvn.dao.CategoryDao;
 import com.example.hotgearvn.dao.InvoiceDao;
@@ -46,6 +50,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.smarteist.autoimageslider.SliderView;
 
@@ -60,7 +65,10 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     SharedPreferences sharedpreferences;
     ArrayList<Product> sliderProducts = new ArrayList<>();
     private GoogleMap mMap;
-//  laptop
+    //Navigation
+    DrawerLayout drawerLayout;
+    NavigationView navView;
+    //  laptop
     List<Product> laptopProducts = new ArrayList<>();
     ImageView ivLaptop;
     TextView tvNameLaptop;
@@ -91,6 +99,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        drawerLayout = findViewById(R.id.drawerLayout);
+        navView = findViewById(R.id.nav_view);
         //Handle button login logout header
         Button btnLoginHeader;
         btnLoginHeader = findViewById(R.id.btnLogIn_LogOut);
@@ -271,12 +281,12 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     }
 
     public void showPopUp(View v) {
-        HandleEvent.showPopUp(v, this);
-
+        HandleEvent.showNavigation(this,navView,drawerLayout);
     }
 
     public void login_logout(View view) {
         HandleEvent.onClickLogin_Logout(view, this);
     }
+
 
 }

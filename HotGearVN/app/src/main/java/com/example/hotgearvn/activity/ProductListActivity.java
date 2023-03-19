@@ -10,20 +10,19 @@ import android.widget.Button;
 import android.widget.ProgressBar;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.room.Room;
 
 import com.example.hotgearvn.R;
 import com.example.hotgearvn.adapter.RecyclerViewProductAdapter;
 import com.example.hotgearvn.dao.ProductDao;
 import com.example.hotgearvn.database.HotGearDatabase;
-import com.example.hotgearvn.entities.Category;
 import com.example.hotgearvn.entities.Product;
-import com.example.hotgearvn.executor.AppExecutors;
 import com.example.hotgearvn.item.GridSpacingItemDecoration;
 import com.example.hotgearvn.item.PaginationScrollListener;
 import com.example.hotgearvn.utils.HandleEvent;
+import com.google.android.material.navigation.NavigationView;
 
 import java.util.ArrayList;
 
@@ -41,6 +40,10 @@ public class ProductListActivity extends AppCompatActivity {
 
     ProgressBar progressBar;
 
+    //Navigation
+    DrawerLayout drawerLayout;
+    NavigationView navView;
+
     private boolean isLoading = false;
     private boolean isLastPage = false;
     private int currentPage = 1;
@@ -55,14 +58,16 @@ public class ProductListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_list);
 
+        drawerLayout = findViewById(R.id.drawerLayout);
+        navView = findViewById(R.id.nav_view);
         //Handle button login logout header
         Button btnLoginHeader;
         btnLoginHeader = findViewById(R.id.btnLogIn_LogOut);
-        HandleEvent.buttonLoginLogoutEvent(btnLoginHeader,this);
+        HandleEvent.buttonLoginLogoutEvent(btnLoginHeader, this);
 
         resultProducts = new ArrayList<>();
 
-        progressBar= findViewById(R.id.progress_bar);
+        progressBar = findViewById(R.id.progress_bar);
 
         rvProduct = findViewById(R.id.rvProduct);
 
@@ -114,7 +119,7 @@ public class ProductListActivity extends AppCompatActivity {
         int firstPageProduct;
         if (currentPage == 1) {
             firstPageProduct = 0;
-        }else {
+        } else {
             firstPageProduct = (currentPage - 1) * productPerPage;
         }
         for (int i = firstPageProduct; i < firstPageProduct + productPerPage; i++) {
@@ -132,7 +137,7 @@ public class ProductListActivity extends AppCompatActivity {
         GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 2);
         rvProduct.setLayoutManager(gridLayoutManager);
         rvProduct.addItemDecoration(new GridSpacingItemDecoration(2, 35, true));
-        if(productListByCategory.size()>productPerPage){
+        if (productListByCategory.size() > productPerPage) {
             rvProduct.addOnScrollListener(new PaginationScrollListener(gridLayoutManager) {
                 @Override
                 public void loadMoreItems() {
@@ -158,7 +163,6 @@ public class ProductListActivity extends AppCompatActivity {
         }
 
 
-
     }
 
     private void loadNextPage() {
@@ -167,13 +171,13 @@ public class ProductListActivity extends AppCompatActivity {
             @Override
             public void run() {
 
-                    getProductListByCategoryPerPage();
-                    adapter.notifyDataSetChanged();
-                    isLoading = false;
+                getProductListByCategoryPerPage();
+                adapter.notifyDataSetChanged();
+                isLoading = false;
                 progressBar.setVisibility(View.INVISIBLE);
 
             }
-        },2000);
+        }, 2000);
 
 
     }
@@ -186,7 +190,7 @@ public class ProductListActivity extends AppCompatActivity {
     }
 
     public void showPopUp(View v) {
-        HandleEvent.showPopUp(v, this);
+        HandleEvent.showNavigation(this,navView,drawerLayout);
     }
 
     public void login_logout(View view) {

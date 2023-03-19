@@ -3,6 +3,7 @@ package com.example.hotgearvn.activity;
 import static com.example.hotgearvn.constants.MyPreferenceKey.*;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 
 import com.example.hotgearvn.R;
 import com.example.hotgearvn.utils.HandleEvent;
+import com.google.android.material.navigation.NavigationView;
 
 public class ProfileActivity extends AppCompatActivity {
     TextView tvFullName;
@@ -21,11 +23,18 @@ public class ProfileActivity extends AppCompatActivity {
     TextView tvPhone;
     TextView tvUsername;
 
+    //Navigation
+    DrawerLayout drawerLayout;
+    NavigationView navView;
+
     SharedPreferences pref;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
+
+        drawerLayout = findViewById(R.id.drawerLayout);
+        navView = findViewById(R.id.nav_view);
         //Handle button login logout header
         Button btnLoginHeader;
         btnLoginHeader = findViewById(R.id.btnLogIn_LogOut);
@@ -52,7 +61,7 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
     public void showPopUp(View v){
-        HandleEvent.showPopUp(v,this);
+        HandleEvent.showNavigation(this,navView,drawerLayout);
     }
 
     public void login_logout(View view){

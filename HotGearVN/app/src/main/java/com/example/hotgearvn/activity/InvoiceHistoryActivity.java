@@ -1,6 +1,7 @@
 package com.example.hotgearvn.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -22,12 +23,18 @@ import com.example.hotgearvn.entities.Invoice;
 import com.example.hotgearvn.item.DividerItemDecoration;
 import com.example.hotgearvn.item.VerticalSpaceItemDecoration;
 import com.example.hotgearvn.utils.HandleEvent;
+import com.google.android.material.navigation.NavigationView;
 
 import java.util.ArrayList;
 
 
 public class InvoiceHistoryActivity extends AppCompatActivity {
     RecyclerView rvInvoice;
+
+    //Navigation
+    DrawerLayout drawerLayout;
+    NavigationView navView;
+
     ArrayList<Invoice> invoiceArrayList;
 
     SharedPreferences sharedpreferences;
@@ -38,6 +45,8 @@ public class InvoiceHistoryActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_invoice_history);
+        drawerLayout = findViewById(R.id.drawerLayout);
+        navView = findViewById(R.id.nav_view);
         rvInvoice = findViewById(R.id.invoiceHistoryListView);
         HotGearDatabase mDb = HotGearDatabase.getDatabase(this);
         InvoiceDao invoiceDao = mDb.invoiceDao();
@@ -62,7 +71,7 @@ public class InvoiceHistoryActivity extends AppCompatActivity {
     }
 
     public void showPopUp(View v) {
-        HandleEvent.showPopUp(v, this);
+        HandleEvent.showNavigation(this,navView,drawerLayout);
     }
 
     public void login_logout(View view) {

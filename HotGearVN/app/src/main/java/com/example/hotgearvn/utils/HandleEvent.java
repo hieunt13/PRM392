@@ -32,64 +32,6 @@ import com.example.hotgearvn.activity.RegisterActivity;
 import com.google.android.material.navigation.NavigationView;
 
 public class HandleEvent {
-    public static void showPopUp(View v, Context context) {
-        Log.d("Header","onClick");
-        PopupMenu popupMenu = new PopupMenu(context, v);
-        MenuInflater inflater = popupMenu.getMenuInflater();
-        popupMenu.setOnMenuItemClickListener(item -> {
-            SharedPreferences pref = context.getApplicationContext().getSharedPreferences(MYPREFERENCES, 0);
-            Intent intent = null;
-            switch (item.getItemId()) {
-                case id.mainPage:
-                    intent = new Intent(context, MainActivity.class);
-                    break;
-                case id.laptop:
-                    intent = new Intent(context, ProductListActivity.class);
-                    intent.putExtra("category","laptop");
-                    break;
-                case id.mouse:
-                    intent = new Intent(context, ProductListActivity.class);
-                    intent.putExtra("category","mouse");
-                    break;
-                case id.screen:
-                    intent = new Intent(context, ProductListActivity.class);
-                    intent.putExtra("category","screen");
-                    break;
-                case id.keyboard:
-                    intent = new Intent(context, ProductListActivity.class);
-                    intent.putExtra("category","keyboard");
-                    break;
-                case id.pc:
-                    intent = new Intent(context, ProductListActivity.class);
-                    intent.putExtra("category","pc");
-                    break;
-                case id.cartPage:
-                    intent = new Intent(context, CartActivity.class);
-                    break;
-                case id.profilePage:
-                    if(pref.getString(STATUS,"logout").equalsIgnoreCase("logout")){
-                        intent = new Intent(context,LoginActivity.class);
-                        break;
-                    }
-                    intent = new Intent(context, ProfileActivity.class);
-                    break;
-                case id.invoicePage:
-                    if(pref.getString(STATUS,"logout").equalsIgnoreCase("logout")){
-                        intent = new Intent(context,LoginActivity.class);
-                        break;
-                    }
-                    intent = new Intent(context, InvoiceHistoryActivity.class);
-                    break;
-                default:
-                    return false;
-            }
-            context.startActivity(intent);
-            return false;
-        });
-        inflater.inflate(menu.navigation, popupMenu.getMenu());
-        popupMenu.show();
-    }
-
     public static void onClickLogin_Logout(View view,Context context){
         Intent intent = new Intent(context,LoginActivity.class);
         context.startActivity(intent);

@@ -45,8 +45,10 @@ public class InvoiceHistoryActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_invoice_history);
+        //Navigation
         drawerLayout = findViewById(R.id.drawerLayout);
         navView = findViewById(R.id.nav_view);
+        navView.setItemIconTintList(null);
         rvInvoice = findViewById(R.id.invoiceHistoryListView);
         HotGearDatabase mDb = HotGearDatabase.getDatabase(this);
         InvoiceDao invoiceDao = mDb.invoiceDao();

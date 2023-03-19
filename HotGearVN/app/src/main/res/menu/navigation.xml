@@ -3,39 +3,55 @@
     <item
         android:id="@+id/mainPage"
         android:title="@string/home"
+        android:icon="@drawable/home"
         />
     <item
         android:title="Product"
+        android:icon="@drawable/box"
         >
         <menu>
             <item android:id="@+id/screen"
                 android:title="Screen"
+                android:icon="@drawable/monitor"
                 />
 
             <item android:id="@+id/laptop"
-                android:title="Laptop"/>
+                android:title="Laptop"
+                android:icon="@drawable/laptop"/>
 
             <item android:id="@+id/mouse"
-                android:title="Mouse"/>
+                android:title="Mouse"
+                android:icon="@drawable/mouse"/>
 
             <item android:id="@+id/keyboard"
-                android:title="Keyboard"/>
+                android:title="Keyboard"
+                android:icon="@drawable/keyboard"/>
 
             <item android:id="@+id/pc"
-                android:title="PC"/>
+                android:title="PC"
+                android:icon="@drawable/pc"/>
         </menu>
 
     </item>
-    <item
-        android:id="@+id/cartPage"
-        android:title="Cart"
-        />
-    <item
-        android:id="@+id/invoicePage"
-        android:title="Invoice"
-        />
-    <item
-        android:id="@+id/profilePage"
-        android:title="Profile"
-        />
+    <item android:title="Others"
+        android:icon="@drawable/view_more">
+        <menu>
+            <item
+                android:id="@+id/cartPage"
+                android:title="Cart"
+                android:icon="@drawable/cart_menu"
+                />
+            <item
+                android:id="@+id/invoicePage"
+                android:title="Invoice"
+                android:icon="@drawable/invoice"
+                />
+            <item
+                android:id="@+id/profilePage"
+                android:title="Profile"
+                android:icon="@drawable/profile"
+                />
+        </menu>
+    </item>
+
 </menu>

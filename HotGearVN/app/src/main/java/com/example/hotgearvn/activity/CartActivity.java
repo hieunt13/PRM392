@@ -56,6 +56,7 @@ public class CartActivity extends AppCompatActivity {
         //Navigation
         drawerLayout = findViewById(R.id.drawerLayout);
         navView = findViewById(R.id.nav_view);
+        navView.setItemIconTintList(null);
 
         rvCart = findViewById(R.id.rvCart);
         tvNoProductInCart = findViewById(R.id.tvNoProductInCart);

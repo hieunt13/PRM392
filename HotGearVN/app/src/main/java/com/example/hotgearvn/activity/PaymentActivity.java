@@ -84,8 +84,10 @@ public class PaymentActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_payment);
+        //Navigation
         drawerLayout = findViewById(R.id.drawerLayout);
         navView = findViewById(R.id.nav_view);
+        navView.setItemIconTintList(null);
         String date = new Date(System.currentTimeMillis()).toString();
         tvViewCartProduct = findViewById(R.id.tvViewCartProduct);
         etUserNamePayment = findViewById(R.id.etUserNamePayment);

@@ -71,13 +71,14 @@ public class LoginActivity extends AppCompatActivity {
         sharedpreferences = getSharedPreferences(MYPREFERENCES, MODE_PRIVATE);
         tvSignUp = findViewById(R.id.tvSignUp);
         String preUsername = sharedpreferences.getString("UsernameKey", "");
-
         String prePassword = sharedpreferences.getString("PasswordKey", "");
         Log.d("pre", prePassword + "," + preUsername);
+        
         if (!preUsername.equals("")) {
             etUsername.setText(preUsername);
             etPassword.setText(prePassword);
         }
+        
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -109,7 +110,7 @@ public class LoginActivity extends AppCompatActivity {
                                 runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
-                                        Toast.makeText(LoginActivity.this, "Invalid Credentials!", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(LoginActivity.this, "Invalid username or password!", Toast.LENGTH_SHORT).show();
                                     }
                                 });
                             } else {
@@ -125,8 +126,16 @@ public class LoginActivity extends AppCompatActivity {
                                 editor.putString(SAVEINFO, finalSave);
                                 editor.commit();
                                 btnLoginHeader.setText("Logout");
-                                Intent in = new Intent(LoginActivity.this, MainActivity.class);
-                                startActivity(in);
+                                Intent intent = getIntent();
+                                Intent intentNewActivity = new Intent(LoginActivity.this, MainActivity.class);
+                                if(intent.getStringExtra("Activity")!=null){
+                                    if(intent.getStringExtra("Activity").equalsIgnoreCase("Invoice")){
+                                        intentNewActivity = new Intent(LoginActivity.this, InvoiceHistoryActivity.class);
+                                    } else if(intent.getStringExtra("Activity").equalsIgnoreCase("Profile")){
+                                        intentNewActivity = new Intent(LoginActivity.this, ProfileActivity.class);
+                                    }
+                                }
+                                startActivity(intentNewActivity);
                             }
                         }
                     }).start();

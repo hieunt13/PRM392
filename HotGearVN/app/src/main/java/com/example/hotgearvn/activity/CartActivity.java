@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -44,6 +45,7 @@ public class CartActivity extends AppCompatActivity {
     Double totalPrice = 0.0;
     private ConstraintLayout cartLayout;
 
+
     //Navigation
     DrawerLayout drawerLayout;
     NavigationView navView;
@@ -53,6 +55,11 @@ public class CartActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cart);
+        //Handle button login logout header
+        Button btnLoginHeader;
+        btnLoginHeader = findViewById(R.id.btnLogIn_LogOut);
+        HandleEvent.buttonLoginLogoutEvent(btnLoginHeader, this);
+
         //Navigation
         drawerLayout = findViewById(R.id.drawerLayout);
         navView = findViewById(R.id.nav_view);
@@ -68,54 +75,25 @@ public class CartActivity extends AppCompatActivity {
 
         sharedpreferences = getSharedPreferences(MYPREFERENCES, MODE_PRIVATE);
         String userID = sharedpreferences.getString(USERID, "");
-        sharedpreferences = getSharedPreferences(PRODUCTINCART, MODE_PRIVATE);
-        Set<String> productCartListWithQuantity = sharedpreferences.getStringSet("productCart", new HashSet<String>());
-        // Split id and quantity after get from cart
-        Set<String> productCartListId = new HashSet<String>();
-        Set<String> productCartListQuantity = new HashSet<String>();
-        //Cast Set to List
-        ArrayList<String> productCartListIdlist = new ArrayList<>(productCartListId);
-        ArrayList<String> productCartListQuantitylist = new ArrayList<>(productCartListQuantity);
-        for (String cartProduct : productCartListWithQuantity) {
-            String[] productWithQuantity = cartProduct.split(",");
-            productCartListIdlist.add(productWithQuantity[0]);
-            productCartListQuantitylist.add(productWithQuantity[1]);
-        }
-        HotGearDatabase mDb = HotGearDatabase.getDatabase(this);
-        ProductDao productDao = mDb.productDao();
-        productsInCart = new ArrayList<>();
 
-        for (int i = 0; i < productCartListIdlist.size(); i++) {
-            Product product = productDao.getById(Long.valueOf(productCartListIdlist.get(i)));
-            Double price = 0.0;
-            price = product.getPrice() * Integer.parseInt(productCartListQuantitylist.get(i));
-            totalPrice += price;
-            productsInCart.add(product);
-        }
-
-
-        adapter = new RecyclerViewCartAdapter(productsInCart, this);
-
-        if (productsInCart.size() == 0) {
-            tvNoProductInCart.setText("Không có sản phẩm nào trong giỏ hàng");
-        } else {
-            tvNoProductInCart.setText("");
-            tvTotalPriceCart.setText("Tổng thanh toán " + String.format("%,.0f",totalPrice) + "đ");
-            rvCart.setAdapter(adapter);
-            rvCart.setLayoutManager(new LinearLayoutManager(this));
-        }
-
+        loadCart();
 
         delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Set<String> productCartList = sharedpreferences.getStringSet("productCart", new HashSet<String>());
+                if(productCartList.size()==0){
+                    Toast.makeText(CartActivity.this,"Vui lòng thêm sản phẩm vào giỏ hàng",Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 confirmDelete();
             }
         });
+
         tvUpdateProductInCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                recreate();
+                loadCart();
             }
         });
 
@@ -125,7 +103,12 @@ public class CartActivity extends AppCompatActivity {
                 if (userID.equals("")) {
                     makeSnakeBar(cartLayout, "Bạn cần đăng nhập trước!", "Đăng nhập", LoginActivity.class);
                 } else {
+                    loadCart();
                     Set<String> productCartList = sharedpreferences.getStringSet("productCart", new HashSet<String>());
+                    if(productCartList.size()==0){
+                        Toast.makeText(CartActivity.this,"Vui lòng thêm sản phẩm vào giỏ hàng",Toast.LENGTH_SHORT).show();
+                        return;
+                    }
                     ArrayList<String> listOfProductId = new ArrayList<>();
                     for (String item : productCartList) {
                         listOfProductId.add(item);
@@ -139,11 +122,48 @@ public class CartActivity extends AppCompatActivity {
                 }
             }
         });
+    }
 
-        //Handle button login logout header
-        Button btnLoginHeader;
-        btnLoginHeader = findViewById(R.id.btnLogIn_LogOut);
-        HandleEvent.buttonLoginLogoutEvent(btnLoginHeader, this);
+    private void loadCart(){
+        sharedpreferences = getSharedPreferences(PRODUCTINCART, MODE_PRIVATE);
+        Set<String> productCartListWithQuantity = sharedpreferences.getStringSet("productCart", new HashSet<String>());
+
+        // Split id and quantity after get from cart
+        Set<String> productCartListId = new HashSet<String>();
+        Set<String> productCartListQuantity = new HashSet<String>();
+
+        //Cast Set to List
+        ArrayList<String> productCartListIdlist = new ArrayList<>(productCartListId);
+        ArrayList<String> productCartListQuantitylist = new ArrayList<>(productCartListQuantity);
+
+        for (String cartProduct : productCartListWithQuantity) {
+            String[] productWithQuantity = cartProduct.split(",");
+            productCartListIdlist.add(productWithQuantity[0]);
+            productCartListQuantitylist.add(productWithQuantity[1]);
+        }
+        HotGearDatabase mDb = HotGearDatabase.getDatabase(this);
+        ProductDao productDao = mDb.productDao();
+        productsInCart = new ArrayList<>();
+
+        for (int i = 0; i < productCartListIdlist.size(); i++) {
+            Product product = productDao.getById(Long.valueOf(productCartListIdlist.get(i)));
+            Double price = 0.0;
+            price = product.getPrice() * Integer.parseInt(productCartListQuantitylist.get(i));
+            totalPrice =0.0;
+            totalPrice += price;
+            productsInCart.add(product);
+        }
+        adapter = new RecyclerViewCartAdapter(productsInCart, this);
+
+        if (productsInCart.size() == 0) {
+            tvNoProductInCart.setText("Không có sản phẩm nào trong giỏ hàng");
+        } else {
+            tvNoProductInCart.setText("");
+            tvTotalPriceCart.setText("Tổng thanh toán " + String.format("%,.0f",totalPrice) + "đ");
+            rvCart.setAdapter(adapter);
+            rvCart.setLayoutManager(new LinearLayoutManager(this));
+        }
+
     }
 
     @Override

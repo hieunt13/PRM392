@@ -3,6 +3,7 @@ package com.example.hotgearvn.dao;
 import static androidx.room.OnConflictStrategy.REPLACE;
 
 import androidx.room.Dao;
+import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
 
@@ -22,6 +23,9 @@ public interface InvoiceProductDao {
 
     @Insert(onConflict = REPLACE)
     void addInvoiceProducts(Product_Invoice... product_invoice);
+
+    @Delete
+    void delete(Product_Invoice product_invoice);
 
     @Query("SELECT * FROM invoice")
     List<InvoiceWithProducts> getInvoiceWithProducts();

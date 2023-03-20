@@ -22,6 +22,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.example.hotgearvn.R;
 import com.example.hotgearvn.activity.CartActivity;
+import com.example.hotgearvn.activity.InvoiceDetailActivity;
 import com.example.hotgearvn.activity.InvoiceHistoryActivity;
 import com.example.hotgearvn.activity.LoginActivity;
 import com.example.hotgearvn.MainActivity;
@@ -62,6 +63,10 @@ public class HandleEvent {
                     editor.commit();
                 }
                 //set back to login button
+                if(context.getClass() == InvoiceHistoryActivity.class || context.getClass() == InvoiceDetailActivity.class || context.getClass() == ProfileActivity.class){
+                    Intent intent = new Intent(context,MainActivity.class);
+                    context.startActivity(intent);
+                }
                 Toast.makeText(context,"Logout!",Toast.LENGTH_SHORT).show();
                 btnLoginLogout.setText("Login");
                 btnLoginLogout.setOnClickListener(view->{
@@ -111,6 +116,7 @@ public class HandleEvent {
                     case R.id.profilePage:
                         if(sharedpreferences.getString(STATUS,"logout").equalsIgnoreCase("logout")){
                             intent = new Intent(context, LoginActivity.class);
+                            intent.putExtra("Activity","Profile");
                             break;
                         }
                         intent = new Intent(context, ProfileActivity.class);
@@ -118,6 +124,7 @@ public class HandleEvent {
                     case R.id.invoicePage:
                         if(sharedpreferences.getString(STATUS,"logout").equalsIgnoreCase("logout")){
                             intent = new Intent(context,LoginActivity.class);
+                            intent.putExtra("Activity","Invoice");
                             break;
                         }
                         intent = new Intent(context, InvoiceHistoryActivity.class);

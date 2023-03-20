@@ -38,14 +38,14 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.07"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/spPayment"
+            app:layout_constraintTop_toBottomOf="@+id/paymentMethod"
             app:layout_constraintVertical_bias="0.409">
 
             <ImageView
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:layout_marginRight="10dp"
-                android:background="@drawable/shopping_cart" />
+                android:background="@drawable/cart" />
 
             <TextView
                 android:id="@+id/tvViewCartProduct"
@@ -53,13 +53,15 @@
                 android:layout_height="match_parent"
                 android:layout_marginRight="10dp"
                 android:text="Tổng cộng "
-                android:textColor="#338dbc"
+                android:textStyle="bold"
+                android:textColor="@color/black"
                 android:textSize="16dp" />
 
             <TextView
                 android:id="@+id/tvProductPricePayment"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="@color/red_gearVn"
                 android:text="800 đ"
                 android:textSize="14sp" />
 
@@ -183,7 +185,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:text="0 đ"
+            android:text="20,000 đ"
             android:textSize="14dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -192,49 +194,51 @@
             app:layout_constraintTop_toBottomOf="@+id/tvForgotPassword"
             app:layout_constraintVertical_bias="0.040" />
 
-        <TextView
-            android:id="@+id/textView4"
+        <LinearLayout
+            android:id="@+id/paymentMethod"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginRight="10dp"
-            android:text="Phương thức thanh toán"
-            android:textColor="@color/black"
-            android:textSize="16dp"
+            android:orientation="horizontal"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvSignUp"
-            app:layout_constraintVertical_bias="0.040" />
+            app:layout_constraintVertical_bias="0.040">
 
-        <Spinner
-            android:id="@+id/spPayment"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView4"
-            app:layout_constraintVertical_bias="0.13" />
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_weight="5"
+                android:text="Phương thức thanh toán"
+                android:textColor="@color/black"
+                android:textSize="16dp" />
+
+            <Spinner
+                android:id="@+id/spPayment"
+                android:layout_width="0dp"
+                android:layout_weight="5"
+                android:layout_height="40dp" />
+        </LinearLayout>
+
 
         <Button
             android:id="@+id/btnCreateInvoice"
             android:layout_width="150dp"
             android:layout_height="35dp"
             android:layout_marginRight="10dp"
-            android:background="#338dbc"
+            android:background="@color/red_gearVn"
             android:text="Đặt hàng"
             android:textColor="@color/white"
             android:textSize="14dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.838"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toEndOf="@+id/linearLayout"
-            app:layout_constraintTop_toBottomOf="@+id/spPayment"
-            app:layout_constraintVertical_bias="0.402" />
+            app:layout_constraintTop_toBottomOf="@+id/paymentMethod"
+            app:layout_constraintVertical_bias="0.441" />
 
         <TextView
             android:id="@+id/tvBackToCart"
@@ -242,13 +246,18 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:text="Giỏ hàng"
-            android:textColor="#338dbc"
-            android:textSize="14dp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:background="@drawable/rounded_corner"
+            android:padding="10dp"
+            android:text="Chỉnh sửa sản phẩm"
+            android:textColor="@color/black"
+            android:drawableRight="@drawable/cart"
+            android:drawablePadding="5dp"
+            app:layout_constraintBottom_toTopOf="@+id/linearLayout"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btnCreateInvoice" />
+            app:layout_constraintTop_toBottomOf="@+id/paymentMethod"
+            app:layout_constraintVertical_bias="0.0" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

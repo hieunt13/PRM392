@@ -1,6 +1,7 @@
 package com.example.hotgearvn.activity;
 
 
+import static com.example.hotgearvn.constants.MyPreferenceKey.ADDRESS;
 import static com.example.hotgearvn.constants.MyPreferenceKey.EMAIL;
 import static com.example.hotgearvn.constants.MyPreferenceKey.FULLNAME;
 import static com.example.hotgearvn.constants.MyPreferenceKey.MYPREFERENCES;
@@ -14,7 +15,9 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
@@ -30,6 +33,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -69,7 +73,7 @@ public class PaymentActivity extends AppCompatActivity {
     EditText etAddressPayment;
     Button btnCreateInvoice;
     Spinner spPayment;
-
+    private final String REQUIRE = "Require";
     //Navigation
     DrawerLayout drawerLayout;
     NavigationView navView;
@@ -104,10 +108,11 @@ public class PaymentActivity extends AppCompatActivity {
         String fullname = sharedpreferences.getString(FULLNAME, "");
         String email = sharedpreferences.getString(EMAIL, "");
         String phone = sharedpreferences.getString(PHONE, "");
+        String address = sharedpreferences.getString(ADDRESS,"");
 
         ArrayList<String> listOfPaymentMethod = new ArrayList<String>();
-        listOfPaymentMethod.add("Thanh toán khi giao hàng (COD)");
-        listOfPaymentMethod.add("Thanh toán bằng Ngân hàng");
+        listOfPaymentMethod.add("Tiền mặt(COD)");
+        listOfPaymentMethod.add("Thẻ ngân hàng");
 
         ArrayAdapter arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, listOfPaymentMethod);
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -117,8 +122,9 @@ public class PaymentActivity extends AppCompatActivity {
         etUserNamePayment.setText(fullname);
         etEmailPayment.setText(email);
         etPhonePayment.setText(phone);
+        etAddressPayment.setText(address);
         spPayment.setAdapter(arrayAdapter);
-        tvProductPricePayment.setText("" + totalPrice.intValue() + " đ");
+        tvProductPricePayment.setText("" + String.format("%,.0f",totalPrice) + " đ");
 
 
         sharedpreferences = getSharedPreferences(PRODUCTINCART, MODE_PRIVATE);
@@ -145,7 +151,7 @@ public class PaymentActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 //                Toast.makeText(PaymentActivity.this, listOfPaymentMethod.get(i), Toast.LENGTH_SHORT).show();
                 Log.i("methodPayment", listOfPaymentMethod.get(i) + ": " + methodPayment);
-                if (listOfPaymentMethod.get(i) == "Thanh toán bằng Ngân hàng") {
+                if (listOfPaymentMethod.get(i).equalsIgnoreCase("Thẻ ngân hàng")) {
                     openPaymentDialog();
                     methodPayment = i;
                     Log.i("methodPayment", listOfPaymentMethod.get(i) + ": " + methodPayment);
@@ -161,39 +167,44 @@ public class PaymentActivity extends AppCompatActivity {
         btnCreateInvoice.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String address = etAddressPayment.getText().toString();
-                sharedpreferences = getSharedPreferences(MYPREFERENCES, MODE_PRIVATE);
-                String userID = sharedpreferences.getString(USERID, "");
-                sharedpreferences = getSharedPreferences(PRODUCTINCART, MODE_PRIVATE);
-                Set<String> productCartListWithQuantity = sharedpreferences.getStringSet("productCart", new HashSet<String>());
-                // Split id and quantity after get from cart
-                Set<String> productCartListId = new HashSet<String>();
-                Set<String> productCartListQuantity = new HashSet<String>();
-                //Cast Set to List
-                ArrayList<String> productCartListIdlist = new ArrayList<>(productCartListId);
-                ArrayList<String> productCartListQuantitylist = new ArrayList<>(productCartListQuantity);
-                //Create new invoice
-                invoiceDao.add(new Invoice(methodPayment, Long.valueOf(userID), totalPrice, date, address));
-                Long newInvoiceID = Long.valueOf(invoiceDao.getAll().size());
-                for (String cartProduct : productCartListWithQuantity) {
-                    String[] productWithQuantity = cartProduct.split(",");
-                    productCartListIdlist.add(productWithQuantity[0]);
-                    productCartListQuantitylist.add(productWithQuantity[1]);
-                }
-                for (int i = 0; i < productCartListIdlist.size(); i++) {
-                    Product product = productDao.getById(Long.valueOf(productCartListIdlist.get(i)));
-                    int minusQuantity;
-                    for (String itemQuantity : productCartListQuantity) {
-                        minusQuantity = product.getQuantity() - Integer.parseInt(itemQuantity);
-                        productDao.updateQuantityById(minusQuantity, product.getProductId());
+                if(!checkInput()){
+                    return;
+                }else{
+                    String address = etAddressPayment.getText().toString();
+                    sharedpreferences = getSharedPreferences(MYPREFERENCES, MODE_PRIVATE);
+                    String userID = sharedpreferences.getString(USERID, "");
+                    sharedpreferences = getSharedPreferences(PRODUCTINCART, MODE_PRIVATE);
+                    Set<String> productCartListWithQuantity = sharedpreferences.getStringSet("productCart", new HashSet<String>());
+                    // Split id and quantity after get from cart
+                    Set<String> productCartListId = new HashSet<String>();
+                    Set<String> productCartListQuantity = new HashSet<String>();
+                    //Cast Set to List
+                    ArrayList<String> productCartListIdlist = new ArrayList<>(productCartListId);
+                    ArrayList<String> productCartListQuantitylist = new ArrayList<>(productCartListQuantity);
+                    //Create new invoice
+                    invoiceDao.add(new Invoice(methodPayment, Long.valueOf(userID), totalPrice, date, address));
+                    Long newInvoiceID = Long.valueOf(invoiceDao.getAll().size());
+                    for (String cartProduct : productCartListWithQuantity) {
+                        String[] productWithQuantity = cartProduct.split(",");
+                        productCartListIdlist.add(productWithQuantity[0]);
+                        productCartListQuantitylist.add(productWithQuantity[1]);
                     }
-                    // Create new invoice
-                    invoiceProductDao.addInvoiceProduct(new Product_Invoice(newInvoiceID, product.getProductId(), Integer.valueOf(productCartListQuantitylist.get(i))));
+                    for (int i = 0; i < productCartListIdlist.size(); i++) {
+                        Product product = productDao.getById(Long.valueOf(productCartListIdlist.get(i)));
+                        int minusQuantity;
+                        for (String itemQuantity : productCartListQuantitylist) {
+                            minusQuantity = product.getQuantity() - Integer.parseInt(itemQuantity);
+                            productDao.updateQuantityById(minusQuantity, product.getProductId());
+                        }
+                        // Create new invoice
+                        invoiceProductDao.addInvoiceProduct(new Product_Invoice(newInvoiceID, product.getProductId(), Integer.valueOf(productCartListQuantitylist.get(i))));
+                    }
+                    //send notification
+                    send_notification(newInvoiceID);
+                    //Pop up dialog
+                    paymentSuccess();
                 }
-                //send notification
-                send_notification(newInvoiceID);
-                //Pop up dialog
-                paymentSuccess();
+
             }
         });
 
@@ -202,6 +213,14 @@ public class PaymentActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(PaymentActivity.this, CartActivity.class);
                 startActivity(intent);
+            }
+        });
+        tvBackToCart.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @RequiresApi(api = Build.VERSION_CODES.M)
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                tvBackToCart.setBackgroundColor(getColor(R.color.red_gearVn));
+                tvBackToCart.setTextColor(getColor(R.color.white));
             }
         });
         //Handle button login logout header
@@ -313,5 +332,27 @@ public class PaymentActivity extends AppCompatActivity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+    }
+
+    private boolean checkInput() {
+        //UserName
+        if (TextUtils.isEmpty(etUserNamePayment.getText().toString())) {
+            etUserNamePayment.setError(REQUIRE);
+            return false;
+        }
+        if (TextUtils.isEmpty(etPhonePayment.getText().toString())) {
+            etPhonePayment.setError(REQUIRE);
+            return false;
+        }
+        if (TextUtils.isEmpty(etAddressPayment.getText().toString())) {
+            etAddressPayment.setError(REQUIRE);
+            return false;
+        }
+        if (TextUtils.isEmpty(etEmailPayment.getText().toString())) {
+            etEmailPayment.setError(REQUIRE);
+            return false;
+        }
+        //valid
+        return true;
     }
 }

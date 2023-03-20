@@ -29,6 +29,7 @@ public class RegisterActivity extends AppCompatActivity {
     //Navigation
     DrawerLayout drawerLayout;
     NavigationView navView;
+
     private final String REQUIRE = "Require";
 
     @Override

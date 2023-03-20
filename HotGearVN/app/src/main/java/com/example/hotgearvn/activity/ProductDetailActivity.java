@@ -17,6 +17,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -98,27 +99,30 @@ public class ProductDetailActivity extends AppCompatActivity {
         btnAddToCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                boolean added = false;
-                makeSnakeBar(productDetailLayout, "Đã được thêm vào giỏ hàng", "Đi đến giỏ hàng", CartActivity.class);
-
-                SharedPreferences.Editor editor = sharedpreferences.edit();
-                Set<String> productCartList = sharedpreferences.getStringSet("productCart", new HashSet<String>());
-                Set<String> productCartListTemp = new HashSet<String>();
-                for (String cartProduct : productCartList) {
-                    String[] productWithQuantity = cartProduct.split(",");
-                    if (productWithQuantity[0].equalsIgnoreCase(product.getProductId().toString())) {
-                        productCartListTemp.add(product.getProductId() + "," + (Integer.valueOf(productWithQuantity[1]) + 1));
-                        added = true;
-                        productCartList.remove(cartProduct);
-                        break;
+                if( !proQuantity.getText().toString().equalsIgnoreCase("Hết hàng!")){
+                    boolean added = false;
+                    makeSnakeBar(productDetailLayout, "Đã được thêm vào giỏ hàng", "Đi đến giỏ hàng", CartActivity.class);
+                    SharedPreferences.Editor editor = sharedpreferences.edit();
+                    Set<String> productCartList = sharedpreferences.getStringSet("productCart", new HashSet<String>());
+                    Set<String> productCartListTemp = new HashSet<String>();
+                    for (String cartProduct : productCartList) {
+                        String[] productWithQuantity = cartProduct.split(",");
+                        if (productWithQuantity[0].equalsIgnoreCase(product.getProductId().toString())) {
+                            productCartListTemp.add(product.getProductId() + "," + (Integer.valueOf(productWithQuantity[1]) + 1));
+                            added = true;
+                            productCartList.remove(cartProduct);
+                            break;
+                        }
                     }
+                    if (!added) {
+                        productCartListTemp.add(product.getProductId() + "," + 1);
+                    }
+                    productCartListTemp.addAll(productCartList);
+                    editor.putStringSet("productCart", productCartListTemp);
+                    editor.commit();
+                }else {
+                    Toast.makeText(view.getContext(), "Sản phẩm hết hàng!",Toast.LENGTH_SHORT).show();
                 }
-                if (!added) {
-                    productCartListTemp.add(product.getProductId() + "," + 1);
-                }
-                productCartListTemp.addAll(productCartList);
-                editor.putStringSet("productCart", productCartListTemp);
-                editor.commit();
             }
         });
         btnBuy.setOnClickListener(new View.OnClickListener() {

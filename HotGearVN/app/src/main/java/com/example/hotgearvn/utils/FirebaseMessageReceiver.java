@@ -13,14 +13,10 @@ import android.widget.RemoteViews;
 import androidx.annotation.NonNull;
 import androidx.core.app.NotificationCompat;
 
-import com.example.hotgearvn.MainActivity;
 import com.example.hotgearvn.R;
 import com.example.hotgearvn.activity.InvoiceDetailActivity;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
-
-import java.sql.Time;
-import java.sql.Timestamp;
 
 public class FirebaseMessageReceiver extends FirebaseMessagingService {
     // Override onNewToken to get new token
@@ -42,12 +38,12 @@ public class FirebaseMessageReceiver extends FirebaseMessagingService {
         // attributes. Since here we do not have any data
         // payload, This section is commented out. It is
         // here only for reference purposes.
-        if(remoteMessage.getData().size()>0){
-            Log.d("title",remoteMessage.getData().get("title"));
-            Log.d("message",remoteMessage.getData().get("title"));
-            Log.d("invoiceId",remoteMessage.getData().get("title"));
+        if (remoteMessage.getData().size() > 0) {
+            Log.d("title", remoteMessage.getData().get("title"));
+            Log.d("message", remoteMessage.getData().get("title"));
+            Log.d("invoiceId", remoteMessage.getData().get("title"));
             showNotification(remoteMessage.getData().get("title"),
-                          remoteMessage.getData().get("message"),remoteMessage.getData().get("invoiceId"));
+                    remoteMessage.getData().get("message"), remoteMessage.getData().get("invoiceId"));
         }
 
 //        // Second case when notification payload is
@@ -62,14 +58,22 @@ public class FirebaseMessageReceiver extends FirebaseMessagingService {
 //        }
     }
 
+    private RemoteViews getCustomDesign(String title, String message) {
+       RemoteViews remoteViews = new RemoteViews(getApplicationContext().getPackageName(), R.layout.notification);
+        remoteViews.setTextViewText(R.id.title, title);
+        remoteViews.setTextViewText(R.id.message, message);
+        remoteViews.setImageViewResource(R.id.imgNotification,
+                R.drawable.google);
+        return remoteViews;
+    }
 
     // Method to display the notifications
     public void showNotification(String title,
-                                 String message,String invoiceId) {
+                                 String message, String invoiceId) {
         // Pass the intent to switch to the MainActivity
         Intent intent
                 = new Intent(this, InvoiceDetailActivity.class);
-        intent.putExtra("invoiceId",Long.valueOf(invoiceId));
+        intent.putExtra("invoiceId", Long.valueOf(invoiceId));
         // Assign channel ID
         String channel_id = "notification_channel";
         // Here FLAG_ACTIVITY_CLEAR_TOP flag is set to clear
@@ -96,9 +100,7 @@ public class FirebaseMessageReceiver extends FirebaseMessagingService {
                 .setOnlyAlertOnce(true)
                 .setContentIntent(pendingIntent)
                 .setWhen(System.currentTimeMillis())
-                .setContentTitle(title)
-                .setContentText(message);
-
+                .setContent(getCustomDesign(title, message));
         // Create an object of NotificationManager class to
         // notify the
         // user of events that happen in the background.

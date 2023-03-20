@@ -58,9 +58,9 @@ public class RecyclerViewProductAdapter extends RecyclerView.Adapter<RecyclerVie
         holder.productName.setText(product.getName());
         holder.productPrice.setText(String.format("%,.0f",product.getPrice())+" đ");
         if(product.getQuantity() != 0){
-            holder.productQuantity.setText("Còn lại:"+product.getQuantity());
+            holder.productQuantity.setText("Còn lại: "+product.getQuantity());
         }else{
-            holder.productQuantity.setText("Hết hàng");
+            holder.productQuantity.setText("Hết hàng!");
         }
 
         holder.setItemClickListener(new ItemClickListener() {
@@ -73,27 +73,32 @@ public class RecyclerViewProductAdapter extends RecyclerView.Adapter<RecyclerVie
         });
 
         holder.btnAddCart.setOnClickListener(view -> {
-            boolean added = false;
-            Toast.makeText(view.getContext(), "Sản phẩm đã được thêm vào giỏi hàng", Toast.LENGTH_SHORT).show();
-            SharedPreferences sharedpreferences = view.getContext().getSharedPreferences("ProductInCart", view.getContext().MODE_PRIVATE);
-            Set<String> productCartList = sharedpreferences.getStringSet("productCart", new HashSet<String>());
-            Set<String> productCartListTemp = new HashSet<String>();
-            for (String cartProduct : productCartList) {
-                String[] productWithQuantity = cartProduct.split(",");
-                if (productWithQuantity[0].equalsIgnoreCase(product.getProductId().toString())) {
-                    productCartListTemp.add(product.getProductId() + "," + (Integer.valueOf(productWithQuantity[1]) + 1));
-                    added = true;
-                    productCartList.remove(cartProduct);
-                    break;
+            if( !holder.productQuantity.getText().toString().equalsIgnoreCase("Hết hàng!")){
+                boolean added = false;
+                Toast.makeText(view.getContext(), "Sản phẩm đã được thêm vào giỏi hàng", Toast.LENGTH_SHORT).show();
+                SharedPreferences sharedpreferences = view.getContext().getSharedPreferences("ProductInCart", view.getContext().MODE_PRIVATE);
+                Set<String> productCartList = sharedpreferences.getStringSet("productCart", new HashSet<String>());
+                Set<String> productCartListTemp = new HashSet<String>();
+                for (String cartProduct : productCartList) {
+                    String[] productWithQuantity = cartProduct.split(",");
+                    if (productWithQuantity[0].equalsIgnoreCase(product.getProductId().toString())) {
+                        productCartListTemp.add(product.getProductId() + "," + (Integer.valueOf(productWithQuantity[1]) + 1));
+                        added = true;
+                        productCartList.remove(cartProduct);
+                        break;
+                    }
                 }
+                if (!added) {
+                    productCartListTemp.add(product.getProductId() + "," + 1);
+                }
+                productCartListTemp.addAll(productCartList);
+                SharedPreferences.Editor editor = sharedpreferences.edit();
+                editor.putStringSet("productCart", productCartListTemp);
+                editor.commit();
+            }else{
+                Toast.makeText(view.getContext(), "Sản phẩm hết hàng!",Toast.LENGTH_SHORT).show();
             }
-            if (!added) {
-                productCartListTemp.add(product.getProductId() + "," + 1);
-            }
-            productCartListTemp.addAll(productCartList);
-            SharedPreferences.Editor editor = sharedpreferences.edit();
-            editor.putStringSet("productCart", productCartListTemp);
-            editor.commit();
+
         });
         holder.btnBuy.setOnClickListener(view -> {
             SharedPreferences sharedpreferences;

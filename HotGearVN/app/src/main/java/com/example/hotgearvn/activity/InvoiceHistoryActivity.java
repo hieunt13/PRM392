@@ -11,6 +11,7 @@ import android.provider.UserDictionary;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ListView;
 
 import com.example.hotgearvn.R;
@@ -49,6 +50,12 @@ public class InvoiceHistoryActivity extends AppCompatActivity {
         drawerLayout = findViewById(R.id.drawerLayout);
         navView = findViewById(R.id.nav_view);
         navView.setItemIconTintList(null);
+
+        //Handle button login logout header
+        Button btnLoginHeader;
+        btnLoginHeader = findViewById(R.id.btnLogIn_LogOut);
+        HandleEvent.buttonLoginLogoutEvent(btnLoginHeader,this);
+
         rvInvoice = findViewById(R.id.invoiceHistoryListView);
         HotGearDatabase mDb = HotGearDatabase.getDatabase(this);
         InvoiceDao invoiceDao = mDb.invoiceDao();

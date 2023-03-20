@@ -192,6 +192,19 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.984" />
 
+        <Button
+            android:id="@+id/btnHuyDon"
+            android:layout_width="140dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/button"
+            android:text="Huỷ đơn hàng"
+            android:textColor="@color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewDiaChi" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

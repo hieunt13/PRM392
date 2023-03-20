@@ -42,7 +42,7 @@ public class RecyclerViewCartAdapter extends RecyclerView.Adapter<RecyclerViewCa
         return viewHolder;
     }
 
-    @SuppressLint("SetTextI18n")
+    @SuppressLint({"SetTextI18n", "NotifyDataSetChanged"})
     @Override
     public void onBindViewHolder(@NonNull RecyclerViewCartAdapter.ViewHolder holder, int position) {
         Product productInCart = cartProductList.get(position);
@@ -86,9 +86,22 @@ public class RecyclerViewCartAdapter extends RecyclerView.Adapter<RecyclerViewCa
         });
 
         holder.btnMinus.setOnClickListener(view -> {
-            int quantity2 = Integer.valueOf(holder.productQuantity.getText().toString());
+            int quantity2 = Integer.parseInt(holder.productQuantity.getText().toString());
             if (quantity2 <= 1) {
-                holder.productQuantity.setText("1");
+                SharedPreferences sharedpreferencesP = view.getContext().getSharedPreferences("ProductInCart", view.getContext().MODE_PRIVATE);
+                Set<String> productCartListP = sharedpreferencesP.getStringSet("productCart", new HashSet<String>());
+                for (String cartProduct : productCartListP) {
+                    String[] productWithQuantity = cartProduct.split(",");
+                    if (productWithQuantity[0].equalsIgnoreCase(productInCart.getProductId().toString())) {
+                        productCartList.remove(cartProduct);
+                        break;
+                    }
+                }
+                SharedPreferences.Editor editor = sharedpreferences.edit();
+                editor.putStringSet("productCart", productCartList);
+                editor.apply();
+                cartProductList.remove(position);
+                this.notifyDataSetChanged();
             } else {
                 boolean added = false;
                 holder.productQuantity.setText(String.valueOf(quantity2-1));

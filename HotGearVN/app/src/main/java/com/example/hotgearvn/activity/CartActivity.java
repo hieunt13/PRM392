@@ -144,12 +144,11 @@ public class CartActivity extends AppCompatActivity {
         HotGearDatabase mDb = HotGearDatabase.getDatabase(this);
         ProductDao productDao = mDb.productDao();
         productsInCart = new ArrayList<>();
-
+        totalPrice =0.0;
         for (int i = 0; i < productCartListIdlist.size(); i++) {
             Product product = productDao.getById(Long.valueOf(productCartListIdlist.get(i)));
             Double price = 0.0;
             price = product.getPrice() * Integer.parseInt(productCartListQuantitylist.get(i));
-            totalPrice =0.0;
             totalPrice += price;
             productsInCart.add(product);
         }
